@@ -1,13 +1,12 @@
-
     :root {
-      --primary-color: #1a1a1a; /* Noir typographique */
-      --secondary-color: #2c5282; /* Bleu foncé */
+      --primary-color: #1a1a1a; /* Noir typographique LaTeX */
+      --secondary-color: #2c5282; /* Bleu foncé académique */
       --reponse-bg: #f8f9fa; /* Gris très clair */
       --text-color: #1a1a1a;
       --border-color: #ccc;
       --max-content-width: 800px;
       
-      /* Couleurs LaTeX */
+      /* Couleurs LaTeX sobres */
       --latex-blue: #1a365d;
       --latex-light-blue: #2c5282;
       --latex-gray: #4a5568;
@@ -15,21 +14,21 @@
       --latex-dark: #1a202c;
     }
 
-    /* Import de la police Fourier ou alternative LaTeX */
+    /* Import de la police LaTeX-like */
     @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
     /* Reset et base */
     body {
-      font-family: 'EB Garamond', 'Garamond', 'Georgia', 'Times New Roman', serif;
-      line-height: 1.4;
+      font-family: 'EB Garamond', 'Garamond', 'Georgia', serif;
+      line-height: 1.6;
       color: var(--text-color);
       background-color: white;
       margin: 0;
       padding: 0;
       display: flex;
       min-height: 100vh;
-      font-size: 11pt;
     }
+
 
 /* Fond de page pour l'écran uniquement */
 @media screen {
@@ -52,7 +51,7 @@
       left: 20px;
       background: var(--latex-blue);
       color: white;
-      border: 1px solid var(--latex-gray);
+      border: none;
       border-radius: 2px;
       width: 50px;
       height: 50px;
@@ -65,7 +64,6 @@
       align-items: center;
       gap: 4px;
       transition: all 0.3s ease;
-      font-family: 'EB Garamond', serif;
     }
 
     .menu-toggle:hover {
@@ -106,7 +104,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(26, 54, 93, 0.8);
+      background-color: rgba(26, 54, 93, 0.7);
       z-index: 998;
       opacity: 0;
       visibility: hidden;
@@ -133,7 +131,6 @@
       box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
       overflow-y: auto;
       border-right: 1px solid var(--border-color);
-      font-family: 'EB Garamond', serif;
     }
 
     .sidebar.active {
@@ -152,7 +149,6 @@
       color: var(--latex-dark);
       font-size: 1.4em;
       font-weight: 600;
-      font-family: 'EB Garamond', serif;
     }
 
     .sidebar-content {
@@ -162,7 +158,6 @@
     /* Styles pour la TOC dans le menu */
     .sidebar #TOC {
       color: var(--latex-dark);
-      font-family: 'EB Garamond', serif;
     }
 
     .sidebar #TOC ul {
@@ -186,11 +181,9 @@
       color: var(--latex-dark);
       text-decoration: none;
       display: block;
-      padding: 10px 15px;
+      padding: 12px 15px;
       transition: all 0.2s ease;
       border-radius: 0;
-      font-size: 0.95em;
-      font-family: 'EB Garamond', serif;
     }
 
     .sidebar #TOC a:hover {
@@ -208,19 +201,17 @@
 
     .sidebar #TOC ul ul a {
       padding: 8px 15px;
-      font-size: 0.9em;
+      font-size: 0.95em;
     }
 
     /* Contenu principal */
     .main-content {
       flex: 1;
-      padding: 40px;
+      padding: 30px;
       margin: 0 auto;
       width: 100%;
       max-width: var(--max-content-width);
       box-sizing: border-box;
-      background: white;
-      font-family: 'EB Garamond', serif;
     }
 
     /* Masquer la TOC générée par Pandoc dans le contenu principal */
@@ -228,51 +219,22 @@
       display: none;
     }
 
-    /* Titres style LaTeX avec Fourier */
-    h1, h2, h3, h4, h5, h6 {
+    /* Titres style LaTeX */
+    h1, h2, h3 {
       color: var(--latex-dark);
       font-weight: 600;
-      margin-top: 1.5em;
-      margin-bottom: 0.5em;
-      font-family: 'EB Garamond', serif;
     }
-    
     h1 {
       border-bottom: 2px solid var(--latex-blue);
-      padding-bottom: 0.3em;
+      padding-bottom: 10px;
       margin-top: 0;
-      font-size: 1.8em;
-      font-weight: 700;
     }
-    
     h2 {
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.3em;
-      font-size: 1.5em;
-      font-weight: 600;
-    }
-    
-    h3 {
-      font-size: 1.3em;
-      font-weight: 600;
+      border-left: 4px solid var(--latex-gray);
+      padding-left: 10px;
     }
 
-    h4 {
-      font-size: 1.1em;
-      font-weight: 600;
-      font-style: italic;
-    }
-
-    /* Paragraphes */
-    p {
-      margin-bottom: 1em;
-      text-align: justify;
-      font-family: 'EB Garamond', serif;
-      font-size: 11pt;
-      line-height: 1.4;
-    }
-
-    /* Réponses style LaTeX */
+    /* Réponses */
     .reponse {
       margin: 20px 0;
       padding: 15px;
@@ -283,58 +245,24 @@
       cursor: pointer;
       border: 1px dashed var(--border-color);
       min-height: 20px;
-      background: white;
-      font-family: 'EB Garamond', serif;
+	   clear: both;
     }
     .reponse.visible {
       opacity: 1;
       background-color: var(--reponse-bg);
       border: 1px solid var(--latex-gray);
+	   clear: both;
     }
     .reponse:hover {
       background-color: var(--latex-light-gray);
     }
 
-    /* Code et blocs */
-    code {
-      background: var(--latex-light-gray);
-      padding: 2px 4px;
-      border-radius: 2px;
-      font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
-      font-size: 0.9em;
-    }
 
-    pre {
-      background: var(--latex-light-gray);
-      padding: 15px;
-      border: 1px solid var(--border-color);
-      border-radius: 0;
-      overflow-x: auto;
-      margin: 1em 0;
-      font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
-      font-size: 0.9em;
-    }
 
-    /* Citations */
-    blockquote {
-      border-left: 3px solid var(--latex-blue);
-      margin: 1em 0;
-      padding: 0.5em 1em;
-      background: var(--latex-light-gray);
-      font-style: italic;
-      font-family: 'EB Garamond', serif;
-    }
 
-    /* Listes */
-    ul, ol {
-      font-family: 'EB Garamond', serif;
-      margin-bottom: 1em;
-    }
 
-    li {
-      margin-bottom: 0.3em;
-      font-family: 'EB Garamond', serif;
-    }
+
+  
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -352,12 +280,7 @@
       
       .main-content {
         padding: 20px 15px;
-        font-size: 10pt;
       }
-      
-      h1 { font-size: 1.6em; }
-      h2 { font-size: 1.3em; }
-      h3 { font-size: 1.1em; }
     }
 
     @media (max-width: 480px) {
@@ -373,66 +296,10 @@
       .sidebar-header h2 {
         font-size: 1.2em;
       }
-      
-      .main-content {
-        font-size: 10pt;
-        padding: 15px 10px;
-      }
     }
-}
 
-/* Styles pour les tableaux Markdown - STYLE LaTeX avec Fourier */
-table {
-    width: 90%;
-    max-width: 1000px;
-    margin: 2rem auto;
-    border-collapse: collapse;
-    border: 1px solid var(--latex-dark);
-    font-family: 'EB Garamond', 'Garamond', 'Georgia', serif;
-    background: white;
-    font-size: 10pt;
-}
 
-/* En-tête du tableau */
-thead {
-    background: var(--latex-light-gray);
-    color: var(--latex-dark);
-    font-family: 'EB Garamond', serif;
-}
 
-th {
-    padding: 0.8rem;
-    text-align: left;
-    font-weight: 600;
-    border: 1px solid var(--latex-dark);
-    border-bottom: 2px solid var(--latex-dark);
-    font-family: 'EB Garamond', serif;
-}
-
-/* Cellules du tableau */
-td {
-    padding: 0.8rem;
-    border: 1px solid var(--latex-gray);
-    transition: all 0.2s ease;
-    font-family: 'EB Garamond', serif;
-}
-
-/* Lignes alternées subtiles */
-tbody tr:nth-child(even) {
-    background-color: var(--latex-light-gray);
-}
-
-tbody tr:nth-child(odd) {
-    background-color: #ffffff;
-}
-
-/* Animation au survol */
-tbody tr {
-    transition: all 0.2s ease;
-}
-
-tbody tr:hover {
-    background-color: #e6f3ff;
 }
 
 /* Cacher la TOC dans le corps à l'écran aussi */
@@ -441,7 +308,78 @@ tbody tr:hover {
     display: none;
 }
 
+
+/* Images flottantes avec légende et effets */
+
+/* Empêcher les coupures d'images à l'impression */
+figure {
+  float: left;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  max-width: 100%;
+  width: 270px;
+  margin: 1em 2em 2em 0;
+  border: 1px solid #ccc;
+  text-align: center;
+  clear: both;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+
+
+
+figure:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block; 
+  clear: both;
+}
+
+figcaption {
+  font-size: 0.8em;
+  color: #555;
+  font-style: italic;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  figure {
+    float: none;
+    margin: 1em auto;
+  }
+
+  .reponse {
+    padding-bottom: 40px;
+	 clear: both;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media print {
+ 
+
   /* Masquage total de la TOC */
   #TOC,
   [role="doc-toc"],
@@ -450,33 +388,59 @@ tbody tr:hover {
   .content-body #TOC,
   .content-body [role="doc-toc"] {
     display: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    content: none !important;
   }
+
+ 
 
   /* Corps du document imprimé */
   body, .main-content, .content-body {
     background: white !important;
     color: black !important;
     font-size: 12pt;
-    line-height: 1.4;
+    line-height: 1.6;
     width: 100%;
     max-width: 18cm;
     margin: auto;
     padding: 0;
-    font-family: 'EB Garamond', 'Garamond', 'Georgia', serif !important;
   }
 
   /* Réponses visibles à l'impression */
-  .reponse.visible {
-      opacity: 1 !important;
-      background-color: #f8f8f8 !important;
-      border: 1px solid #333 !important;
-      page-break-inside: avoid;
-      break-inside: avoid;
-      margin: 1.5em 0 !important;
-      padding: 1em !important;
-      display: block !important;
-      font-family: 'EB Garamond', serif !important;
-  }
+    .reponse.visible {
+        opacity: 1 !important;
+        background-color: #f8f8f8 !important;
+        border: 1px solid #333 !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin: 1.5em 0 !important; /* Marge rétablie */
+        padding: 1em !important; /* Padding rétabli */
+        display: block !important;
+		 clear: both;
+    }
+	
+	
+	.reponse {
+      margin: 20px 0;
+      padding: 15px;
+      border-radius: 0;
+      opacity: 0;
+      height: auto;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+      border: 1px dashed var(--border-color);
+      min-height: 20px;
+	  clear: both;
+	  
+    }
+	
 
   /* Supprimer les éléments interactifs */
   .menu-toggle,
@@ -489,46 +453,25 @@ tbody tr:hover {
   h1, h2, h3 {
     color: black !important;
     page-break-after: avoid;
-    font-family: 'EB Garamond', serif !important;
   }
 
   h1 {
-    border-bottom: 2px solid #000;
+    border-bottom: 1px solid #999;
     padding-bottom: 5px;
   }
 
   h2 {
-    border-bottom: 1px solid #666;
-    padding-bottom: 3px;
-  }
-
-  /* Tableaux impression */
-  table {
-    border: 1px solid #000 !important;
-    width: 100% !important;
-    font-family: 'EB Garamond', serif !important;
-  }
-  
-  th, td {
-    border: 1px solid #666 !important;
-    font-family: 'EB Garamond', serif !important;
-  }
-  
-  thead {
-    background: #f0f0f0 !important;
-  }
-  
-  /* Paragraphes impression */
-  p {
-    font-family: 'EB Garamond', serif !important;
-    text-align: justify;
+    border-left: 3px solid #999;
+    padding-left: 8px;
   }
 }
+
 
 @page {
-    @bottom-center {
-        content: "Page " counter(page);
-        font-family: 'EB Garamond', 'Garamond', 'Georgia', serif;
-        font-size: 10pt;
-    }
-}
+            @bottom-center {
+                content: "Page " counter(page);
+            }
+        }
+
+
+
