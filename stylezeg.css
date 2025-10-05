@@ -31,6 +31,30 @@ body {
   min-height: 100vh;
 }
 
+/* Sauts de page manuels */
+.page-break {
+  display: none;
+}
+
+/* Optionnel : Style visuel pour l'écran en mode développement */
+@media screen {
+  .page-break {
+    display: block;
+    border-top: 2px dashed #ff6b6b;
+    margin: 30px 0;
+    padding: 15px;
+    text-align: center;
+    color: #ff6b6b;
+    font-style: italic;
+    background-color: #fff5f5;
+    font-size: 0.9em;
+  }
+  
+  .page-break::before {
+    content: "⤵ SAUT DE PAGE (visible à l'impression PDF) ⤵";
+  }
+}
+
 /* Fond de page pour l'écran uniquement */
 @media screen {
   body {
@@ -397,8 +421,36 @@ body {
   display: none;
 }
 
-/* Styles pour l'impression */
+/* Styles pour l'impression - REPRODUCTION EXACTE DE L'ÉCRAN */
 @media print {
+  /* Sauts de page manuels - ACTIVÉS À L'IMPRESSION */
+  .page-break {
+    display: block;
+    page-break-before: always;
+    break-before: page;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+  }
+  
+  /* Éviter les coupures indésirables */
+  h1, h2, h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  
+  p, ul, ol, blockquote {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Éviter les veuves et orphelines */
+  p, li {
+    widows: 3;
+    orphans: 3;
+  }
+
   /* Masquage total de la TOC */
   #TOC,
   [role="doc-toc"],
@@ -425,20 +477,21 @@ body {
     font-size: 12pt;
     line-height: 1.6;
     width: 100%;
-    max-width: 18cm;
-    margin: auto;
-    padding: 0;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    padding: 30px;
+    display: block;
   }
 
   /* Réponses visibles à l'impression */
   .reponse.visible {
     opacity: 1 !important;
-    background-color: #f8f8f8 !important;
-    border: 1px solid #333 !important;
+    background-color: var(--reponse-bg) !important;
+    border: 1px solid var(--latex-gray) !important;
     page-break-inside: avoid;
     break-inside: avoid;
-    margin: 1.5em 0 !important;
-    padding: 1em !important;
+    margin: 20px 0 !important;
+    padding: 15px !important;
     display: block !important;
     clear: both;
   }
@@ -449,29 +502,101 @@ body {
     border-radius: 0;
     opacity: 0;
     height: auto;
-    transition: opacity 0.3s ease;
     cursor: pointer;
     border: 1px dashed var(--border-color);
     min-height: 20px;
     clear: both;
   }
 
-  /* Tableaux centrés à l'impression */
+  /* TABLEAUX - MÊME STYLE QU'À L'ÉCRAN */
   table {
-    margin: 15px auto !important;
-    border: 1px solid #000 !important;
-    page-break-inside: avoid;
+    border-collapse: collapse !important;
+    font-family: 'EB Garamond', 'Garamond', 'Georgia', serif !important;
+    font-size: 0.95rem !important;
+    max-width: 800px !important;
+    margin: 20px auto !important; /* Même centrage qu'à l'écran */
+    display: table !important;
+    width: auto !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* En-tête du tableau - MÊME COULEURS QU'À L'ÉCRAN */
+  thead {
+    background-color: var(--latex-table-header) !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   thead th {
-    background-color: #2c5282 !important;
-    color: white !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    padding: 12px 15px !important;
+    text-align: left !important;
+    font-weight: bold !important;
+    border: 1px solid var(--latex-table-header) !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
+  /* Corps du tableau - MÊME STYLE QU'À L'ÉCRAN */
   tbody td {
-    border: 1px solid #666 !important;
+    padding: 12px 15px !important;
+    border: 1px solid var(--latex-light-gray) !important;
+    color: var(--latex-dark) !important;
+    background-color: white !important;
+  }
+
+  /* Lignes alternées - MÊME QU'À L'ÉCRAN */
+  tbody tr:nth-child(even) {
+    background-color: #fafafa !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* IMAGES - MÊME STYLE QU'À L'ÉCRAN */
+  figure {
+    float: left !important; /* Même flottant qu'à l'écran */
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    max-width: 100% !important;
+    width: 270px !important; /* Même largeur fixe qu'à l'écran */
+    margin: 1em 2em 2em 0 !important; /* Mêmes marges qu'à l'écran */
+    border: 1px solid var(--border-color) !important;
+    text-align: center !important;
+    clear: both !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    overflow: hidden !important;
+  }
+
+  figure img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    clear: both !important;
+  }
+
+  figcaption {
+    font-size: 0.8em !important;
+    color: var(--latex-gray) !important;
+    font-style: italic !important;
+    padding: 8px !important;
+    background-color: var(--latex-light-gray) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Pour les écrans mobiles en impression, on conserve le style desktop */
+  @media (max-width: 768px) {
+    figure {
+      float: left !important; /* On garde le flottant même en impression mobile */
+      width: 270px !important;
+      margin: 1em 2em 2em 0 !important;
+    }
   }
 
   /* Supprimer les éléments interactifs */
@@ -481,40 +606,39 @@ body {
     display: none !important;
   }
 
-  /* Titres adaptés à l'impression */
+  /* Titres adaptés à l'impression mais avec style LaTeX */
   h1, h2, h3 {
-    color: black !important;
-    page-break-after: avoid;
+    color: var(--latex-dark) !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
   }
 
   h1 {
-    border-bottom: 1px solid #999;
-    padding-bottom: 5px;
+    border-bottom: 2px solid var(--latex-accent) !important;
+    padding-bottom: 10px !important;
+    page-break-before: always !important;
   }
 
   h2 {
-    border-left: 3px solid #999;
-    padding-left: 8px;
-  }
-
-  /* Images en impression */
-  figure {
-    page-break-inside: avoid;
-    break-inside: avoid;
-    margin: 1em auto !important;
-    float: none !important;
-    box-shadow: none !important;
-    border: 1px solid #ccc !important;
-  }
-
-  figcaption {
-    color: #666 !important;
-    font-style: italic !important;
+    border-left: 4px solid var(--latex-gray) !important;
+    padding-left: 10px !important;
   }
 }
 
 @page {
+  margin: 1.5cm 2cm;
+  
   @bottom-center {
     content: "Page " counter(page);
+    font-family: 'EB Garamond', serif;
+    font-size: 10pt;
+    color: #666;
+  }
+}
+
+/* Style spécial pour la première page */
+@page :first {
+  @bottom-center {
+    content: "";
   }
 }
