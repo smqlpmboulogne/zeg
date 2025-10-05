@@ -364,6 +364,48 @@ figcaption {
 
 
 
+/* Tableau avec toutes les bordures visibles */
+table {
+  border-collapse: collapse;
+  font-family: 'Garamond', 'Georgia', serif;
+  font-size: 0.95rem;
+  max-width: 800px; /* Largeur maximale pour éviter que le tableau ne soit trop large */
+}
+
+/* En-tête du tableau */
+thead {
+  background-color: #005f73;
+  color: #ffffff;
+}
+thead th {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+  border: 1px solid #005f73; /* Bordures internes */
+}
+
+/* Corps du tableau */
+tbody td {
+  padding: 12px 15px;
+  border: 1px solid #005f73; /* Bordures internes */
+  color: #333;
+}
+
+/* Effet de survol */
+tbody tr:hover {
+  background-color: #e0f2f1;
+  transition: background-color 0.3s ease;
+}
+
+/* Optionnel : texte plus lisible au survol */
+tbody tr:hover td {
+  color: #005f73;
+}
+
+
+
+
+
 
 
 
@@ -472,6 +514,7 @@ figcaption {
                 content: "Page " counter(page);
             }
         }
+
 
 
 
