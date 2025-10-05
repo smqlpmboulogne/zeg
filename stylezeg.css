@@ -488,12 +488,6 @@ body {
     break-after: avoid;
   }
   
-  /* SUPPRIMER le saut de page automatique avant h1 */
-  h1 {
-    page-break-before: auto !important;
-    break-before: auto !important;
-  }
-  
   p, ul, ol, blockquote {
     page-break-inside: avoid;
     break-inside: avoid;
@@ -511,7 +505,7 @@ body {
     color: black !important;
     font-size: 12pt !important;
     line-height: 1.4 !important;
-    width: 90% !important;
+    width: 90% !important; /* LARGEUR RÉDUITE À 90% */
     max-width: none !important;
     margin: 0 auto !important;
     padding: 0 !important;
@@ -658,7 +652,7 @@ body {
     print-color-adjust: exact !important;
   }
 
-  /* Titres adaptés pour A4 - SANS SAUT DE PAGE */
+  /* Titres adaptés pour A4 */
   h1, h2, h3 {
     color: var(--latex-dark) !important;
     page-break-after: avoid !important;
@@ -670,7 +664,8 @@ body {
     font-size: 16pt !important;
     border-bottom: 2px solid var(--latex-accent) !important;
     padding-bottom: 8px !important;
-    margin-top: 0.5em !important; /* Espace réduit au top */
+    page-break-before: always !important;
+    margin-top: 1.5em !important;
     margin-bottom: 1em !important;
   }
 
