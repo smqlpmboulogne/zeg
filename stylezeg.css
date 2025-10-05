@@ -59,6 +59,7 @@ body {
 @media screen {
   body {
     background-color: #ffffff; /* Blanc pur comme LaTeX */
+    font-size: 17px; /* TAILLE DE POLICE AGRANDIE À L'ÉCRAN */
   }
 
   /* Conteneur principal */
@@ -172,17 +173,19 @@ body {
   .sidebar-header h2 {
     margin: 0;
     color: var(--latex-dark);
-    font-size: 1.4em;
+    font-size: 1.6em; /* TAILLE AGRANDIE */
     font-weight: 600;
   }
 
   .sidebar-content {
     padding: 20px;
+    font-size: 16px; /* TAILLE AGRANDIE */
   }
 
   /* Styles pour la TOC dans le menu */
   .sidebar #TOC {
     color: var(--latex-dark);
+    font-size: 16px; /* TAILLE AGRANDIE */
   }
 
   .sidebar #TOC ul {
@@ -209,6 +212,7 @@ body {
     padding: 12px 15px;
     transition: all 0.2s ease;
     border-radius: 0;
+    font-size: 16px; /* TAILLE AGRANDIE */
   }
 
   .sidebar #TOC a:hover {
@@ -226,7 +230,7 @@ body {
 
   .sidebar #TOC ul ul a {
     padding: 8px 15px;
-    font-size: 0.95em;
+    font-size: 15px; /* TAILLE AGRANDIE */
   }
 
   /* Contenu principal */
@@ -237,6 +241,7 @@ body {
     width: 100%;
     max-width: var(--max-content-width);
     box-sizing: border-box;
+    font-size: 17px; /* TAILLE DE POLICE AGRANDIE */
   }
 
   /* Masquer la TOC générée par Pandoc dans le contenu principal */
@@ -244,7 +249,7 @@ body {
     display: none;
   }
 
-  /* Titres style LaTeX */
+  /* Titres style LaTeX - TAILLES AGRANDIES */
   h1, h2, h3 {
     color: var(--latex-dark);
     font-weight: 600;
@@ -253,10 +258,15 @@ body {
     border-bottom: 2px solid var(--latex-accent);
     padding-bottom: 10px;
     margin-top: 0;
+    font-size: 2.2em; /* TAILLE AGRANDIE */
   }
   h2 {
     border-left: 4px solid var(--latex-gray);
     padding-left: 10px;
+    font-size: 1.8em; /* TAILLE AGRANDIE */
+  }
+  h3 {
+    font-size: 1.4em; /* TAILLE AGRANDIE */
   }
 
   /* Réponses */
@@ -271,6 +281,7 @@ body {
     border: 1px dashed var(--border-color);
     min-height: 20px;
     clear: both;
+    font-size: 16px; /* TAILLE AGRANDIE */
   }
   .reponse.visible {
     opacity: 1;
@@ -282,11 +293,11 @@ body {
     background-color: var(--latex-light-gray);
   }
 
-  /* Centrage des tableaux - NOUVEAU STYLE */
+  /* Centrage des tableaux - TAILLE DE POLICE AGRANDIE */
   table {
     border-collapse: collapse;
     font-family: 'EB Garamond', 'Garamond', 'Georgia', serif;
-    font-size: 0.95rem;
+    font-size: 16px; /* TAILLE AGRANDIE */
     max-width: 800px;
     margin: 20px auto; /* Centrage horizontal */
     display: table;
@@ -305,6 +316,7 @@ body {
     font-weight: bold;
     border: 1px solid var(--latex-table-header);
     font-weight: 600;
+    font-size: 16px; /* TAILLE AGRANDIE */
   }
 
   /* Corps du tableau */
@@ -313,6 +325,7 @@ body {
     border: 1px solid var(--latex-light-gray);
     color: var(--latex-dark);
     background-color: white;
+    font-size: 16px; /* TAILLE AGRANDIE */
   }
 
   /* Effet de survol */
@@ -358,7 +371,7 @@ body {
   }
 
   figcaption {
-    font-size: 0.8em;
+    font-size: 0.9em; /* TAILLE AGRANDIE */
     color: var(--latex-gray);
     font-style: italic;
     padding: 8px;
@@ -367,6 +380,14 @@ body {
 
   /* Responsive */
   @media (max-width: 768px) {
+    body {
+      font-size: 16px; /* TAILLE LÉGÈREMENT RÉDUITE SUR MOBILE */
+    }
+    
+    .main-content {
+      font-size: 16px; /* TAILLE LÉGÈREMENT RÉDUITE SUR MOBILE */
+    }
+
     figure {
       float: none;
       margin: 1em auto;
@@ -381,7 +402,7 @@ body {
 
     table {
       margin: 15px auto;
-      font-size: 0.9rem;
+      font-size: 15px; /* TAILLE LÉGÈREMENT RÉDUITE SUR MOBILE */
     }
 
     thead th,
@@ -391,6 +412,14 @@ body {
   }
 
   @media (max-width: 480px) {
+    body {
+      font-size: 15px; /* TAILLE RÉDUITE SUR PETIT MOBILE */
+    }
+    
+    .main-content {
+      font-size: 15px; /* TAILLE RÉDUITE SUR PETIT MOBILE */
+    }
+
     .sidebar {
       width: 90%;
       left: -90%;
@@ -401,11 +430,11 @@ body {
     }
     
     .sidebar-header h2 {
-      font-size: 1.2em;
+      font-size: 1.4em;
     }
 
     table {
-      font-size: 0.85rem;
+      font-size: 14px; /* TAILLE RÉDUITE SUR PETIT MOBILE */
     }
 
     thead th,
@@ -426,7 +455,7 @@ body {
   /* Configuration de base pour A4 */
   @page {
     size: A4;
-    margin: 2cm 1.5cm; /* Marges réduites pour plus d'espace */
+    margin: 2cm 1.5cm;
     @bottom-center {
       content: "Page " counter(page);
       font-family: 'EB Garamond', serif;
@@ -470,13 +499,13 @@ body {
     orphans: 3;
   }
 
-  /* Corps du document imprimé - POLICE 12pt */
+  /* Corps du document imprimé - POLICE 12pt ET LARGEUR 90% */
   body, .main-content, .content-body {
     background: white !important;
     color: black !important;
-    font-size: 12pt !important; /* Taille de police 12pt */
-    line-height: 1.4 !important; /* Ligne plus serrée pour l'impression */
-    width: 100% !important;
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+    width: 90% !important; /* LARGEUR RÉDUITE À 90% */
     max-width: none !important;
     margin: 0 auto !important;
     padding: 0 !important;
@@ -490,6 +519,7 @@ body {
     padding: 0 !important;
     margin: 0 auto !important;
     box-sizing: border-box !important;
+    width: 100% !important;
   }
 
   /* Masquage total de la TOC */
@@ -541,8 +571,8 @@ body {
   table {
     border-collapse: collapse !important;
     font-family: 'EB Garamond', 'Garamond', 'Georgia', serif !important;
-    font-size: 10pt !important; /* Taille réduite pour les tableaux */
-    max-width: 100% !important; /* Largeur maximale pour A4 */
+    font-size: 10pt !important;
+    max-width: 100% !important;
     margin: 1em auto !important;
     display: table !important;
     width: auto !important;
@@ -562,7 +592,7 @@ body {
   }
 
   thead th {
-    padding: 8px 10px !important; /* Padding réduit */
+    padding: 8px 10px !important;
     text-align: left !important;
     font-weight: bold !important;
     border: 1px solid var(--latex-table-header) !important;
@@ -575,7 +605,7 @@ body {
 
   /* Corps du tableau */
   tbody td {
-    padding: 6px 8px !important; /* Padding réduit */
+    padding: 6px 8px !important;
     border: 1px solid var(--latex-light-gray) !important;
     color: var(--latex-dark) !important;
     background-color: white !important;
@@ -594,9 +624,9 @@ body {
     float: left !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    max-width: 40% !important; /* Largeur relative pour A4 */
+    max-width: 40% !important;
     width: auto !important;
-    margin: 1em 1.5em 1em 0 !important; /* Marges réduites */
+    margin: 1em 1.5em 1em 0 !important;
     border: 1px solid var(--border-color) !important;
     text-align: center !important;
     clear: both !important;
@@ -613,7 +643,7 @@ body {
   }
 
   figcaption {
-    font-size: 9pt !important; /* Taille réduite */
+    font-size: 9pt !important;
     color: var(--latex-gray) !important;
     font-style: italic !important;
     padding: 6px !important;
