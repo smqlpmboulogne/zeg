@@ -1,0 +1,170 @@
+@echo off
+setlocal enabledelayedexpansion
+
+:: Activer l'encodage UTF-8 pour les caractères accentués
+chcp 65001 >nul
+
+:: Définir la couleur de fond et du texte (fond noir, texte vert clair)
+color 0A
+
+:: URL de base de votre repository GitHub
+set "GITHUB_BASE=https://raw.githubusercontent.com/smqlpmboulogne/zeg/main"
+set "TEMP_DIR=%temp%\zeg_templates"
+set "CACHE_FILE=%TEMP_DIR%\last_update.txt"
+
+:: Créer le dossier temporaire
+if not exist "%TEMP_DIR%" mkdir "%TEMP_DIR%"
+
+:: Liste des fichiers nécessaires
+set "FICHIERS=modele.html modele.tex enonce.lua corrige.lua noncorrige.docx corrige.docx"
+
+:: Vérifier si on doit télécharger les modèles
+set "download_needed=1"
+if exist "%CACHE_FILE%" (
+    for /f "usebackq" %%i in ("%CACHE_FILE%") do set "last_date=%%i"
+    echo !date! | find "!last_date!" >nul && set "download_needed=0"
+)
+
+if "!download_needed!"=="1" (
+    echo Mise à jour des modèles depuis GitHub...
+    for %%f in (%FICHIERS%) do (
+        echo Téléchargement de %%f...
+        powershell -Command "Invoke-WebRequest -Uri '%GITHUB_BASE%/%%f' -OutFile '%TEMP_DIR%/%%f'"
+        if !errorlevel! neq 0 (
+            echo ERREUR: Impossible de télécharger %%f
+            pause
+            exit /b
+        )
+    )
+    echo !date! > "%CACHE_FILE%"
+    echo Modèles téléchargés avec succès.
+) else (
+    echo Utilisation des modèles en cache.
+)
+
+:: Vérifier qu'un fichier a été glissé-déposé
+if "%~1"=="" (
+    echo.
+    echo ========================================
+    echo         GLISSE-DÉPOSE REQUIS
+    echo ========================================
+    echo.
+    echo Glisse-dépose un fichier .md sur ce script
+    echo pour le convertir en plusieurs formats.
+    echo.
+    echo Appuie sur une touche pour quitter...
+    pause >nul
+    exit /b
+)
+
+:: Vérifier que le fichier est bien un .md
+if not "%~x1"==".md" (
+    echo.
+    echo ERREUR: Le fichier doit être un .md
+    echo.
+    pause
+    exit /b
+)
+
+:: Récupérer le chemin et le nom du fichier
+set "fichier=%~1"
+set "nom_fichier=%~n1"
+set "chemin=%~dp1"
+
+:: Créer un sous-dossier pour les fichiers générés
+set "dossier_sortie=%chemin%\%nom_fichier%"
+if not exist "%dossier_sortie%" (
+    mkdir "%dossier_sortie%"
+)
+
+:: Copier le fichier .md dans le sous-dossier
+copy "%fichier%" "%dossier_sortie%\" >nul
+
+:: Changer de répertoire pour le traitement
+cd /d "%dossier_sortie%"
+
+:: Menu interactif pour choisir les formats
+echo.
+echo ========================================
+echo           BONJOUR ZEG !
+echo ========================================
+echo.
+echo Fichier: %nom_fichier%.md
+echo.
+echo Quel(s) format(s) souhaites-tu générer ?
+echo.
+echo 1. Tous les formats (HTML, DOCX, PDF via LaTeX)
+echo 2. PDF via LaTeX
+echo 3. HTML
+echo 4. DOCX
+echo.
+set /p choix="Ton choix (1-4) : "
+
+:: Exécution sélective selon le choix
+if "%choix%"=="1" goto tous
+if "%choix%"=="2" goto pdf
+if "%choix%"=="3" goto html
+if "%choix%"=="4" goto docx
+
+:: Si choix invalide, prendre tous par défaut
+echo Choix invalide, génération de tous les formats...
+goto tous
+
+:tous
+echo.
+echo Génération de TOUS les formats...
+echo.
+echo Création du HTML...
+pandoc "%nom_fichier%.md" -o "%nom_fichier%.html" --toc --mathjax --template="%TEMP_DIR%\modele.html"
+echo Création des DOCX...
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.docx" --lua-filter="%TEMP_DIR%\enonce.lua" --reference-doc="%TEMP_DIR%\noncorrige.docx"
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.docx" --lua-filter="%TEMP_DIR%\corrige.lua" --reference-doc="%TEMP_DIR%\corrige.docx"
+echo Création des PDF via LaTeX...
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex"
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex"
+pdflatex -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
+pdflatex -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
+goto fin
+
+:pdf
+echo.
+echo Génération des PDF via LaTeX...
+echo.
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex"
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex"
+pdflatex -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
+pdflatex -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
+goto fin
+
+:html
+echo.
+echo Génération du HTML...
+echo.
+pandoc "%nom_fichier%.md" -o "%nom_fichier%.html" --toc --mathjax --template="%TEMP_DIR%\modele.html"
+goto fin
+
+:docx
+echo.
+echo Génération des DOCX...
+echo.
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.docx" --lua-filter="%TEMP_DIR%\enonce.lua" --reference-doc="%TEMP_DIR%\noncorrige.docx"
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.docx" --lua-filter="%TEMP_DIR%\corrige.lua" --reference-doc="%TEMP_DIR%\corrige.docx"
+
+:fin
+:: Nettoyer les fichiers temporaires LaTeX
+del *.aux *.log *.out >nul 2>&1
+
+:: Message final
+echo.
+echo ========================================
+echo CONVERSION TERMINÉE AVEC SUCCÈS !
+echo Fichiers créés dans : "%dossier_sortie%"
+echo POWERED BY ZEG
+echo ========================================
+echo.
+
+:: Ouvrir le dossier de sortie
+start "" "%dossier_sortie%"
+
+:: Pause avant fermeture
+timeout /t 5 >nul
