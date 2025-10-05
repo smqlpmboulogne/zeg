@@ -421,8 +421,27 @@ body {
   display: none;
 }
 
-/* Styles pour l'impression - REPRODUCTION EXACTE DE L'ÉCRAN */
+/* Styles pour l'impression - FORMAT A4 OPTIMISÉ */
 @media print {
+  /* Configuration de base pour A4 */
+  @page {
+    size: A4;
+    margin: 2cm 1.5cm; /* Marges réduites pour plus d'espace */
+    @bottom-center {
+      content: "Page " counter(page);
+      font-family: 'EB Garamond', serif;
+      font-size: 10pt;
+      color: #666;
+    }
+  }
+
+  /* Style spécial pour la première page */
+  @page :first {
+    @bottom-center {
+      content: "";
+    }
+  }
+
   /* Sauts de page manuels - ACTIVÉS À L'IMPRESSION */
   .page-break {
     display: block;
@@ -451,6 +470,28 @@ body {
     orphans: 3;
   }
 
+  /* Corps du document imprimé - POLICE 12pt */
+  body, .main-content, .content-body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt !important; /* Taille de police 12pt */
+    line-height: 1.4 !important; /* Ligne plus serrée pour l'impression */
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: block !important;
+    font-family: 'EB Garamond', 'Garamond', 'Georgia', serif !important;
+  }
+
+  /* Conteneur principal ajusté pour A4 */
+  .main-content {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
   /* Masquage total de la TOC */
   #TOC,
   [role="doc-toc"],
@@ -470,19 +511,6 @@ body {
     content: none !important;
   }
 
-  /* Corps du document imprimé */
-  body, .main-content, .content-body {
-    background: white !important;
-    color: black !important;
-    font-size: 12pt;
-    line-height: 1.6;
-    width: 100%;
-    max-width: var(--max-content-width);
-    margin: 0 auto;
-    padding: 30px;
-    display: block;
-  }
-
   /* Réponses visibles à l'impression */
   .reponse.visible {
     opacity: 1 !important;
@@ -490,15 +518,16 @@ body {
     border: 1px solid var(--latex-gray) !important;
     page-break-inside: avoid;
     break-inside: avoid;
-    margin: 20px 0 !important;
-    padding: 15px !important;
+    margin: 1em 0 !important;
+    padding: 1em !important;
     display: block !important;
     clear: both;
+    font-size: 11pt !important;
   }
   
   .reponse {
-    margin: 20px 0;
-    padding: 15px;
+    margin: 1em 0;
+    padding: 1em;
     border-radius: 0;
     opacity: 0;
     height: auto;
@@ -508,23 +537,23 @@ body {
     clear: both;
   }
 
-  /* TABLEAUX - MÊME STYLE QU'À L'ÉCRAN */
+  /* TABLEAUX - ADAPTÉS POUR A4 */
   table {
     border-collapse: collapse !important;
     font-family: 'EB Garamond', 'Garamond', 'Georgia', serif !important;
-    font-size: 0.95rem !important;
-    max-width: 800px !important;
-    margin: 20px auto !important; /* Même centrage qu'à l'écran */
+    font-size: 10pt !important; /* Taille réduite pour les tableaux */
+    max-width: 100% !important; /* Largeur maximale pour A4 */
+    margin: 1em auto !important;
     display: table !important;
     width: auto !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  /* En-tête du tableau - MÊME COULEURS QU'À L'ÉCRAN */
+  /* En-tête du tableau */
   thead {
     background-color: var(--latex-table-header) !important;
     color: #ffffff !important;
@@ -533,43 +562,45 @@ body {
   }
 
   thead th {
-    padding: 12px 15px !important;
+    padding: 8px 10px !important; /* Padding réduit */
     text-align: left !important;
     font-weight: bold !important;
     border: 1px solid var(--latex-table-header) !important;
     font-weight: 600 !important;
     color: #ffffff !important;
+    font-size: 10pt !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  /* Corps du tableau - MÊME STYLE QU'À L'ÉCRAN */
+  /* Corps du tableau */
   tbody td {
-    padding: 12px 15px !important;
+    padding: 6px 8px !important; /* Padding réduit */
     border: 1px solid var(--latex-light-gray) !important;
     color: var(--latex-dark) !important;
     background-color: white !important;
+    font-size: 10pt !important;
   }
 
-  /* Lignes alternées - MÊME QU'À L'ÉCRAN */
+  /* Lignes alternées */
   tbody tr:nth-child(even) {
     background-color: #fafafa !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  /* IMAGES - MÊME STYLE QU'À L'ÉCRAN */
+  /* IMAGES - ADAPTÉES POUR A4 */
   figure {
-    float: left !important; /* Même flottant qu'à l'écran */
+    float: left !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    max-width: 100% !important;
-    width: 270px !important; /* Même largeur fixe qu'à l'écran */
-    margin: 1em 2em 2em 0 !important; /* Mêmes marges qu'à l'écran */
+    max-width: 40% !important; /* Largeur relative pour A4 */
+    width: auto !important;
+    margin: 1em 1.5em 1em 0 !important; /* Marges réduites */
     border: 1px solid var(--border-color) !important;
     text-align: center !important;
     clear: both !important;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     overflow: hidden !important;
   }
 
@@ -578,24 +609,74 @@ body {
     height: auto !important;
     display: block !important;
     clear: both !important;
+    max-width: 100% !important;
   }
 
   figcaption {
-    font-size: 0.8em !important;
+    font-size: 9pt !important; /* Taille réduite */
     color: var(--latex-gray) !important;
     font-style: italic !important;
-    padding: 8px !important;
+    padding: 6px !important;
     background-color: var(--latex-light-gray) !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  /* Pour les écrans mobiles en impression, on conserve le style desktop */
+  /* Titres adaptés pour A4 */
+  h1, h2, h3 {
+    color: var(--latex-dark) !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    font-family: 'EB Garamond', 'Garamond', 'Georgia', serif !important;
+  }
+
+  h1 {
+    font-size: 16pt !important;
+    border-bottom: 2px solid var(--latex-accent) !important;
+    padding-bottom: 8px !important;
+    page-break-before: always !important;
+    margin-top: 1.5em !important;
+    margin-bottom: 1em !important;
+  }
+
+  h2 {
+    font-size: 14pt !important;
+    border-left: 3px solid var(--latex-gray) !important;
+    padding-left: 8px !important;
+    margin-top: 1.2em !important;
+    margin-bottom: 0.8em !important;
+  }
+
+  h3 {
+    font-size: 12pt !important;
+    margin-top: 1em !important;
+    margin-bottom: 0.6em !important;
+  }
+
+  /* Paragraphes et listes */
+  p {
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.8em !important;
+    text-align: justify !important;
+  }
+
+  ul, ol {
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.8em !important;
+  }
+
+  li {
+    margin-bottom: 0.3em !important;
+  }
+
+  /* Pour les écrans mobiles en impression, on conserve le style A4 */
   @media (max-width: 768px) {
     figure {
-      float: left !important; /* On garde le flottant même en impression mobile */
-      width: 270px !important;
-      margin: 1em 2em 2em 0 !important;
+      float: left !important;
+      max-width: 40% !important;
+      margin: 1em 1.5em 1em 0 !important;
     }
   }
 
@@ -606,39 +687,15 @@ body {
     display: none !important;
   }
 
-  /* Titres adaptés à l'impression mais avec style LaTeX */
-  h1, h2, h3 {
-    color: var(--latex-dark) !important;
-    page-break-after: avoid !important;
-    break-after: avoid !important;
+  /* Éviter que les éléments ne dépassent */
+  * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  h1 {
-    border-bottom: 2px solid var(--latex-accent) !important;
-    padding-bottom: 10px !important;
-    page-break-before: always !important;
-  }
-
-  h2 {
-    border-left: 4px solid var(--latex-gray) !important;
-    padding-left: 10px !important;
-  }
-}
-
-@page {
-  margin: 1.5cm 2cm;
-  
-  @bottom-center {
-    content: "Page " counter(page);
-    font-family: 'EB Garamond', serif;
-    font-size: 10pt;
-    color: #666;
-  }
-}
-
-/* Style spécial pour la première page */
-@page :first {
-  @bottom-center {
-    content: "";
+  /* Forcer le fond blanc pour tous les éléments */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
