@@ -3,7 +3,6 @@ function Image(el)
     return el
 end
 
-
 function Div(el)
     for _, class in ipairs(el.classes) do
         if class == 'reponse' then
@@ -27,6 +26,13 @@ function Div(el)
             table.insert(el.content, 1, solution_header)
 
             el.attributes['custom-style'] = 'Reponse'
+            
+            -- Pour DOCX, ajouter un saut de ligne après la div
+            if FORMAT:match 'docx' then
+                -- Retourner un bloc contenant la div suivie d'un saut de ligne
+                return {el, pandoc.RawBlock('openxml', '<w:p><w:r><w:br/></w:r></w:p>')}
+            end
+            
             break
         elseif class == 'page-break' then
             -- Pour les sauts de page : seulement le saut
