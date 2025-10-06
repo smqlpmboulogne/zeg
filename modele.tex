@@ -122,6 +122,28 @@ $endif$
 \date{$date$}
 
 \begin{document}
+
+$if(has-notes)$
+\usepackage{mdframed}
+\newmdenv[
+  backgroundcolor=blue!5,
+  linecolor=blue,
+  linewidth=1pt,
+  leftmargin=10pt,
+  rightmargin=10pt,
+  innertopmargin=8pt,
+  innerbottommargin=8pt,
+  skipabove=10pt,
+  skipbelow=10pt
+]{notebox}
+$endif$
+
+
+
+
+
+
+
 $if(has-frontmatter)$
 \frontmatter
 $endif$
