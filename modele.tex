@@ -57,19 +57,6 @@ $if(pdf-trailer-id)$
 \fi
 $endif$
 
-$if(title)$
-\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
-$endif$
-$if(subtitle)$
-\usepackage{etoolbox}
-\makeatletter
-\providecommand{\subtitle}[1]{% add subtitle to \maketitle
-  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
-}
-\makeatother
-\subtitle{$subtitle$}
-$endif$
-
 % Packages de base
 \usepackage[table]{xcolor}
 \usepackage{amsmath,amssymb}
@@ -81,7 +68,12 @@ $endif$
 \usepackage{geometry}
 \usepackage[french]{babel}
 \usepackage{fancyhdr}
+\usepackage{float}
 
+% AJOUT: Packages pour les citations spéciales
+\usepackage{mdframed}
+\usepackage{etoolbox}
+\usepackage{ifthen}
 
 % Configuration
 \geometry{
@@ -95,9 +87,55 @@ $endif$
 \definecolor{maritimeBlue}{RGB}{0, 80, 120}
 \definecolor{maritimeLightBlue}{RGB}{173, 216, 230}
 
+% AJOUT: Styles pour les citations spéciales
+\definecolor{notebg}{RGB}{232, 244, 255}    % Bleu très clair pour les notes
+\definecolor{noteborder}{RGB}{33, 150, 243} % Bleu pour la bordure
+\definecolor{warningbg}{RGB}{255, 248, 225} % Jaune clair pour les avertissements
+\definecolor{warningborder}{RGB}{255, 193, 7} % Jaune pour la bordure
 
+% Environnements pour les citations spéciales
+\newmdenv[
+  backgroundcolor=notebg,
+  linecolor=noteborder,
+  linewidth=2pt,
+  leftmargin=0pt,
+  rightmargin=0pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=8pt,
+  innerbottommargin=8pt,
+  skipabove=10pt,
+  skipbelow=10pt,
+  font=\itshape
+]{notebox}
 
+\newmdenv[
+  backgroundcolor=warningbg,
+  linecolor=warningborder,
+  linewidth=2pt,
+  leftmargin=0pt,
+  rightmargin=0pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=8pt,
+  innerbottommargin=8pt,
+  skipabove=10pt,
+  skipbelow=10pt,
+  font=\itshape
+]{warningbox}
 
+% Commande pour les notes spéciales
+\newcommand{\specialnote}[1]{%
+  \begin{notebox}
+  #1
+  \end{notebox}
+}
+
+\newcommand{\specialwarning}[1]{%
+  \begin{warningbox}
+  #1
+  \end{warningbox}
+}
 
 % En-têtes et pieds de page
 \pagestyle{fancy}
@@ -113,36 +151,25 @@ $endif$
 \rowcolors{2}{maritimeLightBlue!30}{white}
 
 % Désactive les figures flottantes
-\usepackage{float}
 \floatplacement{figure}{H}
 
-
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+$if(subtitle)$
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{$subtitle$}
+$endif$
 
 \author{$for(author)$$author$$sep$ \and $endfor$}
 \date{$date$}
 
 \begin{document}
-
-$if(has-notes)$
-\usepackage{mdframed}
-\newmdenv[
-  backgroundcolor=blue!5,
-  linecolor=blue,
-  linewidth=1pt,
-  leftmargin=10pt,
-  rightmargin=10pt,
-  innertopmargin=8pt,
-  innerbottommargin=8pt,
-  skipabove=10pt,
-  skipbelow=10pt
-]{notebox}
-$endif$
-
-
-
-
-
-
 
 $if(has-frontmatter)$
 \frontmatter
