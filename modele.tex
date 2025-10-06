@@ -169,6 +169,50 @@ $endif$
 \author{$for(author)$$author$$sep$ \and $endfor$}
 \date{$date$}
 
+
+
+
+% Redéfinition de l'environnement quote pour les citations spéciales
+\usepackage{mdframed}
+\usepackage{etoolbox}
+
+% Styles pour les citations
+\definecolor{quotebg}{RGB}{240, 248, 255}    % Bleu très clair
+\definecolor{quoteborder}{RGB}{100, 149, 237} % Bleu cornflower
+
+% Environnement quote redéfini
+\let\oldquote\quote
+\let\endoldquote\endquote
+
+\renewenvironment{quote}{%
+  \begin{mdframed}[
+    backgroundcolor=quotebg,
+    linecolor=quoteborder,
+    linewidth=0pt,
+    leftmargin=0pt,
+    rightmargin=0pt,
+    innerleftmargin=10pt,
+    innerrightmargin=10pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    skipabove=10pt,
+    skipbelow=10pt,
+    font=\itshape
+  ]%
+}{%
+  \end{mdframed}%
+}
+
+
+
+
+
+
+
+
+
+
+
 \begin{document}
 
 $if(has-frontmatter)$
