@@ -25,7 +25,6 @@ function Div(el)
             -- Insérer "Solution" au début du contenu
             table.insert(el.content, 1, solution_header)
             el.attributes['custom-style'] = 'Reponse'
-
             -- Pour DOCX, ajouter un saut de ligne après la div
             if FORMAT:match 'docx' then
                 return {el, pandoc.RawBlock('openxml', '<w:p><w:r><w:br/></w:r></w:p>')}
@@ -37,12 +36,38 @@ function Div(el)
             return pandoc.RawBlock('openxml', '<w:p><w:r><w:br w:type="page"/></w:r></w:p>')
 
         elseif class == 'cadre' then
-            -- Convertir le contenu du div en LaTeX
-            local content = pandoc.write(pandoc.Pandoc({pandoc.Div(el.content)}), "latex")
-            -- Retourner l'environnement LaTeX "cadre"
-            return {
-                pandoc.RawBlock("latex", "\\begin{cadre}\n" .. content .. "\n\\end{cadre}")
-            }
+            -- Gestion des cadres
+            if FORMAT:match 'latex' then
+                -- Pour LaTeX, utiliser l'environnement "cadre"
+                local content = pandoc.write(pandoc.Pandoc({pandoc.Div(el.content)}), "latex")
+                return {
+                    pandoc.RawBlock("latex", "\\begin{cadre}\n" .. content .. "\n\\end{cadre}")
+                }
+            elseif FORMAT:match 'docx' then
+                -- Pour DOCX, utiliser des bordures OpenXML
+                local openxml_start = [[
+                <w:p>
+                    <w:r>
+                        <w:pict>
+                            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" style="width:100%;position:relative; padding:2pt;" arcsize="8%" strokecolor="black" stroked="t" strokeweight="1pt">
+                ]]
+                local openxml_end = [[
+                            </v:roundrect>
+                        </w:pict>
+                    </w:r>
+                </w:p>
+                ]]
+                -- Insérer le contenu dans un cadre OpenXML
+                local content = pandoc.write(pandoc.Pandoc(el.content), "docx")
+                return {
+                    pandoc.RawBlock('openxml', openxml_start),
+                    pandoc.RawBlock('openxml', content),
+                    pandoc.RawBlock('openxml', openxml_end)
+                }
+            else
+                -- Pour les autres formats, retourner le contenu tel quel
+                return el
+            end
         end
     end
     return el
