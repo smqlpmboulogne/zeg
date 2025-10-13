@@ -5,12 +5,50 @@ setlocal enabledelayedexpansion
 chcp 65001 >nul
 
 :: Définir la couleur de fond et du texte (fond noir, texte vert clair)
-color 0A
+color 1F
+
+
+
+@echo off
+REM Ajoute le dossier courant (où se trouve ce script et pandoc.exe) au PATH
+set "PATH=%~dp0;%PATH%"
+set "PATH=%~dp0\2024\bin\windows;%PATH%"
+
+REM Vérifie que pandoc est accessible
+pandoc --version
+pdflatex --version
+
+
 
 :: URL de base de votre repository GitHub
 set "GITHUB_BASE=https://raw.githubusercontent.com/smqlpmboulogne/zeg/main"
 set "TEMP_DIR=%temp%\zeg_templates"
 set "CACHE_FILE=%TEMP_DIR%\last_update.txt"
+
+:: Vérifier si l'utilisateur veut effacer le cache
+if "%~1"=="--clear-cache" (
+    echo Effacement du cache des modèles...
+    if exist "%TEMP_DIR%" (
+        rmdir /s /q "%TEMP_DIR%"
+        echo Cache effacé avec succès.
+    ) else (
+        echo Aucun cache trouvé.
+    )
+    pause
+    exit /b
+)
+
+if "%~1"=="--clean" (
+    echo Effacement du cache des modèles...
+    if exist "%TEMP_DIR%" (
+        rmdir /s /q "%TEMP_DIR%"
+        echo Cache effacé avec succès.
+    ) else (
+        echo Aucun cache trouvé.
+    )
+    pause
+    exit /b
+)
 
 :: Créer le dossier temporaire
 if not exist "%TEMP_DIR%" mkdir "%TEMP_DIR%"
@@ -52,6 +90,10 @@ if "%~1"=="" (
     echo Glisse-dépose un fichier .md sur ce script
     echo pour le convertir en plusieurs formats.
     echo.
+    echo Options disponibles:
+    echo   --clear-cache : Effacer le cache des modèles
+    echo   --clean       : Effacer le cache des modèles
+    echo.
     echo Appuie sur une touche pour quitter...
     pause >nul
     exit /b
@@ -62,6 +104,10 @@ if not "%~x1"==".md" (
     echo.
     echo ERREUR: Le fichier doit être un .md
     echo.
+    echo Options disponibles:
+    echo   --clear-cache : Effacer le cache des modèles
+    echo   --clean       : Effacer le cache des modèles
+    echo.
     pause
     exit /b
 )
@@ -70,9 +116,10 @@ if not "%~x1"==".md" (
 set "fichier=%~1"
 set "nom_fichier=%~n1"
 set "chemin=%~dp1"
+set "nom_dossier=Cours"
 
 :: Créer un sous-dossier pour les fichiers générés
-set "dossier_sortie=%chemin%\%nom_fichier%"
+set "dossier_sortie=%chemin%\%nom_dossier%\%nom_fichier%"
 if not exist "%dossier_sortie%" (
     mkdir "%dossier_sortie%"
 )
@@ -97,31 +144,46 @@ echo 1. Tous les formats (HTML, DOCX, PDF via LaTeX)
 echo 2. PDF via LaTeX
 echo 3. HTML
 echo 4. DOCX
+echo 5. EFFACER LE CACHE et quitter
 echo.
-set /p choix="Ton choix (1-4) : "
+set /p choix="Ton choix (1-5) : "
 
 :: Exécution sélective selon le choix
 if "%choix%"=="1" goto tous
 if "%choix%"=="2" goto pdf
 if "%choix%"=="3" goto html
 if "%choix%"=="4" goto docx
+if "%choix%"=="5" goto clearcache
 
 :: Si choix invalide, prendre tous par défaut
 echo Choix invalide, génération de tous les formats...
 goto tous
+
+:clearcache
+echo.
+echo Effacement du cache des modèles...
+if exist "%TEMP_DIR%" (
+    rmdir /s /q "%TEMP_DIR%"
+    echo Cache effacé avec succès.
+) else (
+    echo Aucun cache trouvé.
+)
+echo.
+pause
+exit /b
 
 :tous
 echo.
 echo Génération de TOUS les formats...
 echo.
 echo Création du HTML...
-pandoc "%nom_fichier%.md" -o "%nom_fichier%.html" --toc --mathjax --template="%TEMP_DIR%\modele.html"
+pandoc "%nom_fichier%.md" -o "%nom_fichier%.html" --toc --mathjax --template="%TEMP_DIR%\modele.html" 
 echo Création des DOCX...
-pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.docx" --lua-filter="%TEMP_DIR%\enonce.lua" --reference-doc="%TEMP_DIR%\noncorrige.docx"
-pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.docx" --lua-filter="%TEMP_DIR%\corrige.lua" --reference-doc="%TEMP_DIR%\corrige.docx"
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.docx" --lua-filter="%TEMP_DIR%\enonce.lua" --reference-doc="%TEMP_DIR%\noncorrige.docx" 
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.docx" --lua-filter="%TEMP_DIR%\corrige.lua" --reference-doc="%TEMP_DIR%\corrige.docx" 
 echo Création des PDF via LaTeX...
-pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex"
-pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex"
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
 pdflatex -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
 pdflatex -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
 goto fin
@@ -130,8 +192,8 @@ goto fin
 echo.
 echo Génération des PDF via LaTeX...
 echo.
-pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex"
-pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex"
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
 pdflatex -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
 pdflatex -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
 goto fin
@@ -159,7 +221,12 @@ echo.
 echo ========================================
 echo CONVERSION TERMINÉE AVEC SUCCÈS !
 echo Fichiers créés dans : "%dossier_sortie%"
-echo POWERED BY ZEG
+echo.
+echo Options supplémentaires:
+echo   Lancer le script avec --clear-cache pour effacer le cache
+echo.
+echo ========================================
+echo            POWERED BY ZEG
 echo ========================================
 echo.
 
@@ -167,4 +234,4 @@ echo.
 start "" "%dossier_sortie%"
 
 :: Pause avant fermeture
-timeout /t 5 >nul
+timeout /t 10 >nul
