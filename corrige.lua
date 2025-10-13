@@ -1,4 +1,5 @@
 function Image(el)
+    -- Fixer la largeur des images à 285px
     el.attributes.width = "285px"
     return el
 end
@@ -6,7 +7,7 @@ end
 function Div(el)
     for _, class in ipairs(el.classes) do
         if class == 'reponse' then
-            -- Créer un Span avec le texte "Solution" en gras
+            -- Créer un en-tête "Solution" en gras et bleu
             local solution_header
             if FORMAT:match 'latex' then
                 -- En LaTeX, on utilise \color{blue} pour tout le contenu
@@ -21,22 +22,27 @@ function Div(el)
                     { style = "color: blue;" }
                 )
             end
-
             -- Insérer "Solution" au début du contenu
             table.insert(el.content, 1, solution_header)
-
             el.attributes['custom-style'] = 'Reponse'
-            
+
             -- Pour DOCX, ajouter un saut de ligne après la div
             if FORMAT:match 'docx' then
-                -- Retourner un bloc contenant la div suivie d'un saut de ligne
                 return {el, pandoc.RawBlock('openxml', '<w:p><w:r><w:br/></w:r></w:p>')}
             end
-            
             break
+
         elseif class == 'page-break' then
             -- Pour les sauts de page : seulement le saut
             return pandoc.RawBlock('openxml', '<w:p><w:r><w:br w:type="page"/></w:r></w:p>')
+
+        elseif class == 'cadre' then
+            -- Convertir le contenu du div en LaTeX
+            local content = pandoc.write(pandoc.Pandoc({pandoc.Div(el.content)}), "latex")
+            -- Retourner l'environnement LaTeX "cadre"
+            return {
+                pandoc.RawBlock("latex", "\\begin{cadre}\n" .. content .. "\n\\end{cadre}")
+            }
         end
     end
     return el
