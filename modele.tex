@@ -154,6 +154,10 @@ $endif$
   {\par\medskip\noindent\textbf{Théorème #1.}\ \ignorespaces}
   {\par\medskip}
 
+% Dans le préambule de ton document LaTeX
+\newenvironment{cadre}
+  {\par\medskip\noindent\begin{center}\begin{tabular}{|p{\dimexpr\textwidth-4pt}|}\hline\ignorespaces}
+  {\\\hline\end{tabular}\end{center}\par\medskip}
 
 
 % En-têtes et pieds de page
