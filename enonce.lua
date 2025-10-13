@@ -26,15 +26,19 @@ function Div(el)
             return pandoc.RawBlock('openxml', '<w:p><w:r><w:br w:type="page"/></w:r></w:p>')
 
         elseif class == 'cadre' then
-            -- Convertir le contenu du div en LaTeX
+            -- Gestion des cadres
             if FORMAT:match 'latex' then
+                -- Pour LaTeX, utiliser l'environnement "cadre"
                 local content = pandoc.write(pandoc.Pandoc({pandoc.Div(el.content)}), "latex")
-                -- Retourner l'environnement LaTeX "cadre"
                 return {
                     pandoc.RawBlock("latex", "\\begin{cadre}\n" .. content .. "\n\\end{cadre}")
                 }
+            elseif FORMAT:match 'docx' then
+                -- Pour DOCX, appliquer le style "Cadre" (doit exister dans le modèle)
+                el.attributes['custom-style'] = 'Cadre'
+                return el
             else
-                -- Pour les autres formats, on peut simplement retourner le contenu tel quel
+                -- Pour les autres formats, retourner le contenu tel quel
                 return el
             end
         end
