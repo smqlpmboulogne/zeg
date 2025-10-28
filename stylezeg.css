@@ -335,6 +335,7 @@ body {
     display: table;
     width: auto; /* Permet au tableau de s'adapter à son contenu */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    clear: both;
   }
 
   /* En-tête du tableau avec nouvelles couleurs */
@@ -388,6 +389,7 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    clear: both;
   }
 
   figure:hover {
@@ -613,6 +615,7 @@ body {
     break-inside: avoid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    clear: both;
   }
 
   /* En-tête du tableau */
@@ -664,6 +667,7 @@ body {
     clear: both !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     overflow: hidden !important;
+    clear: both !important;;
   }
 
   figure img {
@@ -761,5 +765,6 @@ body {
     print-color-adjust: exact !important;
   }
 }
+
 
 
