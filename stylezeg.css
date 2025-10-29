@@ -228,7 +228,7 @@ body.bg-gray {
 }
 
 .image-modal img.zoomed {
-  transform: scale(1.75);
+  transform: scale(1.9);
   cursor: zoom-in;
 }
 
@@ -1189,4 +1189,5 @@ pre {
   display: table;
   clear: both;
 }
+
 
