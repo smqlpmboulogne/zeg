@@ -1,587 +1,94 @@
-/* ===== VARIABLES ET CONFIGURATION - VERSION GAIE ===== */
-:root {
-  /* Palette de couleurs gaies et vibrantes */
-  --primary-color: #2d5aa0;
-  --secondary-color: #e91e63;
-  --accent-color: #ff9800;
-  --success-color: #4caf50;
-  --warning-color: #ffc107;
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$"$if(dir)$ dir="$dir$"$endif$>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+$for(author-meta)$
+  <meta name="author" content="$author-meta$" />
+$endfor$
+$if(date-meta)$
+  <meta name="dcterms.date" content="$date-meta$" />
+$endif$
+$if(keywords)$
+  <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
+$endif$
+$if(description-meta)$
+  <meta name="description" content="$description-meta$" />
+$endif$
+<title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+ 
+ <link rel="stylesheet" href="https://smqlpmboulogne.github.io/zeg/stylezeg.css">
   
-  /* Tons de bleu joyeux */
-  --blue-dark: #1e4a7b;
-  --blue-medium: #2d5aa0;
-  --blue-light: #4fc3f7;
-  --blue-very-light: #e3f2fd;
+$for(css)$
+  <link rel="stylesheet" href="$css$" />
+$endfor$
+$if(math)$
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+$endif$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+
+<body>
+  <div class="container">
+    <!-- Nouveau menu hamburger maritime -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Sidebar maritime avec TOC -->
+    <nav class="sidebar" id="sidebar">
+    <br><br>
+      <div class="sidebar-content">
+        <!-- La TOC sera générée ici par Pandoc -->
+        <nav id="$idprefix$TOC" role="doc-toc">
+          $if(toc-title)$
+          <h3 id="$idprefix$toc-title">$toc-title$</h3>
+          $endif$
+          $table-of-contents$
+        </nav>
+      </div>
+    </nav>
+
+    <!-- Contenu principal SANS TOC -->
+<main class="main-content" id="main-content">
+  <!-- SUPPRIMER LA SECTION D'EN-TÊTE COMPLÈTE -->
+  $if(title)$
+  <!-- Le titre est intégré directement dans le contenu, pas dans un header séparé -->
+  <h1 class="title">$title$</h1>
+  $endif$
   
-  /* Tons de rose/violet */
-  --pink-dark: #ad1457;
-  --pink-medium: #e91e63;
-  --pink-light: #f48fb1;
-  --pink-very-light: #fce4ec;
-  
-  /* Tons de vert */
-  --green-medium: #4caf50;
-  --green-light: #a5d6a7;
-  --green-very-light: #e8f5e8;
-  
-  /* Tons d'orange */
-  --orange-medium: #ff9800;
-  --orange-light: #ffcc80;
-  --orange-very-light: #fff3e0;
-  
-  /* Couleurs fonctionnelles */
-  --text-color: #2c3e50;
-  --border-color: #e0e0e0;
-  --reponse-bg: var(--blue-very-light);
-  --table-header: var(--blue-medium);
-  
-  /* Dimensions */
-  --max-content-width: 800px;
-  --sidebar-width: 280px;
-  --mobile-breakpoint: 768px;
-  --small-mobile-breakpoint: 480px;
-  
-  /* Typographie */
-  --font-size-base: 17px;
-  --line-height-base: 1.6;
-  
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.4s ease;
-  
-  /* Ombres */
-  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-heavy: 0 8px 24px rgba(0, 0, 0, 0.2);
-  
-  /* Bordures arrondies */
-  --border-radius-small: 8px;
-  --border-radius-medium: 12px;
-  --border-radius-large: 16px;
-}
+  <!-- Le contenu principal -->
+  <div class="content-body">
+    $if(subtitle)$
+    <p class="subtitle">$subtitle$</p>
+    $endif$
+    $for(author)$
+    <p class="author">$author$</p>
+    $endfor$
+    $if(date)$
+    <p class="date">$date$</p>
+    $endif$
+    $if(abstract)$
+    <div class="abstract">
+      <div class="abstract-title">$abstract-title$</div>
+      $abstract$
+    </div>
+    $endif$
+    
+    $body$
+  </div>
+</main>
 
-/* ===== TYPOGRAPHIE ET BASE - POLICE PLUS GAIE ===== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+<script src="https://smqlpmboulogne.github.io/zeg/scriptzeg.js"></script>
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: var(--font-size-base);
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  line-height: var(--line-height-base);
-  color: var(--text-color);
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-  margin: 0;
-  padding: 0;
-  display: flex;
-  min-height: 100vh;
-  font-weight: 400;
-}
-
-/* ===== COMPOSANTS RÉUTILISABLES ===== */
-.cadre {
-  padding: 1.5em;
-  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--pink-very-light) 100%);
-  border-left: 6px solid var(--accent-color);
-  margin: 2em 0;
-  box-shadow: var(--shadow-medium);
-  border-radius: var(--border-radius-medium);
-  clear: both;
-  position: relative;
-  overflow: hidden;
-}
-
-.cadre::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--blue-medium), var(--pink-medium), var(--accent-color));
-}
-
-/* ===== LAYOUT PRINCIPAL ===== */
-.container {
-  width: 100%;
-  position: relative;
-  display: flex;
-  min-height: 100vh;
-}
-
-.main-content {
-  flex: 1;
-  padding: 2.5rem;
-  margin: 0 auto;
-  width: 100%;
-  max-width: var(--max-content-width);
-  background: white;
-  box-shadow: var(--shadow-heavy);
-  border-radius: var(--border-radius-large);
-  margin: 2rem auto;
-}
-
-/* Masquer la TOC générée par Pandoc */
-.main-content #TOC {
-  display: none;
-}
-
-/* ===== NAVIGATION ET SIDEBAR - STYLE GAI ===== */
-.menu-toggle {
-  position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
-  background: linear-gradient(135deg, var(--blue-medium) 0%, var(--pink-medium) 100%);
-  color: white;
-  border: none;
-  border-radius: var(--border-radius-large);
-  width: 3.5rem;
-  height: 3.5rem;
-  cursor: pointer;
-  z-index: 1000;
-  box-shadow: var(--shadow-heavy);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.3rem;
-  transition: all var(--transition-normal);
-}
-
-.menu-toggle:hover {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
-}
-
-.menu-toggle span {
-  display: block;
-  width: 1.5rem;
-  height: 3px;
-  background-color: white;
-  border-radius: 2px;
-  transition: all var(--transition-normal);
-}
-
-/* Sidebar style gai */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -320px;
-  width: 300px;
-  height: 100vh;
-  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0;
-  z-index: 999;
-  transition: left var(--transition-slow);
-  box-shadow: var(--shadow-heavy);
-  overflow-y: auto;
-  border-radius: 0 var(--border-radius-large) var(--border-radius-large) 0;
-}
-
-.sidebar.active {
-  left: 0;
-}
-
-.sidebar-header {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2rem 1.5rem 1.5rem;
-  text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-}
-
-.sidebar-header h2 {
-  margin: 0;
-  color: white;
-  font-size: 1.8em;
-  font-weight: 700;
-  font-family: 'Playfair Display', serif;
-}
-
-/* ===== TYPOGRAPHIE GAIE ===== */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', 'Georgia', serif;
-  font-weight: 600;
-  line-height: 1.3;
-  margin-top: 0;
-  color: var(--blue-dark);
-}
-
-h1 {
-  font-size: 2.5em;
-  background: linear-gradient(135deg, var(--blue-medium) 0%, var(--pink-medium) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  padding-bottom: 0.5rem;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-h2 {
-  font-size: 2em;
-  border-left: 6px solid var(--accent-color);
-  padding-left: 1rem;
-  margin: 2.5rem 0 1.5rem 0;
-  background: var(--orange-very-light);
-  padding: 1rem 1.5rem;
-  border-radius: var(--border-radius-medium);
-}
-
-h3 {
-  font-size: 1.6em;
-  color: var(--pink-medium);
-  margin: 2rem 0 1rem 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px dashed var(--pink-light);
-}
-
-/* ===== IMAGES CENTRÉES SANS FLOTTEMENT ===== */
-.figure-container {
-  display: block;
-  margin: 2.5rem auto;
-  text-align: center;
-  width: 100%;
-  clear: both;
-}
-
-figure {
-  display: inline-block;
-  max-width: 100%;
-  margin: 0 auto;
-  border: 2px solid var(--blue-light);
-  text-align: center;
-  box-shadow: var(--shadow-medium);
-  transition: all var(--transition-normal);
-  overflow: hidden;
-  page-break-inside: avoid;
-  break-inside: avoid;
-  border-radius: var(--border-radius-medium);
-  background: white;
-  position: relative;
-  clear: both;
-}
-
-/* Tailles d'images modulables */
-figure.small {
-  max-width: 300px;
-}
-
-figure.medium {
-  max-width: 500px;
-}
-
-figure.large {
-  max-width: 700px;
-}
-
-figure.full {
-  max-width: 100%;
-}
-
-figure:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-heavy);
-  border-color: var(--accent-color);
-}
-
-figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform var(--transition-normal);
-}
-
-figure:hover img {
-  transform: scale(1.05);
-}
-
-figcaption {
-  font-size: 0.95em;
-  color: var(--blue-dark);
-  font-style: italic;
-  padding: 1rem;
-  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--green-very-light) 100%);
-  text-align: center;
-  display: block;
-  font-weight: 500;
-  border-top: 2px solid var(--blue-light);
-}
-
-/* Groupes d'images côte à côte */
-.image-grid {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin: 2.5rem auto;
-  flex-wrap: wrap;
-  clear: both;
-}
-
-.image-grid figure {
-  flex: 1;
-  min-width: 250px;
-  max-width: 400px;
-  margin: 0;
-}
-
-/* ===== RÉPONSES INTERACTIVES COLORÉES ===== */
-.reponse {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  border-radius: var(--border-radius-medium);
-  opacity: 0;
-  height: auto;
-  transition: all var(--transition-normal);
-  cursor: pointer;
-  border: 2px dashed var(--blue-light);
-  min-height: 3rem;
-  background: var(--blue-very-light);
-  position: relative;
-  overflow: hidden;
-  clear: both;
-}
-
-.reponse::before {
-  content: "💡 Cliquez pour voir la réponse";
-  font-size: 0.9em;
-  color: var(--blue-medium);
-  position: absolute;
-  top: -0.7em;
-  left: 1em;
-  background: white;
-  padding: 0.3em 1em;
-  font-weight: 600;
-  border-radius: var(--border-radius-small);
-  border: 2px solid var(--blue-light);
-}
-
-.reponse.visible {
-  opacity: 1;
-  background: linear-gradient(135deg, var(--green-very-light) 0%, var(--blue-very-light) 100%);
-  border: 2px solid var(--success-color);
-  transform: scale(1.02);
-}
-
-.reponse.visible::before {
-  content: "📖 Réponse";
-  color: var(--success-color);
-  border-color: var(--success-color);
-}
-
-.reponse:hover {
-  background: linear-gradient(135deg, var(--orange-very-light) 0%, var(--pink-very-light) 100%);
-  border-color: var(--accent-color);
-  transform: translateY(-2px);
-}
-
-/* ===== TABLEAUX COLORÉS ===== */
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  max-width: 100%;
-  margin: 2rem auto;
-  width: auto;
-  box-shadow: var(--shadow-medium);
-  border-radius: var(--border-radius-medium);
-  overflow: hidden;
-  background: white;
-  clear: both;
-}
-
-thead {
-  background: linear-gradient(135deg, var(--blue-medium) 0%, var(--pink-medium) 100%);
-  color: white;
-}
-
-thead th {
-  padding: 1.2rem 1.5rem;
-  text-align: left;
-  font-weight: 600;
-  border: none;
-  font-size: 1.1em;
-  position: relative;
-}
-
-thead th::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 1.5rem;
-  right: 1.5rem;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.5);
-}
-
-tbody td {
-  padding: 1rem 1.5rem;
-  border: none;
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-color);
-  background-color: white;
-  transition: all var(--transition-fast);
-}
-
-tbody tr:hover {
-  background-color: var(--blue-very-light);
-  transform: scale(1.01);
-}
-
-tbody tr:nth-child(even) {
-  background-color: #fafafa;
-}
-
-tbody tr:nth-child(even):hover {
-  background-color: var(--blue-very-light);
-}
-
-/* ===== CITATIONS STYLISÉES ===== */
-blockquote {
-  background: linear-gradient(135deg, var(--pink-very-light) 0%, var(--orange-very-light) 100%);
-  border-left: 6px solid var(--pink-medium);
-  margin: 2rem 0;
-  padding: 2rem 2rem 2rem 4rem;
-  font-style: italic;
-  color: var(--text-color);
-  position: relative;
-  border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
-  box-shadow: var(--shadow-light);
-  clear: both;
-}
-
-blockquote::before {
-  content: """;
-  font-size: 4em;
-  color: var(--pink-medium);
-  position: absolute;
-  left: 1rem;
-  top: 0.5rem;
-  line-height: 1;
-  opacity: 0.3;
-  font-family: 'Playfair Display', serif;
-}
-
-blockquote p {
-  display: inline;
-  margin: 0;
-  font-size: 1.1em;
-  font-weight: 500;
-}
-
-/* ===== RÉACTIVITÉ ===== */
-@media (max-width: 768px) {
-  .main-content {
-    padding: 1.5rem;
-    margin: 1rem;
-    border-radius: var(--border-radius-medium);
-  }
-  
-  figure {
-    max-width: 100% !important;
-    margin: 1.5rem auto !important;
-  }
-  
-  .image-grid {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .image-grid figure {
-    min-width: auto;
-    max-width: 100%;
-  }
-  
-  h1 {
-    font-size: 2em;
-  }
-  
-  h2 {
-    font-size: 1.6em;
-  }
-  
-  h3 {
-    font-size: 1.3em;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-content {
-    padding: 1rem;
-    margin: 0.5rem;
-  }
-  
-  .menu-toggle {
-    top: 1rem;
-    left: 1rem;
-    width: 3rem;
-    height: 3rem;
-  }
-  
-  .sidebar {
-    width: 85%;
-    left: -85%;
-  }
-}
-
-/* ===== IMPRESSION ===== */
-@media print {
-  body {
-    background: white !important;
-    color: black !important;
-  }
-  
-  .main-content {
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  figure {
-    break-inside: avoid;
-    margin: 1em auto !important;
-    max-width: 80% !important;
-  }
-  
-  .image-grid {
-    display: block;
-  }
-  
-  .image-grid figure {
-    margin: 1em auto !important;
-    max-width: 80% !important;
-  }
-}
-
-/* Animation d'entrée pour les éléments */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.main-content > * {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-/* Clearfix pour assurer la propreté du layout */
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
-}
+</body>
+</html>
