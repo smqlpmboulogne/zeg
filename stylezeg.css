@@ -244,18 +244,19 @@ h3 {
   border-bottom: 2px dashed var(--pink-light);
 }
 
-/* ===== GESTION AMÉLIORÉE DES IMAGES FLOTTANTES ===== */
+/* ===== IMAGES CENTRÉES SANS FLOTTEMENT ===== */
 .figure-container {
-  display: flow-root; /* Crée un nouveau contexte de formatage */
-  margin: 2rem 0;
+  display: block;
+  margin: 2.5rem auto;
+  text-align: center;
   width: 100%;
+  clear: both;
 }
 
 figure {
-  display: table;
+  display: inline-block;
   max-width: 100%;
-  width: min(400px, 100%);
-  margin: 1.5rem auto;
+  margin: 0 auto;
   border: 2px solid var(--blue-light);
   text-align: center;
   box-shadow: var(--shadow-medium);
@@ -267,40 +268,23 @@ figure {
   background: white;
   position: relative;
   clear: both;
-  /* Empêche le flottement problématique */
-  float: none !important;
 }
 
-/* Pour les images qui doivent flotter à gauche/droite */
-figure.float-left {
-  float: left;
-  margin: 1rem 2rem 1rem 0;
-  max-width: 45%;
+/* Tailles d'images modulables */
+figure.small {
+  max-width: 300px;
 }
 
-figure.float-right {
-  float: right;
-  margin: 1rem 0 1rem 2rem;
-  max-width: 45%;
+figure.medium {
+  max-width: 500px;
 }
 
-/* Conteneur pour clear les flottements */
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
+figure.large {
+  max-width: 700px;
 }
 
-/* Assure que le texte ne chevauche pas les images flottantes */
-p, ul, ol, blockquote {
-  overflow-wrap: break-word;
-  clear: none;
-}
-
-/* Empêche le chevauchement avec les images flottantes */
-p:has(+ figure),
-p:has(+ .figure-container) {
-  margin-bottom: 1.5rem;
+figure.full {
+  max-width: 100%;
 }
 
 figure:hover {
@@ -327,10 +311,26 @@ figcaption {
   padding: 1rem;
   background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--green-very-light) 100%);
   text-align: center;
-  display: table-caption;
-  caption-side: bottom;
+  display: block;
   font-weight: 500;
   border-top: 2px solid var(--blue-light);
+}
+
+/* Groupes d'images côte à côte */
+.image-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2.5rem auto;
+  flex-wrap: wrap;
+  clear: both;
+}
+
+.image-grid figure {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+  margin: 0;
 }
 
 /* ===== RÉPONSES INTERACTIVES COLORÉES ===== */
@@ -347,6 +347,7 @@ figcaption {
   background: var(--blue-very-light);
   position: relative;
   overflow: hidden;
+  clear: both;
 }
 
 .reponse::before {
@@ -395,6 +396,7 @@ table {
   border-radius: var(--border-radius-medium);
   overflow: hidden;
   background: white;
+  clear: both;
 }
 
 thead {
@@ -454,6 +456,7 @@ blockquote {
   position: relative;
   border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
   box-shadow: var(--shadow-light);
+  clear: both;
 }
 
 blockquote::before {
@@ -484,16 +487,17 @@ blockquote p {
   }
   
   figure {
-    float: none !important;
-    margin: 1.5rem auto !important;
-    width: 100% !important;
     max-width: 100% !important;
+    margin: 1.5rem auto !important;
   }
   
-  figure.float-left,
-  figure.float-right {
-    float: none;
-    margin: 1.5rem auto;
+  .image-grid {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .image-grid figure {
+    min-width: auto;
     max-width: 100%;
   }
   
@@ -531,7 +535,6 @@ blockquote p {
 
 /* ===== IMPRESSION ===== */
 @media print {
-  /* Styles d'impression conservés mais adaptés aux nouvelles couleurs */
   body {
     background: white !important;
     color: black !important;
@@ -547,7 +550,16 @@ blockquote p {
   figure {
     break-inside: avoid;
     margin: 1em auto !important;
-    max-width: 60% !important;
+    max-width: 80% !important;
+  }
+  
+  .image-grid {
+    display: block;
+  }
+  
+  .image-grid figure {
+    margin: 1em auto !important;
+    max-width: 80% !important;
   }
 }
 
@@ -565,4 +577,11 @@ blockquote p {
 
 .main-content > * {
   animation: fadeInUp 0.6s ease-out;
+}
+
+/* Clearfix pour assurer la propreté du layout */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
 }
