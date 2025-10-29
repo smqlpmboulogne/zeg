@@ -1,40 +1,20 @@
 :root {
-  --primary-color: #1a1a1a; /* Noir typographique LaTeX */
-  --secondary-color: #2c5282; /* Bleu foncé académique */
-  --reponse-bg: #f8f9fa; /* Gris très clair */
+  --primary-color: #1a1a1a;
+  --secondary-color: #2c5282;
+  --reponse-bg: #f8f9fa;
   --text-color: #1a1a1a;
   --border-color: #ccc;
   --max-content-width: 800px;
-  
-  /* Couleurs LaTeX sobres - MISE À JOUR */
+
+  /* Couleurs LaTeX sobres */
   --latex-blue: #1a365d;
   --latex-light-blue: #2c5282;
   --latex-gray: #4a5568;
   --latex-light-gray: #e2e8f0;
   --latex-dark: #1a202c;
-  --latex-accent: #2b6cb0; /* Nouvelle couleur d'accent */
-  --latex-table-header: #2c5282; /* Couleur pour en-têtes de tableau */
+  --latex-accent: #2b6cb0;
+  --latex-table-header: #2c5282;
 }
-
-
-
-blockquote {
-    background-color: #f9f9f9;
-    border-left: 4px solid #ccc;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
-    font-style: italic;
-    color: #555;
-}
-
-
-
-blockquote p {
-    display: inline;
-}
-
-
-
 
 /* Import de la police LaTeX-like */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
@@ -51,7 +31,7 @@ body {
   min-height: 100vh;
 }
 
-
+/* Cadre pour les éléments mis en valeur */
 .cadre {
   padding: 0.5em;
   background-color: #f5f5f5;
@@ -61,7 +41,6 @@ body {
   border-radius: 4px;
   clear: both;
 }
-
 
 /* Sauts de page manuels */
 .page-break {
@@ -81,7 +60,7 @@ body {
     background-color: #fff5f5;
     font-size: 0.9em;
   }
-  
+
   .page-break::before {
     content: "⤵ SAUT DE PAGE (visible à l'impression PDF) ⤵";
   }
@@ -90,8 +69,8 @@ body {
 /* Fond de page pour l'écran uniquement */
 @media screen {
   body {
-    background-color: #ffffff; /* Blanc pur comme LaTeX */
-    font-size: 17px; /* TAILLE DE POLICE AGRANDIE À L'ÉCRAN */
+    background-color: #ffffff;
+    font-size: 17px;
   }
 
   /* Conteneur principal */
@@ -205,19 +184,19 @@ body {
   .sidebar-header h2 {
     margin: 0;
     color: var(--latex-dark);
-    font-size: 1.6em; /* TAILLE AGRANDIE */
+    font-size: 1.6em;
     font-weight: 600;
   }
 
   .sidebar-content {
     padding: 20px;
-    font-size: 16px; /* TAILLE AGRANDIE */
+    font-size: 16px;
   }
 
   /* Styles pour la TOC dans le menu */
   .sidebar #TOC {
     color: var(--latex-dark);
-    font-size: 16px; /* TAILLE AGRANDIE */
+    font-size: 16px;
   }
 
   .sidebar #TOC ul {
@@ -244,7 +223,7 @@ body {
     padding: 12px 15px;
     transition: all 0.2s ease;
     border-radius: 0;
-    font-size: 16px; /* TAILLE AGRANDIE */
+    font-size: 16px;
   }
 
   .sidebar #TOC a:hover {
@@ -262,7 +241,7 @@ body {
 
   .sidebar #TOC ul ul a {
     padding: 8px 15px;
-    font-size: 15px; /* TAILLE AGRANDIE */
+    font-size: 15px;
   }
 
   /* Contenu principal */
@@ -273,7 +252,7 @@ body {
     width: 100%;
     max-width: var(--max-content-width);
     box-sizing: border-box;
-    font-size: 17px; /* TAILLE DE POLICE AGRANDIE */
+    font-size: 17px;
   }
 
   /* Masquer la TOC générée par Pandoc dans le contenu principal */
@@ -281,24 +260,27 @@ body {
     display: none;
   }
 
-  /* Titres style LaTeX - TAILLES AGRANDIES */
+  /* Titres style LaTeX */
   h1, h2, h3 {
     color: var(--latex-dark);
     font-weight: 600;
   }
+
   h1 {
     border-bottom: 2px solid var(--latex-accent);
     padding-bottom: 10px;
     margin-top: 0;
-    font-size: 2.2em; /* TAILLE AGRANDIE */
+    font-size: 2.2em;
   }
+
   h2 {
     border-left: 4px solid var(--latex-gray);
     padding-left: 10px;
-    font-size: 1.8em; /* TAILLE AGRANDIE */
+    font-size: 1.8em;
   }
+
   h3 {
-    font-size: 1.4em; /* TAILLE AGRANDIE */
+    font-size: 1.4em;
   }
 
   /* Réponses */
@@ -313,27 +295,29 @@ body {
     border: 1px dashed var(--border-color);
     min-height: 20px;
     clear: both;
-    font-size: 16px; /* TAILLE AGRANDIE */
+    font-size: 16px;
   }
+
   .reponse.visible {
     opacity: 1;
     background-color: var(--reponse-bg);
     border: 1px solid var(--latex-gray);
     clear: both;
   }
+
   .reponse:hover {
     background-color: var(--latex-light-gray);
   }
 
-  /* Centrage des tableaux - TAILLE DE POLICE AGRANDIE */
+  /* Centrage des tableaux */
   table {
     border-collapse: collapse;
     font-family: 'EB Garamond', 'Garamond', 'Georgia', serif;
-    font-size: 16px; /* TAILLE AGRANDIE */
+    font-size: 16px;
     max-width: 800px;
-    margin: 20px auto; /* Centrage horizontal */
+    margin: 20px auto;
     display: table;
-    width: auto; /* Permet au tableau de s'adapter à son contenu */
+    width: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     clear: both;
   }
@@ -343,13 +327,14 @@ body {
     background-color: var(--latex-table-header);
     color: #ffffff;
   }
+
   thead th {
     padding: 12px 15px;
     text-align: left;
     font-weight: bold;
     border: 1px solid var(--latex-table-header);
     font-weight: 600;
-    font-size: 16px; /* TAILLE AGRANDIE */
+    font-size: 16px;
   }
 
   /* Corps du tableau */
@@ -358,7 +343,7 @@ body {
     border: 1px solid var(--latex-light-gray);
     color: var(--latex-dark);
     background-color: white;
-    font-size: 16px; /* TAILLE AGRANDIE */
+    font-size: 16px;
   }
 
   /* Effet de survol */
@@ -371,6 +356,7 @@ body {
   tbody tr:nth-child(even) {
     background-color: #fafafa;
   }
+
   tbody tr:nth-child(even):hover {
     background-color: var(--latex-light-gray);
   }
@@ -382,13 +368,15 @@ body {
     break-inside: avoid;
     max-width: 100%;
     width: 270px;
-    margin: 1em 2em 2em 0;
+    margin: 1em 0 2em -135px; /* Marge négative pour centrer */
     border: 1px solid var(--border-color);
     text-align: center;
-    clear: both;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    shape-outside: margin-box; /* Permet au texte de s'enrouler autour */
+    position: relative;
+    left: 50%; /* Décale la figure de 50% vers la droite */
     clear: both;
   }
 
@@ -405,7 +393,7 @@ body {
   }
 
   figcaption {
-    font-size: 0.9em; /* TAILLE AGRANDIE */
+    font-size: 0.9em;
     color: var(--latex-gray);
     font-style: italic;
     padding: 8px;
@@ -415,11 +403,11 @@ body {
   /* Responsive */
   @media (max-width: 768px) {
     body {
-      font-size: 16px; /* TAILLE LÉGÈREMENT RÉDUITE SUR MOBILE */
+      font-size: 16px;
     }
-    
+
     .main-content {
-      font-size: 16px; /* TAILLE LÉGÈREMENT RÉDUITE SUR MOBILE */
+      font-size: 16px;
     }
 
     figure {
@@ -427,6 +415,8 @@ body {
       margin: 1em auto;
       width: 100%;
       max-width: 300px;
+      position: static;
+      left: auto;
     }
 
     .reponse {
@@ -436,7 +426,7 @@ body {
 
     table {
       margin: 15px auto;
-      font-size: 15px; /* TAILLE LÉGÈREMENT RÉDUITE SUR MOBILE */
+      font-size: 15px;
     }
 
     thead th,
@@ -447,28 +437,28 @@ body {
 
   @media (max-width: 480px) {
     body {
-      font-size: 15px; /* TAILLE RÉDUITE SUR PETIT MOBILE */
+      font-size: 15px;
     }
-    
+
     .main-content {
-      font-size: 15px; /* TAILLE RÉDUITE SUR PETIT MOBILE */
+      font-size: 15px;
     }
 
     .sidebar {
       width: 90%;
       left: -90%;
     }
-    
+
     .sidebar-header {
       padding: 25px 15px 15px;
     }
-    
+
     .sidebar-header h2 {
       font-size: 1.4em;
     }
 
     table {
-      font-size: 14px; /* TAILLE RÉDUITE SUR PETIT MOBILE */
+      font-size: 14px;
     }
 
     thead th,
@@ -515,31 +505,31 @@ body {
     padding: 0;
     visibility: hidden;
   }
-  
+
   /* Éviter les coupures indésirables */
   h1, h2, h3 {
     page-break-after: avoid;
     break-after: avoid;
   }
-  
+
   p, ul, ol, blockquote {
     page-break-inside: avoid;
     break-inside: avoid;
   }
-  
+
   /* Éviter les veuves et orphelines */
   p, li {
     widows: 3;
-    orphans: 3;
+    orphelines: 3;
   }
 
-  /* Corps du document imprimé - POLICE 12pt ET LARGEUR 90% */
+  /* Corps du document imprimé */
   body, .main-content, .content-body {
     background: white !important;
     color: black !important;
     font-size: 12pt !important;
     line-height: 1.4 !important;
-    width: 90% !important; /* LARGEUR RÉDUITE À 90% */
+    width: 90% !important;
     max-width: none !important;
     margin: 0 auto !important;
     padding: 0 !important;
@@ -588,7 +578,7 @@ body {
     clear: both;
     font-size: 11pt !important;
   }
-  
+
   .reponse {
     margin: 1em 0;
     padding: 1em;
@@ -656,18 +646,14 @@ body {
 
   /* IMAGES - ADAPTÉES POUR A4 */
   figure {
-    float: left !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
+    float: none !important;
     max-width: 40% !important;
     width: auto !important;
-    margin: 1em 1.5em 1em 0 !important;
-    border: 1px solid var(--border-color) !important;
-    text-align: center !important;
-    clear: both !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-    overflow: hidden !important;
-    clear: both !important;;
+    margin: 1em auto !important;
+    position: static !important;
+    left: auto !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   figure img {
@@ -737,15 +723,6 @@ body {
     margin-bottom: 0.3em !important;
   }
 
-  /* Pour les écrans mobiles en impression, on conserve le style A4 */
-  @media (max-width: 768px) {
-    figure {
-      float: left !important;
-      max-width: 40% !important;
-      margin: 1em 1.5em 1em 0 !important;
-    }
-  }
-
   /* Supprimer les éléments interactifs */
   .menu-toggle,
   .menu-overlay,
@@ -766,5 +743,16 @@ body {
   }
 }
 
+/* Citation */
+blockquote {
+  background-color: #f9f9f9;
+  border-left: 4px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  font-style: italic;
+  color: #555;
+}
 
-
+blockquote p {
+  display: inline;
+}
