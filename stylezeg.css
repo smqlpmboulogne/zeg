@@ -5,8 +5,6 @@
   --text-color: #1a1a1a;
   --border-color: #ccc;
   --max-content-width: 800px;
-
-  /* Couleurs LaTeX sobres */
   --latex-blue: #1a365d;
   --latex-light-blue: #2c5282;
   --latex-gray: #4a5568;
@@ -60,411 +58,378 @@ body {
     background-color: #fff5f5;
     font-size: 0.9em;
   }
-
   .page-break::before {
     content: "⤵ SAUT DE PAGE (visible à l'impression PDF) ⤵";
   }
 }
 
-/* Fond de page pour l'écran uniquement */
-@media screen {
+/* Conteneur principal */
+.container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* MENU HAMBURGER STYLE LaTeX */
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: var(--latex-blue);
+  color: white;
+  border: none;
+  border-radius: 2px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+.menu-toggle:hover {
+  background: var(--latex-accent);
+  transform: scale(1.05);
+}
+.menu-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+.menu-toggle.active {
+  background: var(--latex-gray);
+}
+.menu-toggle.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* OVERLAY */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 54, 93, 0.7);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* SIDEBAR STYLE LaTeX */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 280px;
+  height: 100vh;
+  background: white;
+  color: var(--latex-dark);
+  padding: 0;
+  z-index: 999;
+  transition: left 0.4s ease;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  border-right: 1px solid var(--border-color);
+}
+.sidebar.active {
+  left: 0;
+}
+.sidebar-header {
+  background: var(--latex-light-gray);
+  padding: 30px 20px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+.sidebar-header h2 {
+  margin: 0;
+  color: var(--latex-dark);
+  font-size: 1.6em;
+  font-weight: 600;
+}
+.sidebar-content {
+  padding: 20px;
+  font-size: 16px;
+}
+
+/* Styles pour la TOC dans le menu */
+.sidebar #TOC {
+  color: var(--latex-dark);
+  font-size: 16px;
+}
+.sidebar #TOC ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar #TOC li {
+  margin-bottom: 8px;
+  border-left: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+.sidebar #TOC li:hover {
+  border-left-color: var(--latex-accent);
+  background: var(--latex-light-gray);
+}
+.sidebar #TOC a {
+  color: var(--latex-dark);
+  text-decoration: none;
+  display: block;
+  padding: 12px 15px;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  font-size: 16px;
+}
+.sidebar #TOC a:hover {
+  color: var(--latex-accent);
+  transform: translateX(3px);
+}
+.sidebar #TOC ul ul {
+  padding-left: 15px;
+}
+.sidebar #TOC ul ul li {
+  margin-bottom: 5px;
+}
+.sidebar #TOC ul ul a {
+  padding: 8px 15px;
+  font-size: 15px;
+}
+
+/* Contenu principal */
+.main-content {
+  flex: 1;
+  padding: 30px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--max-content-width);
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+/* Masquer la TOC générée par Pandoc dans le contenu principal */
+.main-content #TOC {
+  display: none;
+}
+
+/* Titres style LaTeX */
+h1, h2, h3 {
+  color: var(--latex-dark);
+  font-weight: 600;
+}
+h1 {
+  border-bottom: 2px solid var(--latex-accent);
+  padding-bottom: 10px;
+  margin-top: 0;
+  font-size: 2.2em;
+}
+h2 {
+  border-left: 4px solid var(--latex-gray);
+  padding-left: 10px;
+  font-size: 1.8em;
+}
+h3 {
+  font-size: 1.4em;
+}
+
+/* Réponses */
+.reponse {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 0;
+  opacity: 0;
+  height: auto;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  border: 1px dashed var(--border-color);
+  min-height: 20px;
+  clear: both;
+  font-size: 16px;
+}
+.reponse.visible {
+  opacity: 1;
+  background-color: var(--reponse-bg);
+  border: 1px solid var(--latex-gray);
+  clear: both;
+}
+.reponse:hover {
+  background-color: var(--latex-light-gray);
+}
+
+/* Centrage des tableaux */
+table {
+  border-collapse: collapse;
+  font-family: 'EB Garamond', 'Garamond', 'Georgia', serif;
+  font-size: 16px;
+  max-width: 800px;
+  margin: 20px auto;
+  display: table;
+  width: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  clear: both;
+}
+
+/* En-tête du tableau */
+thead {
+  background-color: var(--latex-table-header);
+  color: #ffffff;
+}
+thead th {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+  border: 1px solid var(--latex-table-header);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Corps du tableau */
+tbody td {
+  padding: 12px 15px;
+  border: 1px solid var(--latex-light-gray);
+  color: var(--latex-dark);
+  background-color: white;
+  font-size: 16px;
+}
+
+/* Effet de survol */
+tbody tr:hover {
+  background-color: var(--latex-light-gray);
+  transition: background-color 0.3s ease;
+}
+
+/* Lignes alternées */
+tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+tbody tr:nth-child(even):hover {
+  background-color: var(--latex-light-gray);
+}
+
+/* Figures flottantes avec légende et effets */
+figure {
+  display: table;
+  max-width: 100%;
+  width: 270px;
+  margin: 1em auto 2em;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  shape-outside: margin-box;
+  float: left;
+  clear: both;
+}
+
+figure:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+figcaption {
+  font-size: 0.9em;
+  color: var(--latex-gray);
+  font-style: italic;
+  padding: 8px;
+  background-color: var(--latex-light-gray);
+  text-align: center;
+  display: table-caption;
+  caption-side: bottom;
+}
+
+/* Citation */
+blockquote {
+  background-color: #f9f9f9;
+  border-left: 4px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  font-style: italic;
+  color: #555;
+}
+
+blockquote p {
+  display: inline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   body {
-    background-color: #ffffff;
-    font-size: 17px;
+    font-size: 16px;
   }
-
-  /* Conteneur principal */
-  .container {
+  .main-content {
+    font-size: 16px;
+  }
+  figure {
+    float: none;
+    margin: 1em auto;
     width: 100%;
-    position: relative;
-    display: flex;
-    min-height: 100vh;
+    max-width: 300px;
   }
-
-  /* MENU HAMBURGER STYLE LaTeX */
-  .menu-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: var(--latex-blue);
-    color: white;
-    border: none;
-    border-radius: 2px;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    transition: all 0.3s ease;
+  .reponse {
+    padding-bottom: 40px;
+    clear: both;
   }
-
-  .menu-toggle:hover {
-    background: var(--latex-accent);
-    transform: scale(1.05);
-  }
-
-  .menu-toggle span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background-color: white;
-    border-radius: 0;
-    transition: all 0.3s ease;
-  }
-
-  .menu-toggle.active {
-    background: var(--latex-gray);
-  }
-
-  .menu-toggle.active span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-
-  .menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-
-  .menu-toggle.active span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  /* OVERLAY */
-  .menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(26, 54, 93, 0.7);
-    z-index: 998;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* SIDEBAR STYLE LaTeX */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    width: 280px;
-    height: 100vh;
-    background: white;
-    color: var(--latex-dark);
-    padding: 0;
-    z-index: 999;
-    transition: left 0.4s ease;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    border-right: 1px solid var(--border-color);
-  }
-
-  .sidebar.active {
-    left: 0;
-  }
-
-  .sidebar-header {
-    background: var(--latex-light-gray);
-    padding: 30px 20px 20px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .sidebar-header h2 {
-    margin: 0;
-    color: var(--latex-dark);
-    font-size: 1.6em;
-    font-weight: 600;
-  }
-
-  .sidebar-content {
-    padding: 20px;
-    font-size: 16px;
-  }
-
-  /* Styles pour la TOC dans le menu */
-  .sidebar #TOC {
-    color: var(--latex-dark);
-    font-size: 16px;
-  }
-
-  .sidebar #TOC ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .sidebar #TOC li {
-    margin-bottom: 8px;
-    border-left: 2px solid transparent;
-    transition: all 0.2s ease;
-  }
-
-  .sidebar #TOC li:hover {
-    border-left-color: var(--latex-accent);
-    background: var(--latex-light-gray);
-  }
-
-  .sidebar #TOC a {
-    color: var(--latex-dark);
-    text-decoration: none;
-    display: block;
-    padding: 12px 15px;
-    transition: all 0.2s ease;
-    border-radius: 0;
-    font-size: 16px;
-  }
-
-  .sidebar #TOC a:hover {
-    color: var(--latex-accent);
-    transform: translateX(3px);
-  }
-
-  .sidebar #TOC ul ul {
-    padding-left: 15px;
-  }
-
-  .sidebar #TOC ul ul li {
-    margin-bottom: 5px;
-  }
-
-  .sidebar #TOC ul ul a {
-    padding: 8px 15px;
+  table {
+    margin: 15px auto;
     font-size: 15px;
   }
+  thead th,
+  tbody td {
+    padding: 8px 10px;
+  }
+}
 
-  /* Contenu principal */
+@media (max-width: 480px) {
+  body {
+    font-size: 15px;
+  }
   .main-content {
-    flex: 1;
-    padding: 30px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: var(--max-content-width);
-    box-sizing: border-box;
-    font-size: 17px;
+    font-size: 15px;
   }
-
-  /* Masquer la TOC générée par Pandoc dans le contenu principal */
-  .main-content #TOC {
-    display: none;
+  .sidebar {
+    width: 90%;
+    left: -90%;
   }
-
-  /* Titres style LaTeX */
-  h1, h2, h3 {
-    color: var(--latex-dark);
-    font-weight: 600;
+  .sidebar-header {
+    padding: 25px 15px 15px;
   }
-
-  h1 {
-    border-bottom: 2px solid var(--latex-accent);
-    padding-bottom: 10px;
-    margin-top: 0;
-    font-size: 2.2em;
-  }
-
-  h2 {
-    border-left: 4px solid var(--latex-gray);
-    padding-left: 10px;
-    font-size: 1.8em;
-  }
-
-  h3 {
+  .sidebar-header h2 {
     font-size: 1.4em;
   }
-
-  /* Réponses */
-  .reponse {
-    margin: 20px 0;
-    padding: 15px;
-    border-radius: 0;
-    opacity: 0;
-    height: auto;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
-    border: 1px dashed var(--border-color);
-    min-height: 20px;
-    clear: both;
-    font-size: 16px;
-  }
-
-  .reponse.visible {
-    opacity: 1;
-    background-color: var(--reponse-bg);
-    border: 1px solid var(--latex-gray);
-    clear: both;
-  }
-
-  .reponse:hover {
-    background-color: var(--latex-light-gray);
-  }
-
-  /* Centrage des tableaux */
   table {
-    border-collapse: collapse;
-    font-family: 'EB Garamond', 'Garamond', 'Georgia', serif;
-    font-size: 16px;
-    max-width: 800px;
-    margin: 20px auto;
-    display: table;
-    width: auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    clear: both;
+    font-size: 14px;
   }
-
-  /* En-tête du tableau avec nouvelles couleurs */
-  thead {
-    background-color: var(--latex-table-header);
-    color: #ffffff;
-  }
-
-  thead th {
-    padding: 12px 15px;
-    text-align: left;
-    font-weight: bold;
-    border: 1px solid var(--latex-table-header);
-    font-weight: 600;
-    font-size: 16px;
-  }
-
-  /* Corps du tableau */
+  thead th,
   tbody td {
-    padding: 12px 15px;
-    border: 1px solid var(--latex-light-gray);
-    color: var(--latex-dark);
-    background-color: white;
-    font-size: 16px;
-  }
-
-  /* Effet de survol */
-  tbody tr:hover {
-    background-color: var(--latex-light-gray);
-    transition: background-color 0.3s ease;
-  }
-
-  /* Lignes alternées pour meilleure lisibilité */
-  tbody tr:nth-child(even) {
-    background-color: #fafafa;
-  }
-
-  tbody tr:nth-child(even):hover {
-    background-color: var(--latex-light-gray);
-  }
-
-  /* Images flottantes avec légende et effets */
-  figure {
-    float: left;
-    page-break-inside: avoid;
-    break-inside: avoid;
-    max-width: 100%;
-    width: 270px;
-    margin: 1em 0 2em -135px; /* Marge négative pour centrer */
-    border: 1px solid var(--border-color);
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
-    shape-outside: margin-box; /* Permet au texte de s'enrouler autour */
-    position: relative;
-    left: 50%; /* Décale la figure de 50% vers la droite */
-    clear: both;
-  }
-
-  figure:hover {
-    transform: scale(1.03);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-  }
-
-  figure img {
-    width: 100%;
-    height: auto;
-    display: block;
-    clear: both;
-  }
-
-  figcaption {
-    font-size: 0.9em;
-    color: var(--latex-gray);
-    font-style: italic;
-    padding: 8px;
-    background-color: var(--latex-light-gray);
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    body {
-      font-size: 16px;
-    }
-
-    .main-content {
-      font-size: 16px;
-    }
-
-    figure {
-      float: none;
-      margin: 1em auto;
-      width: 100%;
-      max-width: 300px;
-      position: static;
-      left: auto;
-    }
-
-    .reponse {
-      padding-bottom: 40px;
-      clear: both;
-    }
-
-    table {
-      margin: 15px auto;
-      font-size: 15px;
-    }
-
-    thead th,
-    tbody td {
-      padding: 8px 10px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    body {
-      font-size: 15px;
-    }
-
-    .main-content {
-      font-size: 15px;
-    }
-
-    .sidebar {
-      width: 90%;
-      left: -90%;
-    }
-
-    .sidebar-header {
-      padding: 25px 15px 15px;
-    }
-
-    .sidebar-header h2 {
-      font-size: 1.4em;
-    }
-
-    table {
-      font-size: 14px;
-    }
-
-    thead th,
-    tbody td {
-      padding: 6px 8px;
-    }
+    padding: 6px 8px;
   }
 }
 
@@ -520,7 +485,7 @@ body {
   /* Éviter les veuves et orphelines */
   p, li {
     widows: 3;
-    orphelines: 3;
+    orphans: 3;
   }
 
   /* Corps du document imprimé */
@@ -647,13 +612,13 @@ body {
   /* IMAGES - ADAPTÉES POUR A4 */
   figure {
     float: none !important;
+    display: block !important;
     max-width: 40% !important;
     width: auto !important;
     margin: 1em auto !important;
-    position: static !important;
-    left: auto !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
+    text-align: center !important;
   }
 
   figure img {
@@ -665,6 +630,9 @@ body {
   }
 
   figcaption {
+    text-align: center !important;
+    display: block !important;
+    width: 100% !important;
     font-size: 9pt !important;
     color: var(--latex-gray) !important;
     font-style: italic !important;
@@ -741,18 +709,4 @@ body {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-}
-
-/* Citation */
-blockquote {
-  background-color: #f9f9f9;
-  border-left: 4px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-  font-style: italic;
-  color: #555;
-}
-
-blockquote p {
-  display: inline;
 }
