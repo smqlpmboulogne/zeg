@@ -1,39 +1,26 @@
-/* ===== VARIABLES ET CONFIGURATION - VERSION GAIE ===== */
+/* ===== VARIABLES ET CONFIGURATION - STYLE MARITIME SCOLAIRE ===== */
 :root {
-  /* Palette de couleurs gaies et vibrantes */
-  --primary-color: #2d5aa0;
-  --secondary-color: #e91e63;
-  --accent-color: #ff9800;
-  --success-color: #4caf50;
-  --warning-color: #ffc107;
+  /* Palette de couleurs maritime */
+  --blue-deep: #1a4b8c;
+  --blue-ocean: #2d6ba0;
+  --blue-sky: #4a90d9;
+  --blue-light: #87ceeb;
+  --blue-very-light: #e1f5fe;
   
-  /* Tons de bleu joyeux */
-  --blue-dark: #1e4a7b;
-  --blue-medium: #2d5aa0;
-  --blue-light: #4fc3f7;
-  --blue-very-light: #e3f2fd;
+  --sand-light: #f5f2e8;
+  --sand-medium: #e8e1d1;
+  --sand-dark: #d4c9a9;
   
-  /* Tons de rose/violet */
-  --pink-dark: #ad1457;
-  --pink-medium: #e91e63;
-  --pink-light: #f48fb1;
-  --pink-very-light: #fce4ec;
-  
-  /* Tons de vert */
-  --green-medium: #4caf50;
-  --green-light: #a5d6a7;
-  --green-very-light: #e8f5e8;
-  
-  /* Tons d'orange */
-  --orange-medium: #ff9800;
-  --orange-light: #ffcc80;
-  --orange-very-light: #fff3e0;
+  --sea-green: #2a9d8f;
+  --sea-green-light: #a8e6cf;
+  --coral: #e76f51;
+  --coral-light: #f4a261;
   
   /* Couleurs fonctionnelles */
   --text-color: #2c3e50;
-  --border-color: #e0e0e0;
+  --border-color: #c5d7e8;
   --reponse-bg: var(--blue-very-light);
-  --table-header: var(--blue-medium);
+  --table-header: var(--blue-ocean);
   
   /* Dimensions */
   --max-content-width: 800px;
@@ -51,18 +38,18 @@
   --transition-slow: 0.4s ease;
   
   /* Ombres */
-  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-heavy: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-light: 0 2px 8px rgba(26, 75, 140, 0.1);
+  --shadow-medium: 0 4px 12px rgba(26, 75, 140, 0.15);
+  --shadow-heavy: 0 8px 24px rgba(26, 75, 140, 0.2);
   
   /* Bordures arrondies */
-  --border-radius-small: 8px;
-  --border-radius-medium: 12px;
-  --border-radius-large: 16px;
+  --border-radius-small: 6px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
 }
 
-/* ===== TYPOGRAPHIE ET BASE - POLICE PLUS GAIE ===== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+/* ===== TYPOGRAPHIE ET BASE - STYLE SCOLAIRE LISIBLE ===== */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -74,10 +61,10 @@ html {
 }
 
 body {
-  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: 'Source Sans Pro', 'Segoe UI', system-ui, -apple-system, sans-serif;
   line-height: var(--line-height-base);
   color: var(--text-color);
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #e1f5fe 100%);
   margin: 0;
   padding: 0;
   display: flex;
@@ -88,24 +75,24 @@ body {
 /* ===== COMPOSANTS RÉUTILISABLES ===== */
 .cadre {
   padding: 1.5em;
-  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--pink-very-light) 100%);
-  border-left: 6px solid var(--accent-color);
+  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--sea-green-light) 100%);
+  border-left: 4px solid var(--blue-ocean);
   margin: 2em 0;
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-light);
   border-radius: var(--border-radius-medium);
   clear: both;
   position: relative;
-  overflow: hidden;
+  border: 1px solid var(--border-color);
 }
 
 .cadre::before {
-  content: "";
+  content: "📚";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--blue-medium), var(--pink-medium), var(--accent-color));
+  top: -12px;
+  left: 20px;
+  background: white;
+  padding: 0 10px;
+  font-size: 1.2em;
 }
 
 /* ===== LAYOUT PRINCIPAL ===== */
@@ -123,9 +110,10 @@ body {
   width: 100%;
   max-width: var(--max-content-width);
   background: white;
-  box-shadow: var(--shadow-heavy);
+  box-shadow: var(--shadow-medium);
   border-radius: var(--border-radius-large);
   margin: 2rem auto;
+  border: 1px solid var(--border-color);
 }
 
 /* Masquer la TOC générée par Pandoc */
@@ -133,57 +121,58 @@ body {
   display: none;
 }
 
-/* ===== NAVIGATION ET SIDEBAR - STYLE GAI ===== */
+/* ===== NAVIGATION ET SIDEBAR - STYLE MARITIME ===== */
 .menu-toggle {
   position: fixed;
   top: 1.5rem;
   left: 1.5rem;
-  background: linear-gradient(135deg, var(--blue-medium) 0%, var(--pink-medium) 100%);
+  background: linear-gradient(135deg, var(--blue-ocean) 0%, var(--sea-green) 100%);
   color: white;
   border: none;
-  border-radius: var(--border-radius-large);
+  border-radius: var(--border-radius-medium);
   width: 3.5rem;
   height: 3.5rem;
   cursor: pointer;
   z-index: 1000;
-  box-shadow: var(--shadow-heavy);
+  box-shadow: var(--shadow-medium);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.3rem;
   transition: all var(--transition-normal);
+  font-family: 'Merriweather', serif;
 }
 
 .menu-toggle:hover {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(45, 107, 160, 0.3);
 }
 
 .menu-toggle span {
   display: block;
   width: 1.5rem;
-  height: 3px;
+  height: 2px;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 1px;
   transition: all var(--transition-normal);
 }
 
-/* Sidebar style gai */
+/* Sidebar style maritime */
 .sidebar {
   position: fixed;
   top: 0;
   left: -320px;
   width: 300px;
   height: 100vh;
-  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(180deg, var(--blue-deep) 0%, var(--blue-ocean) 100%);
   color: white;
   padding: 0;
   z-index: 999;
   transition: left var(--transition-slow);
   box-shadow: var(--shadow-heavy);
   overflow-y: auto;
-  border-radius: 0 var(--border-radius-large) var(--border-radius-large) 0;
+  border-right: 3px solid var(--sea-green);
 }
 
 .sidebar.active {
@@ -201,50 +190,61 @@ body {
 .sidebar-header h2 {
   margin: 0;
   color: white;
-  font-size: 1.8em;
-  font-weight: 700;
-  font-family: 'Playfair Display', serif;
+  font-size: 1.6em;
+  font-weight: 600;
+  font-family: 'Merriweather', serif;
 }
 
-/* ===== TYPOGRAPHIE GAIE ===== */
+/* ===== TYPOGRAPHIE SCOLAIRE ===== */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', 'Georgia', serif;
+  font-family: 'Merriweather', 'Georgia', serif;
   font-weight: 600;
   line-height: 1.3;
   margin-top: 0;
-  color: var(--blue-dark);
+  color: var(--blue-deep);
 }
 
 h1 {
-  font-size: 2.5em;
-  background: linear-gradient(135deg, var(--blue-medium) 0%, var(--pink-medium) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 2.2em;
+  color: var(--blue-deep);
   padding-bottom: 0.5rem;
   margin-bottom: 2rem;
   text-align: center;
+  border-bottom: 3px double var(--blue-ocean);
+  position: relative;
+}
+
+h1::after {
+  content: "⚓";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 0 15px;
+  font-size: 1.2em;
 }
 
 h2 {
-  font-size: 2em;
-  border-left: 6px solid var(--accent-color);
+  font-size: 1.8em;
+  border-left: 4px solid var(--sea-green);
   padding-left: 1rem;
   margin: 2.5rem 0 1.5rem 0;
-  background: var(--orange-very-light);
+  background: var(--blue-very-light);
   padding: 1rem 1.5rem;
-  border-radius: var(--border-radius-medium);
+  border-radius: var(--border-radius-small);
+  border: 1px solid var(--border-color);
 }
 
 h3 {
-  font-size: 1.6em;
-  color: var(--pink-medium);
+  font-size: 1.4em;
+  color: var(--blue-ocean);
   margin: 2rem 0 1rem 0;
   padding-bottom: 0.5rem;
-  border-bottom: 2px dashed var(--pink-light);
+  border-bottom: 2px solid var(--blue-light);
 }
 
-/* ===== IMAGES CENTRÉES SANS FLOTTEMENT ===== */
+/* ===== FIGURES CENTRÉES - STYLE SCOLAIRE MARITIME ===== */
 .figure-container {
   display: block;
   margin: 2.5rem auto;
@@ -256,10 +256,10 @@ h3 {
 figure {
   display: inline-block;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 1.5rem auto;
   border: 2px solid var(--blue-light);
   text-align: center;
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-light);
   transition: all var(--transition-normal);
   overflow: hidden;
   page-break-inside: avoid;
@@ -268,6 +268,18 @@ figure {
   background: white;
   position: relative;
   clear: both;
+}
+
+/* Encadrement style maritime pour les figures */
+figure::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue-ocean), var(--sea-green));
+  z-index: 2;
 }
 
 /* Tailles d'images modulables */
@@ -288,9 +300,9 @@ figure.full {
 }
 
 figure:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-heavy);
-  border-color: var(--accent-color);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+  border-color: var(--sea-green);
 }
 
 figure img {
@@ -301,19 +313,26 @@ figure img {
 }
 
 figure:hover img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 figcaption {
-  font-size: 0.95em;
-  color: var(--blue-dark);
-  font-style: italic;
-  padding: 1rem;
-  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--green-very-light) 100%);
+  font-size: 0.9em;
+  color: var(--blue-deep);
+  font-style: normal;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--sand-light) 100%);
   text-align: center;
   display: block;
   font-weight: 500;
-  border-top: 2px solid var(--blue-light);
+  border-top: 1px solid var(--blue-light);
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Indicateur visuel pour les figures */
+figcaption::before {
+  content: "📷 ";
+  font-size: 0.9em;
 }
 
 /* Groupes d'images côte à côte */
@@ -333,7 +352,7 @@ figcaption {
   margin: 0;
 }
 
-/* ===== RÉPONSES INTERACTIVES COLORÉES ===== */
+/* ===== RÉPONSES INTERACTIVES STYLE SCOLAIRE ===== */
 .reponse {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -348,12 +367,13 @@ figcaption {
   position: relative;
   overflow: hidden;
   clear: both;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .reponse::before {
   content: "💡 Cliquez pour voir la réponse";
-  font-size: 0.9em;
-  color: var(--blue-medium);
+  font-size: 0.85em;
+  color: var(--blue-ocean);
   position: absolute;
   top: -0.7em;
   left: 1em;
@@ -361,70 +381,60 @@ figcaption {
   padding: 0.3em 1em;
   font-weight: 600;
   border-radius: var(--border-radius-small);
-  border: 2px solid var(--blue-light);
+  border: 1px solid var(--blue-light);
 }
 
 .reponse.visible {
   opacity: 1;
-  background: linear-gradient(135deg, var(--green-very-light) 0%, var(--blue-very-light) 100%);
-  border: 2px solid var(--success-color);
-  transform: scale(1.02);
+  background: linear-gradient(135deg, var(--sea-green-light) 0%, var(--blue-very-light) 100%);
+  border: 2px solid var(--sea-green);
+  transform: scale(1.01);
 }
 
 .reponse.visible::before {
   content: "📖 Réponse";
-  color: var(--success-color);
-  border-color: var(--success-color);
+  color: var(--sea-green);
+  border-color: var(--sea-green);
 }
 
 .reponse:hover {
-  background: linear-gradient(135deg, var(--orange-very-light) 0%, var(--pink-very-light) 100%);
-  border-color: var(--accent-color);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, var(--sand-light) 0%, var(--blue-very-light) 100%);
+  border-color: var(--coral-light);
 }
 
-/* ===== TABLEAUX COLORÉS ===== */
+/* ===== TABLEAUX STYLE MARITIME ===== */
 table {
-  border-collapse: separate;
-  border-spacing: 0;
-  font-family: inherit;
+  border-collapse: collapse;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: var(--font-size-base);
   max-width: 100%;
   margin: 2rem auto;
   width: auto;
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-light);
   border-radius: var(--border-radius-medium);
   overflow: hidden;
   background: white;
   clear: both;
+  border: 1px solid var(--border-color);
 }
 
 thead {
-  background: linear-gradient(135deg, var(--blue-medium) 0%, var(--pink-medium) 100%);
+  background: linear-gradient(135deg, var(--blue-ocean) 0%, var(--blue-deep) 100%);
   color: white;
 }
 
 thead th {
-  padding: 1.2rem 1.5rem;
+  padding: 1rem 1.2rem;
   text-align: left;
   font-weight: 600;
   border: none;
-  font-size: 1.1em;
+  font-size: 1em;
   position: relative;
-}
-
-thead th::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 1.5rem;
-  right: 1.5rem;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.5);
+  font-family: 'Merriweather', serif;
 }
 
 tbody td {
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1.2rem;
   border: none;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-color);
@@ -434,48 +444,48 @@ tbody td {
 
 tbody tr:hover {
   background-color: var(--blue-very-light);
-  transform: scale(1.01);
 }
 
 tbody tr:nth-child(even) {
-  background-color: #fafafa;
+  background-color: var(--sand-light);
 }
 
 tbody tr:nth-child(even):hover {
   background-color: var(--blue-very-light);
 }
 
-/* ===== CITATIONS STYLISÉES ===== */
+/* ===== CITATIONS STYLE MARITIME ===== */
 blockquote {
-  background: linear-gradient(135deg, var(--pink-very-light) 0%, var(--orange-very-light) 100%);
-  border-left: 6px solid var(--pink-medium);
+  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--sand-light) 100%);
+  border-left: 4px solid var(--sea-green);
   margin: 2rem 0;
-  padding: 2rem 2rem 2rem 4rem;
+  padding: 1.5rem 1.5rem 1.5rem 3rem;
   font-style: italic;
   color: var(--text-color);
   position: relative;
   border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
   box-shadow: var(--shadow-light);
   clear: both;
+  border: 1px solid var(--border-color);
 }
 
 blockquote::before {
   content: """;
-  font-size: 4em;
-  color: var(--pink-medium);
+  font-size: 3em;
+  color: var(--sea-green);
   position: absolute;
-  left: 1rem;
+  left: 0.5rem;
   top: 0.5rem;
   line-height: 1;
-  opacity: 0.3;
-  font-family: 'Playfair Display', serif;
+  opacity: 0.5;
+  font-family: 'Merriweather', serif;
 }
 
 blockquote p {
   display: inline;
   margin: 0;
   font-size: 1.1em;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* ===== RÉACTIVITÉ ===== */
@@ -502,15 +512,15 @@ blockquote p {
   }
   
   h1 {
-    font-size: 2em;
+    font-size: 1.8em;
   }
   
   h2 {
-    font-size: 1.6em;
+    font-size: 1.5em;
   }
   
   h3 {
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
 }
 
@@ -518,6 +528,7 @@ blockquote p {
   .main-content {
     padding: 1rem;
     margin: 0.5rem;
+    border-radius: var(--border-radius-small);
   }
   
   .menu-toggle {
@@ -545,12 +556,14 @@ blockquote p {
     border-radius: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
+    border: none !important;
   }
   
   figure {
     break-inside: avoid;
     margin: 1em auto !important;
     max-width: 80% !important;
+    border: 1px solid #ccc !important;
   }
   
   .image-grid {
@@ -561,13 +574,19 @@ blockquote p {
     margin: 1em auto !important;
     max-width: 80% !important;
   }
+  
+  /* Masquer les éléments interactifs */
+  .menu-toggle,
+  .sidebar {
+    display: none !important;
+  }
 }
 
-/* Animation d'entrée pour les éléments */
+/* Animation subtile pour les éléments */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -576,12 +595,27 @@ blockquote p {
 }
 
 .main-content > * {
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.4s ease-out;
 }
 
-/* Clearfix pour assurer la propreté du layout */
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
+/* Style pour les listes */
+ul, ol {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Style pour les liens */
+a {
+  color: var(--blue-ocean);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--blue-light);
+  transition: all var(--transition-fast);
+}
+
+a:hover {
+  color: var(--sea-green);
+  border-bottom: 1px solid var(--sea-green);
 }
