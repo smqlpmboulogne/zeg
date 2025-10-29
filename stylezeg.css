@@ -1,26 +1,24 @@
-/* ===== VARIABLES ET CONFIGURATION - STYLE MARITIME SCOLAIRE ===== */
+/* ===== VARIABLES ET CONFIGURATION - STYLE SCOLAIRE SOBRE ===== */
 :root {
-  /* Palette de couleurs maritime */
-  --blue-deep: #1a4b8c;
-  --blue-ocean: #2d6ba0;
-  --blue-sky: #4a90d9;
-  --blue-light: #87ceeb;
-  --blue-very-light: #e1f5fe;
+  /* Palette de couleurs sobre et professionnelle */
+  --blue-dark: #1a365d;
+  --blue-medium: #2c5282;
+  --blue-light: #4299e1;
+  --blue-very-light: #ebf8ff;
   
-  --sand-light: #f5f2e8;
-  --sand-medium: #e8e1d1;
-  --sand-dark: #d4c9a9;
+  --gray-dark: #2d3748;
+  --gray-medium: #4a5568;
+  --gray-light: #e2e8f0;
+  --gray-very-light: #f7fafc;
   
-  --sea-green: #2a9d8f;
-  --sea-green-light: #a8e6cf;
-  --coral: #e76f51;
-  --coral-light: #f4a261;
+  --accent-color: #2b6cb0;
+  --success-color: #38a169;
+  --border-color: #cbd5e0;
   
   /* Couleurs fonctionnelles */
-  --text-color: #2c3e50;
-  --border-color: #c5d7e8;
-  --reponse-bg: var(--blue-very-light);
-  --table-header: var(--blue-ocean);
+  --text-color: var(--gray-dark);
+  --reponse-bg: var(--gray-very-light);
+  --table-header: var(--blue-medium);
   
   /* Dimensions */
   --max-content-width: 800px;
@@ -35,21 +33,17 @@
   /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
-  --transition-slow: 0.4s ease;
   
   /* Ombres */
-  --shadow-light: 0 2px 8px rgba(26, 75, 140, 0.1);
-  --shadow-medium: 0 4px 12px rgba(26, 75, 140, 0.15);
-  --shadow-heavy: 0 8px 24px rgba(26, 75, 140, 0.2);
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 2px 4px rgba(0, 0, 0, 0.1);
   
-  /* Bordures arrondies */
-  --border-radius-small: 6px;
-  --border-radius-medium: 8px;
-  --border-radius-large: 12px;
+  /* Bordures */
+  --border-radius: 4px;
 }
 
-/* ===== TYPOGRAPHIE ET BASE - STYLE SCOLAIRE LISIBLE ===== */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+/* ===== TYPOGRAPHIE ET BASE - STYLE SCOLAIRE PROFESSIONNEL ===== */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -64,7 +58,7 @@ body {
   font-family: 'Source Sans Pro', 'Segoe UI', system-ui, -apple-system, sans-serif;
   line-height: var(--line-height-base);
   color: var(--text-color);
-  background: linear-gradient(135deg, #f8fafc 0%, #e1f5fe 100%);
+  background-color: #f8f9fa;
   margin: 0;
   padding: 0;
   display: flex;
@@ -75,24 +69,13 @@ body {
 /* ===== COMPOSANTS RÉUTILISABLES ===== */
 .cadre {
   padding: 1.5em;
-  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--sea-green-light) 100%);
-  border-left: 4px solid var(--blue-ocean);
+  background-color: var(--gray-very-light);
+  border-left: 4px solid var(--blue-medium);
   margin: 2em 0;
   box-shadow: var(--shadow-light);
-  border-radius: var(--border-radius-medium);
+  border-radius: var(--border-radius);
   clear: both;
-  position: relative;
   border: 1px solid var(--border-color);
-}
-
-.cadre::before {
-  content: "📚";
-  position: absolute;
-  top: -12px;
-  left: 20px;
-  background: white;
-  padding: 0 10px;
-  font-size: 1.2em;
 }
 
 /* ===== LAYOUT PRINCIPAL ===== */
@@ -111,9 +94,7 @@ body {
   max-width: var(--max-content-width);
   background: white;
   box-shadow: var(--shadow-medium);
-  border-radius: var(--border-radius-large);
   margin: 2rem auto;
-  border: 1px solid var(--border-color);
 }
 
 /* Masquer la TOC générée par Pandoc */
@@ -121,17 +102,17 @@ body {
   display: none;
 }
 
-/* ===== NAVIGATION ET SIDEBAR - STYLE MARITIME ===== */
+/* ===== NAVIGATION ET SIDEBAR - STYLE SOBRE ===== */
 .menu-toggle {
   position: fixed;
   top: 1.5rem;
   left: 1.5rem;
-  background: linear-gradient(135deg, var(--blue-ocean) 0%, var(--sea-green) 100%);
+  background-color: var(--blue-medium);
   color: white;
   border: none;
-  border-radius: var(--border-radius-medium);
-  width: 3.5rem;
-  height: 3.5rem;
+  border-radius: var(--border-radius);
+  width: 3rem;
+  height: 3rem;
   cursor: pointer;
   z-index: 1000;
   box-shadow: var(--shadow-medium);
@@ -139,40 +120,38 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.25rem;
   transition: all var(--transition-normal);
-  font-family: 'Merriweather', serif;
 }
 
 .menu-toggle:hover {
+  background-color: var(--blue-dark);
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(45, 107, 160, 0.3);
 }
 
 .menu-toggle span {
   display: block;
-  width: 1.5rem;
+  width: 1.25rem;
   height: 2px;
   background-color: white;
-  border-radius: 1px;
   transition: all var(--transition-normal);
 }
 
-/* Sidebar style maritime */
+/* Sidebar style sobre */
 .sidebar {
   position: fixed;
   top: 0;
-  left: -320px;
-  width: 300px;
+  left: -300px;
+  width: var(--sidebar-width);
   height: 100vh;
-  background: linear-gradient(180deg, var(--blue-deep) 0%, var(--blue-ocean) 100%);
-  color: white;
+  background: white;
+  color: var(--text-color);
   padding: 0;
   z-index: 999;
-  transition: left var(--transition-slow);
-  box-shadow: var(--shadow-heavy);
+  transition: left var(--transition-normal);
+  box-shadow: var(--shadow-medium);
   overflow-y: auto;
-  border-right: 3px solid var(--sea-green);
+  border-right: 1px solid var(--border-color);
 }
 
 .sidebar.active {
@@ -180,71 +159,57 @@ body {
 }
 
 .sidebar-header {
-  background: rgba(255, 255, 255, 0.1);
+  background-color: var(--gray-very-light);
   padding: 2rem 1.5rem 1.5rem;
   text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .sidebar-header h2 {
   margin: 0;
-  color: white;
-  font-size: 1.6em;
+  color: var(--blue-dark);
+  font-size: 1.5em;
   font-weight: 600;
   font-family: 'Merriweather', serif;
 }
 
-/* ===== TYPOGRAPHIE SCOLAIRE ===== */
+/* ===== TYPOGRAPHIE SOBRE ===== */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Merriweather', 'Georgia', serif;
   font-weight: 600;
   line-height: 1.3;
   margin-top: 0;
-  color: var(--blue-deep);
+  color: var(--blue-dark);
 }
 
 h1 {
-  font-size: 2.2em;
-  color: var(--blue-deep);
+  font-size: 2em;
+  color: var(--blue-dark);
   padding-bottom: 0.5rem;
   margin-bottom: 2rem;
   text-align: center;
-  border-bottom: 3px double var(--blue-ocean);
-  position: relative;
-}
-
-h1::after {
-  content: "⚓";
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 0 15px;
-  font-size: 1.2em;
-}
-
-h2 {
-  font-size: 1.8em;
-  border-left: 4px solid var(--sea-green);
-  padding-left: 1rem;
-  margin: 2.5rem 0 1.5rem 0;
-  background: var(--blue-very-light);
-  padding: 1rem 1.5rem;
-  border-radius: var(--border-radius-small);
-  border: 1px solid var(--border-color);
-}
-
-h3 {
-  font-size: 1.4em;
-  color: var(--blue-ocean);
-  margin: 2rem 0 1rem 0;
-  padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--blue-light);
 }
 
-/* ===== FIGURES CENTRÉES - STYLE SCOLAIRE MARITIME ===== */
+h2 {
+  font-size: 1.6em;
+  border-left: 4px solid var(--blue-medium);
+  padding-left: 1rem;
+  margin: 2.5rem 0 1.5rem 0;
+  background-color: var(--gray-very-light);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+}
+
+h3 {
+  font-size: 1.3em;
+  color: var(--blue-medium);
+  margin: 2rem 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--gray-light);
+}
+
+/* ===== FIGURES PARFAITEMENT CENTRÉES ===== */
 .figure-container {
   display: block;
   margin: 2.5rem auto;
@@ -254,32 +219,16 @@ h3 {
 }
 
 figure {
-  display: inline-block;
+  display: block;
   max-width: 100%;
-  margin: 1.5rem auto;
-  border: 2px solid var(--blue-light);
+  margin: 2rem auto;
   text-align: center;
   box-shadow: var(--shadow-light);
-  transition: all var(--transition-normal);
-  overflow: hidden;
   page-break-inside: avoid;
   break-inside: avoid;
-  border-radius: var(--border-radius-medium);
   background: white;
   position: relative;
   clear: both;
-}
-
-/* Encadrement style maritime pour les figures */
-figure::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--blue-ocean), var(--sea-green));
-  z-index: 2;
 }
 
 /* Tailles d'images modulables */
@@ -299,47 +248,31 @@ figure.full {
   max-width: 100%;
 }
 
-figure:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-medium);
-  border-color: var(--sea-green);
-}
-
 figure img {
   display: block;
   width: 100%;
   height: auto;
-  transition: transform var(--transition-normal);
-}
-
-figure:hover img {
-  transform: scale(1.02);
+  margin: 0 auto;
 }
 
 figcaption {
   font-size: 0.9em;
-  color: var(--blue-deep);
+  color: var(--gray-medium);
   font-style: normal;
-  padding: 0.8rem 1rem;
-  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--sand-light) 100%);
+  padding: 1rem;
+  background-color: var(--gray-very-light);
   text-align: center;
   display: block;
-  font-weight: 500;
-  border-top: 1px solid var(--blue-light);
+  font-weight: 400;
+  border-top: 1px solid var(--border-color);
   font-family: 'Source Sans Pro', sans-serif;
-}
-
-/* Indicateur visuel pour les figures */
-figcaption::before {
-  content: "📷 ";
-  font-size: 0.9em;
 }
 
 /* Groupes d'images côte à côte */
 .image-grid {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 2rem;
   margin: 2.5rem auto;
   flex-wrap: wrap;
   clear: both;
@@ -352,18 +285,18 @@ figcaption::before {
   margin: 0;
 }
 
-/* ===== RÉPONSES INTERACTIVES STYLE SCOLAIRE ===== */
+/* ===== RÉPONSES INTERACTIVES STYLE SOBRE ===== */
 .reponse {
   margin: 2rem 0;
   padding: 1.5rem;
-  border-radius: var(--border-radius-medium);
+  border-radius: var(--border-radius);
   opacity: 0;
   height: auto;
   transition: all var(--transition-normal);
   cursor: pointer;
-  border: 2px dashed var(--blue-light);
+  border: 1px dashed var(--border-color);
   min-height: 3rem;
-  background: var(--blue-very-light);
+  background-color: var(--gray-very-light);
   position: relative;
   overflow: hidden;
   clear: both;
@@ -371,47 +304,45 @@ figcaption::before {
 }
 
 .reponse::before {
-  content: "💡 Cliquez pour voir la réponse";
-  font-size: 0.85em;
-  color: var(--blue-ocean);
+  content: "Cliquez pour voir la réponse";
+  font-size: 0.8em;
+  color: var(--gray-medium);
   position: absolute;
-  top: -0.7em;
+  top: -0.6em;
   left: 1em;
   background: white;
-  padding: 0.3em 1em;
-  font-weight: 600;
-  border-radius: var(--border-radius-small);
-  border: 1px solid var(--blue-light);
+  padding: 0.2em 0.8em;
+  font-weight: 500;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
 }
 
 .reponse.visible {
   opacity: 1;
-  background: linear-gradient(135deg, var(--sea-green-light) 0%, var(--blue-very-light) 100%);
-  border: 2px solid var(--sea-green);
-  transform: scale(1.01);
+  background-color: var(--blue-very-light);
+  border: 1px solid var(--blue-light);
 }
 
 .reponse.visible::before {
-  content: "📖 Réponse";
-  color: var(--sea-green);
-  border-color: var(--sea-green);
+  content: "Réponse";
+  color: var(--blue-medium);
+  border-color: var(--blue-light);
 }
 
 .reponse:hover {
-  background: linear-gradient(135deg, var(--sand-light) 0%, var(--blue-very-light) 100%);
-  border-color: var(--coral-light);
+  background-color: var(--gray-light);
 }
 
-/* ===== TABLEAUX STYLE MARITIME ===== */
+/* ===== TABLEAUX STYLE SOBRE ===== */
 table {
   border-collapse: collapse;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: var(--font-size-base);
+  font-size: 0.95em;
   max-width: 100%;
   margin: 2rem auto;
   width: auto;
   box-shadow: var(--shadow-light);
-  border-radius: var(--border-radius-medium);
+  border-radius: var(--border-radius);
   overflow: hidden;
   background: white;
   clear: both;
@@ -419,7 +350,7 @@ table {
 }
 
 thead {
-  background: linear-gradient(135deg, var(--blue-ocean) 0%, var(--blue-deep) 100%);
+  background-color: var(--table-header);
   color: white;
 }
 
@@ -428,8 +359,6 @@ thead th {
   text-align: left;
   font-weight: 600;
   border: none;
-  font-size: 1em;
-  position: relative;
   font-family: 'Merriweather', serif;
 }
 
@@ -439,40 +368,34 @@ tbody td {
   border-bottom: 1px solid var(--border-color);
   color: var(--text-color);
   background-color: white;
-  transition: all var(--transition-fast);
 }
 
 tbody tr:hover {
-  background-color: var(--blue-very-light);
+  background-color: var(--gray-very-light);
 }
 
 tbody tr:nth-child(even) {
-  background-color: var(--sand-light);
+  background-color: var(--gray-very-light);
 }
 
-tbody tr:nth-child(even):hover {
-  background-color: var(--blue-very-light);
-}
-
-/* ===== CITATIONS STYLE MARITIME ===== */
+/* ===== CITATIONS STYLE SOBRE ===== */
 blockquote {
-  background: linear-gradient(135deg, var(--blue-very-light) 0%, var(--sand-light) 100%);
-  border-left: 4px solid var(--sea-green);
+  background-color: var(--gray-very-light);
+  border-left: 4px solid var(--blue-medium);
   margin: 2rem 0;
-  padding: 1.5rem 1.5rem 1.5rem 3rem;
+  padding: 1.5rem 1.5rem 1.5rem 2.5rem;
   font-style: italic;
   color: var(--text-color);
   position: relative;
-  border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
-  box-shadow: var(--shadow-light);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
   clear: both;
   border: 1px solid var(--border-color);
 }
 
 blockquote::before {
   content: """;
-  font-size: 3em;
-  color: var(--sea-green);
+  font-size: 2em;
+  color: var(--blue-light);
   position: absolute;
   left: 0.5rem;
   top: 0.5rem;
@@ -484,8 +407,27 @@ blockquote::before {
 blockquote p {
   display: inline;
   margin: 0;
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: 400;
+}
+
+/* ===== OVERLAY ===== */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal);
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* ===== RÉACTIVITÉ ===== */
@@ -493,7 +435,6 @@ blockquote p {
   .main-content {
     padding: 1.5rem;
     margin: 1rem;
-    border-radius: var(--border-radius-medium);
   }
   
   figure {
@@ -503,7 +444,7 @@ blockquote p {
   
   .image-grid {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
   }
   
   .image-grid figure {
@@ -512,11 +453,11 @@ blockquote p {
   }
   
   h1 {
-    font-size: 1.8em;
+    font-size: 1.7em;
   }
   
   h2 {
-    font-size: 1.5em;
+    font-size: 1.4em;
   }
   
   h3 {
@@ -528,14 +469,13 @@ blockquote p {
   .main-content {
     padding: 1rem;
     margin: 0.5rem;
-    border-radius: var(--border-radius-small);
   }
   
   .menu-toggle {
     top: 1rem;
     left: 1rem;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
   
   .sidebar {
@@ -546,56 +486,75 @@ blockquote p {
 
 /* ===== IMPRESSION ===== */
 @media print {
+  @page {
+    size: A4;
+    margin: 2cm 1.5cm;
+    
+    @bottom-center {
+      content: "Page " counter(page);
+      font-family: 'Merriweather', serif;
+      font-size: 10pt;
+      color: #666;
+    }
+  }
+
+  @page :first {
+    @bottom-center {
+      content: "";
+    }
+  }
+
+  .page-break {
+    display: block;
+    page-break-before: always;
+    break-before: page;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+  }
+
   body {
     background: white !important;
     color: black !important;
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
   }
-  
+
   .main-content {
     box-shadow: none !important;
-    border-radius: 0 !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
     padding: 0 !important;
-    border: none !important;
+    max-width: 100% !important;
   }
-  
+
   figure {
     break-inside: avoid;
-    margin: 1em auto !important;
+    margin: 1.5em auto !important;
     max-width: 80% !important;
-    border: 1px solid #ccc !important;
   }
-  
+
   .image-grid {
     display: block;
   }
-  
+
   .image-grid figure {
-    margin: 1em auto !important;
+    margin: 1.5em auto !important;
     max-width: 80% !important;
   }
-  
+
   /* Masquer les éléments interactifs */
   .menu-toggle,
+  .menu-overlay,
   .sidebar {
     display: none !important;
   }
-}
 
-/* Animation subtile pour les éléments */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+  .reponse.visible {
+    opacity: 1 !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid #ccc !important;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.main-content > * {
-  animation: fadeInUp 0.4s ease-out;
 }
 
 /* Style pour les listes */
@@ -609,13 +568,20 @@ li {
 
 /* Style pour les liens */
 a {
-  color: var(--blue-ocean);
+  color: var(--blue-medium);
   text-decoration: none;
-  border-bottom: 1px dotted var(--blue-light);
+  border-bottom: 1px solid transparent;
   transition: all var(--transition-fast);
 }
 
 a:hover {
-  color: var(--sea-green);
-  border-bottom: 1px solid var(--sea-green);
+  color: var(--blue-dark);
+  border-bottom: 1px solid var(--blue-medium);
+}
+
+/* Clearfix pour assurer la propreté du layout */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
 }
