@@ -55,8 +55,8 @@
   --small-mobile-breakpoint: 480px;
   
   /* Typographie */
-  --font-size-base: 16px;
-  --line-height-base: 1.6;
+  --font-size-base: 14px;
+  --line-height-base: 1.4;
   
   /* Transitions */
   --transition-fast: 0.2s ease;
@@ -228,7 +228,7 @@ body.bg-gray {
 }
 
 .image-modal img.zoomed {
-  transform: scale(1.5);
+  transform: scale(1.75);
   cursor: zoom-in;
 }
 
@@ -311,10 +311,10 @@ body.bg-gray {
 
 /* ===== COMPOSANTS RÉUTILISABLES ===== */
 .cadre {
-  padding: 1em;
+  padding: 0.5em;
   background-color: var(--md-admonition-bg-color);
   border-left: 4px solid var(--md-primary-fg-color);
-  margin: 1.5em 0;
+  margin: 1em 0;
   box-shadow: var(--shadow-light);
   border-radius: var(--border-radius);
   clear: both;
@@ -1189,3 +1189,4 @@ pre {
   display: table;
   clear: both;
 }
+
