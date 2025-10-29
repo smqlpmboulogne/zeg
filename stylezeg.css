@@ -72,7 +72,7 @@ body {
 
 /* ===== COMPOSANTS RÉUTILISABLES ===== */
 .cadre {
-  padding: 1.5em;
+  padding: 0.5em;
   background-color: var(--gray-very-light);
   border-left: 4px solid var(--blue-medium);
   margin: 2em 0;
@@ -605,3 +605,4 @@ a:hover {
   display: table;
   clear: both;
 }
+
