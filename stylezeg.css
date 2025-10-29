@@ -50,10 +50,12 @@
   /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
+  --transition-slow: 0.4s ease;
   
   /* Ombres */
   --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-medium: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-heavy: 0 8px 24px rgba(0, 0, 0, 0.3);
   
   /* Bordures */
   --border-radius: 4px;
@@ -83,6 +85,130 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== MODAL DE ZOOM POUR LES IMAGES ===== */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  backdrop-filter: blur(5px);
+}
+
+.image-modal.active {
+  display: flex;
+  opacity: 1;
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-modal img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-heavy);
+  cursor: zoom-out;
+  transition: transform var(--transition-normal);
+}
+
+.image-modal img.zoomed {
+  transform: scale(1.5);
+  cursor: zoom-in;
+}
+
+.image-modal-caption {
+  color: white;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.1em;
+  font-family: 'Roboto', sans-serif;
+  max-width: 80%;
+  opacity: 0.9;
+}
+
+.image-modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2em;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  opacity: 0.7;
+}
+
+.image-modal-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.image-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 2em;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(10px);
+  opacity: 0.7;
+}
+
+.image-modal-nav:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.image-modal-prev {
+  left: 20px;
+}
+
+.image-modal-next {
+  right: 20px;
+}
+
+.image-modal-counter {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  opacity: 0.7;
+  font-size: 0.9em;
 }
 
 /* ===== COMPOSANTS RÉUTILISABLES ===== */
@@ -267,6 +393,30 @@ figure:hover {
   border-color: var(--md-primary-fg-color--light);
 }
 
+/* Indicateur de zoom au survol */
+figure::after {
+  content: "🔍";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+  opacity: 0;
+  transition: all var(--transition-fast);
+  pointer-events: none;
+}
+
+figure:hover::after {
+  opacity: 1;
+}
+
 /* Toutes les images respectent la limite de 8cm */
 figure img {
   display: block;
@@ -276,6 +426,7 @@ figure img {
   margin: 0 auto;
   border-radius: var(--border-radius) var(--border-radius) 0 0;
   transition: transform var(--transition-normal);
+  cursor: zoom-in;
 }
 
 figure:hover img {
@@ -570,6 +721,21 @@ blockquote p {
   tbody td {
     padding: 0.6rem 0.8rem;
   }
+  
+  /* Adaptation du modal pour mobile */
+  .image-modal-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+  }
+  
+  .image-modal-prev {
+    left: 10px;
+  }
+  
+  .image-modal-next {
+    right: 10px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -606,6 +772,20 @@ blockquote p {
   thead th,
   tbody td {
     padding: 0.5rem 0.6rem;
+  }
+  
+  /* Modal encore plus adapté pour mobile */
+  .image-modal-content {
+    max-width: 95%;
+  }
+  
+  .image-modal img {
+    max-height: 70vh;
+  }
+  
+  .image-modal-caption {
+    font-size: 1em;
+    max-width: 95%;
   }
 }
 
@@ -689,7 +869,8 @@ blockquote p {
   /* Masquer les éléments interactifs */
   .menu-toggle,
   .menu-overlay,
-  .sidebar {
+  .sidebar,
+  .image-modal {
     display: none !important;
   }
 
