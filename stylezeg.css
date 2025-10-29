@@ -15,6 +15,10 @@
   --success-color: #38a169;
   --border-color: #cbd5e0;
   
+  /* Dimensions images */
+  --image-max-width: 8cm;
+  --image-max-width-px: 302px; /* 8cm ≈ 302px */
+  
   /* Couleurs fonctionnelles */
   --text-color: var(--gray-dark);
   --reponse-bg: var(--gray-very-light);
@@ -209,10 +213,10 @@ h3 {
   border-bottom: 1px solid var(--gray-light);
 }
 
-/* ===== FIGURES PARFAITEMENT CENTRÉES ===== */
+/* ===== FIGURES PARFAITEMENT CENTRÉES - MAX 8CM ===== */
 .figure-container {
   display: block;
-  margin: 2.5rem auto;
+  margin: 2rem auto;
   text-align: center;
   width: 100%;
   clear: both;
@@ -220,8 +224,9 @@ h3 {
 
 figure {
   display: block;
-  max-width: 100%;
-  margin: 2rem auto;
+  max-width: var(--image-max-width);
+  width: auto;
+  margin: 1.5rem auto;
   text-align: center;
   box-shadow: var(--shadow-light);
   page-break-inside: avoid;
@@ -229,60 +234,68 @@ figure {
   background: white;
   position: relative;
   clear: both;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
 }
 
-/* Tailles d'images modulables */
-figure.small {
-  max-width: 300px;
-}
-
-figure.medium {
-  max-width: 500px;
-}
-
-figure.large {
-  max-width: 700px;
-}
-
-figure.full {
-  max-width: 100%;
-}
-
+/* Toutes les images respectent la limite de 8cm */
 figure img {
   display: block;
-  width: 100%;
+  max-width: 100%;
+  width: auto;
   height: auto;
   margin: 0 auto;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 figcaption {
-  font-size: 0.9em;
+  font-size: 0.85em;
   color: var(--gray-medium);
   font-style: normal;
-  padding: 1rem;
+  padding: 0.8rem 1rem;
   background-color: var(--gray-very-light);
   text-align: center;
   display: block;
   font-weight: 400;
   border-top: 1px solid var(--border-color);
   font-family: 'Source Sans Pro', sans-serif;
+  line-height: 1.4;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
-/* Groupes d'images côte à côte */
+/* Groupes d'images côte à côte - limitées à 8cm chacune */
 .image-grid {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  margin: 2.5rem auto;
+  gap: 1.5rem;
+  margin: 2rem auto;
   flex-wrap: wrap;
   clear: both;
+  max-width: 100%;
 }
 
 .image-grid figure {
-  flex: 1;
-  min-width: 250px;
-  max-width: 400px;
+  flex: 0 1 auto;
+  min-width: 200px;
+  max-width: var(--image-max-width);
   margin: 0;
+}
+
+/* Images très petites (pour les schémas, icônes, etc.) */
+figure.tiny {
+  max-width: 4cm;
+}
+
+figure.small {
+  max-width: 6cm;
+}
+
+figure.medium {
+  max-width: 8cm; /* Défaut */
+}
+
+figure.large {
+  max-width: 10cm; /* Exception pour les images importantes */
 }
 
 /* ===== RÉPONSES INTERACTIVES STYLE SOBRE ===== */
@@ -438,7 +451,7 @@ blockquote p {
   }
   
   figure {
-    max-width: 100% !important;
+    max-width: var(--image-max-width) !important;
     margin: 1.5rem auto !important;
   }
   
@@ -449,7 +462,7 @@ blockquote p {
   
   .image-grid figure {
     min-width: auto;
-    max-width: 100%;
+    max-width: var(--image-max-width);
   }
   
   h1 {
@@ -481,6 +494,10 @@ blockquote p {
   .sidebar {
     width: 85%;
     left: -85%;
+  }
+  
+  figure {
+    max-width: 90% !important;
   }
 }
 
@@ -528,10 +545,12 @@ blockquote p {
     max-width: 100% !important;
   }
 
+  /* Images limitées à 8cm à l'impression */
   figure {
     break-inside: avoid;
     margin: 1.5em auto !important;
-    max-width: 80% !important;
+    max-width: 8cm !important;
+    width: 8cm !important;
   }
 
   .image-grid {
@@ -540,7 +559,8 @@ blockquote p {
 
   .image-grid figure {
     margin: 1.5em auto !important;
-    max-width: 80% !important;
+    max-width: 8cm !important;
+    width: 8cm !important;
   }
 
   /* Masquer les éléments interactifs */
