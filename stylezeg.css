@@ -1,35 +1,41 @@
-/* ===== VARIABLES ET CONFIGURATION - STYLE SCOLAIRE SOBRE ===== */
+/* ===== VARIABLES ET CONFIGURATION - STYLE MKDOCS MATERIAL ===== */
 :root {
-  /* Palette de couleurs sobre et professionnelle */
-  --blue-dark: #1a365d;
-  --blue-medium: #2c5282;
-  --blue-light: #4299e1;
-  --blue-very-light: #ebf8ff;
+  /* Palette de couleurs MkDocs Material */
+  --md-primary-fg-color: #4051b5;
+  --md-primary-fg-color--light: #5d6cc0;
+  --md-primary-fg-color--dark: #303fa1;
+  --md-accent-fg-color: #ff4081;
   
-  --gray-dark: #2d3748;
-  --gray-medium: #4a5568;
-  --gray-light: #e2e8f0;
-  --gray-very-light: #f7fafc;
+  /* Couleurs de texte */
+  --md-default-fg-color: #000000DE;
+  --md-default-fg-color--light: #0000008A;
+  --md-default-fg-color--lighter: #00000052;
+  --md-default-fg-color--lightest: #00000012;
   
-  --accent-color: #2b6cb0;
-  --success-color: #38a169;
-  --border-color: #cbd5e0;
+  /* Couleurs d'arrière-plan */
+  --md-default-bg-color: #ffffff;
+  --md-default-bg-color--light: #ffffff;
+  --md-default-bg-color--dark: #00000007;
   
-  /* Nouveaux tons pour tableaux */
-  --table-header-blue: #1e4a7b;
-  --table-border: #2d3748;
-  --table-row-light: #f8fafc;
-  --table-row-dark: #edf2f7;
-  --table-hover: #e6fffa;
+  /* Couleurs pour les code blocks */
+  --md-code-bg-color: #f5f5f5;
+  --md-code-fg-color: #37474f;
+  
+  /* Couleurs pour les alertes et cadres */
+  --md-admonition-fg-color: #000000DE;
+  --md-admonition-bg-color: #e3f2fd;
+  
+  /* Couleurs pour les tableaux */
+  --md-table-header-bg: var(--md-primary-fg-color);
+  --md-table-header-fg: #ffffff;
+  --md-table-border: #e0e0e0;
+  --md-table-row-even: #f8f9fa;
+  --md-table-row-odd: #ffffff;
+  --md-table-hover: #e3f2fd;
   
   /* Dimensions images */
   --image-max-width: 8cm;
-  --image-max-width-px: 302px; /* 8cm ≈ 302px */
-  
-  /* Couleurs fonctionnelles */
-  --text-color: var(--gray-dark);
-  --reponse-bg: var(--gray-very-light);
-  --table-header: var(--blue-medium);
+  --image-max-width-px: 302px;
   
   /* Dimensions */
   --max-content-width: 800px;
@@ -38,7 +44,7 @@
   --small-mobile-breakpoint: 480px;
   
   /* Typographie */
-  --font-size-base: 17px;
+  --font-size-base: 16px;
   --line-height-base: 1.6;
   
   /* Transitions */
@@ -53,9 +59,8 @@
   --border-radius: 4px;
 }
 
-/* ===== TYPOGRAPHIE ET BASE - STYLE SCOLAIRE PROFESSIONNEL ===== */
-/*@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
-*/
+/* ===== TYPOGRAPHIE MKDOCS MATERIAL ===== */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -67,27 +72,30 @@ html {
 }
 
 body {
-  font-family: 'Source Sans Pro', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   line-height: var(--line-height-base);
-  color: var(--text-color);
-  background-color: #f8f9fa;
+  color: var(--md-default-fg-color);
+  background-color: var(--md-default-bg-color);
   margin: 0;
   padding: 0;
   display: flex;
   min-height: 100vh;
   font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===== COMPOSANTS RÉUTILISABLES ===== */
 .cadre {
-  padding: 0.5em; /* Réduit de 1.5em à 0.5em */
-  background-color: var(--gray-very-light);
-  border-left: 4px solid var(--blue-medium);
-  margin: 1em 0; /* Réduit la marge aussi */
+  padding: 1em;
+  background-color: var(--md-admonition-bg-color);
+  border-left: 4px solid var(--md-primary-fg-color);
+  margin: 1.5em 0;
   box-shadow: var(--shadow-light);
   border-radius: var(--border-radius);
   clear: both;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--md-table-border);
+  font-size: 0.95em;
 }
 
 /* ===== LAYOUT PRINCIPAL ===== */
@@ -100,12 +108,11 @@ body {
 
 .main-content {
   flex: 1;
-  padding: 2.5rem;
+  padding: 2rem;
   margin: 0 auto;
   width: 100%;
   max-width: var(--max-content-width);
-  background: white;
-  box-shadow: var(--shadow-medium);
+  background: var(--md-default-bg-color);
   margin: 2rem auto;
 }
 
@@ -114,12 +121,12 @@ body {
   display: none;
 }
 
-/* ===== NAVIGATION ET SIDEBAR - STYLE SOBRE ===== */
+/* ===== NAVIGATION ET SIDEBAR - STYLE MKDOCS MATERIAL ===== */
 .menu-toggle {
   position: fixed;
   top: 1.5rem;
   left: 1.5rem;
-  background-color: var(--blue-medium);
+  background-color: var(--md-primary-fg-color);
   color: white;
   border: none;
   border-radius: var(--border-radius);
@@ -137,7 +144,7 @@ body {
 }
 
 .menu-toggle:hover {
-  background-color: var(--blue-dark);
+  background-color: var(--md-primary-fg-color--dark);
   transform: scale(1.05);
 }
 
@@ -149,21 +156,21 @@ body {
   transition: all var(--transition-normal);
 }
 
-/* Sidebar style sobre */
+/* Sidebar style MkDocs Material */
 .sidebar {
   position: fixed;
   top: 0;
   left: -300px;
   width: var(--sidebar-width);
   height: 100vh;
-  background: white;
-  color: var(--text-color);
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
   padding: 0;
   z-index: 999;
   transition: left var(--transition-normal);
   box-shadow: var(--shadow-medium);
   overflow-y: auto;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--md-table-border);
 }
 
 .sidebar.active {
@@ -171,54 +178,59 @@ body {
 }
 
 .sidebar-header {
-  background-color: var(--gray-very-light);
+  background-color: var(--md-default-bg-color--dark);
   padding: 2rem 1.5rem 1.5rem;
   text-align: center;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--md-table-border);
 }
 
 .sidebar-header h2 {
   margin: 0;
-  color: var(--blue-dark);
+  color: var(--md-primary-fg-color);
   font-size: 1.5em;
-  font-weight: 600;
-  font-family: 'Merriweather', serif;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* ===== TYPOGRAPHIE SOBRE ===== */
+/* ===== TYPOGRAPHIE MKDOCS MATERIAL ===== */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Merriweather', 'Georgia', serif;
-  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
   line-height: 1.3;
   margin-top: 0;
-  color: var(--blue-dark);
+  color: var(--md-default-fg-color);
+  scroll-margin-top: 2rem;
 }
 
 h1 {
   font-size: 2em;
-  color: var(--blue-dark);
+  color: var(--md-primary-fg-color);
   padding-bottom: 0.5rem;
   margin-bottom: 2rem;
   text-align: center;
-  border-bottom: 2px solid var(--blue-light);
+  border-bottom: 2px solid var(--md-primary-fg-color--light);
+  font-weight: 300;
+  letter-spacing: -0.01em;
 }
 
 h2 {
-  font-size: 1.6em;
-  border-left: 4px solid var(--blue-medium);
+  font-size: 1.5em;
+  border-left: 4px solid var(--md-primary-fg-color);
   padding-left: 1rem;
   margin: 2.5rem 0 1.5rem 0;
-  background-color: var(--gray-very-light);
+  background-color: var(--md-default-bg-color--dark);
   padding: 0.75rem 1rem;
   border-radius: var(--border-radius);
+  font-weight: 400;
 }
 
 h3 {
-  font-size: 1.3em;
-  color: var(--blue-medium);
+  font-size: 1.25em;
+  color: var(--md-primary-fg-color--dark);
   margin: 2rem 0 1rem 0;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--gray-light);
+  border-bottom: 1px solid var(--md-table-border);
+  font-weight: 500;
 }
 
 /* ===== FIGURES PARFAITEMENT CENTRÉES - MAX 8CM ===== */
@@ -239,10 +251,10 @@ figure {
   box-shadow: var(--shadow-light);
   page-break-inside: avoid;
   break-inside: avoid;
-  background: white;
+  background: var(--md-default-bg-color);
   position: relative;
   clear: both;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--md-table-border);
   border-radius: var(--border-radius);
   transition: all var(--transition-normal);
   cursor: pointer;
@@ -252,7 +264,7 @@ figure {
 figure:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: var(--blue-light);
+  border-color: var(--md-primary-fg-color--light);
 }
 
 /* Toutes les images respectent la limite de 8cm */
@@ -272,23 +284,23 @@ figure:hover img {
 
 figcaption {
   font-size: 0.85em;
-  color: var(--gray-medium);
+  color: var(--md-default-fg-color--light);
   font-style: normal;
   padding: 0.8rem 1rem;
-  background-color: var(--gray-very-light);
+  background-color: var(--md-default-bg-color--dark);
   text-align: center;
   display: block;
   font-weight: 400;
-  border-top: 1px solid var(--border-color);
-  font-family: 'Source Sans Pro', sans-serif;
+  border-top: 1px solid var(--md-table-border);
+  font-family: 'Roboto', sans-serif;
   line-height: 1.4;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
-  transition: background-color var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 figure:hover figcaption {
-  background-color: var(--blue-very-light);
-  color: var(--blue-dark);
+  background-color: var(--md-admonition-bg-color);
+  color: var(--md-default-fg-color);
 }
 
 /* Groupes d'images côte à côte - limitées à 8cm chacune */
@@ -326,7 +338,7 @@ figure.large {
   max-width: 10cm; /* Exception pour les images importantes */
 }
 
-/* ===== RÉPONSES INTERACTIVES STYLE SOBRE ===== */
+/* ===== RÉPONSES INTERACTIVES STYLE MKDOCS MATERIAL ===== */
 .reponse {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -335,56 +347,56 @@ figure.large {
   height: auto;
   transition: all var(--transition-normal);
   cursor: pointer;
-  border: 1px dashed var(--border-color);
+  border: 1px dashed var(--md-table-border);
   min-height: 3rem;
-  background-color: var(--gray-very-light);
+  background-color: var(--md-default-bg-color--dark);
   position: relative;
   overflow: hidden;
   clear: both;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .reponse::before {
   content: "Cliquez pour voir la réponse";
   font-size: 0.8em;
-  color: var(--gray-medium);
+  color: var(--md-default-fg-color--light);
   position: absolute;
   top: -0.6em;
   left: 1em;
-  background: white;
+  background: var(--md-default-bg-color);
   padding: 0.2em 0.8em;
   font-weight: 500;
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--md-table-border);
 }
 
 .reponse.visible {
   opacity: 1;
-  background-color: var(--blue-very-light);
-  border: 1px solid var(--blue-light);
+  background-color: var(--md-admonition-bg-color);
+  border: 1px solid var(--md-primary-fg-color--light);
 }
 
 .reponse.visible::before {
   content: "Réponse";
-  color: var(--blue-medium);
-  border-color: var(--blue-light);
+  color: var(--md-primary-fg-color);
+  border-color: var(--md-primary-fg-color--light);
 }
 
 .reponse:hover {
-  background-color: var(--gray-light);
+  background-color: var(--md-table-hover);
 }
 
-/* ===== TABLEAUX STYLE MODIFIÉ - BORDURES NOIRES ET TONS GRIS/BLEU ===== */
+/* ===== TABLEAUX STYLE MKDOCS MATERIAL ===== */
 table {
   border-collapse: collapse;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.95em;
   max-width: 100%;
   margin: 2rem auto;
   width: auto;
-  background: white;
+  background: var(--md-default-bg-color);
   clear: both;
-  border: 2px solid var(--table-border);
+  border: 1px solid var(--md-table-border);
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: var(--shadow-light);
@@ -398,16 +410,16 @@ table:hover {
 }
 
 thead {
-  background: linear-gradient(135deg, var(--table-header-blue) 0%, var(--blue-medium) 100%);
-  color: white;
+  background: var(--md-table-header-bg);
+  color: var(--md-table-header-fg);
 }
 
 thead th {
   padding: 1rem 1.2rem;
   text-align: left;
-  font-weight: 600;
-  border: 1px solid var(--table-border);
-  font-family: 'Merriweather', serif;
+  font-weight: 500;
+  border: 1px solid var(--md-table-border);
+  font-family: 'Roboto', sans-serif;
   font-size: 0.95em;
   position: relative;
   transition: background-color var(--transition-fast);
@@ -415,73 +427,73 @@ thead th {
 
 /* Effet de survol pour les en-têtes */
 thead th:hover {
-  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--table-header-blue) 100%);
+  background: var(--md-primary-fg-color--dark);
 }
 
 tbody td {
   padding: 0.8rem 1.2rem;
-  border: 1px solid var(--table-border);
-  color: var(--text-color);
-  background-color: white;
+  border: 1px solid var(--md-table-border);
+  color: var(--md-default-fg-color);
+  background-color: var(--md-table-row-odd);
   transition: all var(--transition-fast);
 }
 
 /* Effet de survol pour les cellules */
 tbody td:hover {
-  background-color: var(--table-hover);
+  background-color: var(--md-table-hover);
   transform: scale(1.01);
 }
 
 /* Lignes alternées en tons gris */
 tbody tr:nth-child(even) {
-  background-color: var(--table-row-light);
+  background-color: var(--md-table-row-even);
 }
 
 tbody tr:nth-child(odd) {
-  background-color: var(--table-row-dark);
+  background-color: var(--md-table-row-odd);
 }
 
 /* Effet de survol pour les lignes */
 tbody tr:hover {
-  background-color: var(--blue-very-light);
+  background-color: var(--md-table-hover);
 }
 
-/* Style pour la première colonne (peut être utilisée pour des en-têtes de ligne) */
+/* Style pour la première colonne */
 tbody td:first-child {
-  font-weight: 600;
-  background-color: var(--table-row-light);
-  border-right: 2px solid var(--table-border);
+  font-weight: 500;
+  background-color: var(--md-table-row-even);
+  border-right: 2px solid var(--md-table-border);
 }
 
 tbody tr:hover td:first-child {
-  background-color: var(--blue-light);
+  background-color: var(--md-primary-fg-color--light);
   color: white;
 }
 
-/* ===== CITATIONS STYLE SOBRE ===== */
+/* ===== CITATIONS STYLE MKDOCS MATERIAL ===== */
 blockquote {
-  background-color: var(--gray-very-light);
-  border-left: 4px solid var(--blue-medium);
+  background-color: var(--md-default-bg-color--dark);
+  border-left: 4px solid var(--md-primary-fg-color);
   margin: 2rem 0;
   padding: 1.5rem 1.5rem 1.5rem 2.5rem;
   font-style: italic;
-  color: var(--text-color);
+  color: var(--md-default-fg-color--light);
   position: relative;
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   clear: both;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--md-table-border);
 }
 
 blockquote::before {
   content: """;
   font-size: 2em;
-  color: var(--blue-light);
+  color: var(--md-primary-fg-color--light);
   position: absolute;
   left: 0.5rem;
   top: 0.5rem;
   line-height: 1;
   opacity: 0.5;
-  font-family: 'Merriweather', serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 blockquote p {
@@ -518,7 +530,7 @@ blockquote p {
   }
   
   .cadre {
-    padding: 0.8em; /* Encore plus réduit sur mobile */
+    padding: 0.8em;
     margin: 1em 0;
   }
   
@@ -605,7 +617,7 @@ blockquote p {
     
     @bottom-center {
       content: "Page " counter(page);
-      font-family: 'Merriweather', serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 10pt;
       color: #666;
     }
@@ -661,12 +673,17 @@ blockquote p {
 
   /* Tableaux à l'impression */
   table {
-    border: 1px solid black !important;
+    border: 1px solid #ccc !important;
   }
   
   thead th,
   tbody td {
-    border: 1px solid black !important;
+    border: 1px solid #ccc !important;
+  }
+
+  thead {
+    background: #f5f5f5 !important;
+    color: black !important;
   }
 
   /* Masquer les éléments interactifs */
@@ -690,19 +707,40 @@ ul, ol {
 
 li {
   margin-bottom: 0.5rem;
+  color: var(--md-default-fg-color);
 }
 
 /* Style pour les liens */
 a {
-  color: var(--blue-medium);
+  color: var(--md-primary-fg-color);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: all var(--transition-fast);
 }
 
 a:hover {
-  color: var(--blue-dark);
-  border-bottom: 1px solid var(--blue-medium);
+  color: var(--md-primary-fg-color--dark);
+  border-bottom: 1px solid var(--md-primary-fg-color);
+}
+
+/* Code et blocs de code */
+code {
+  font-family: 'Roboto Mono', monospace;
+  background-color: var(--md-code-bg-color);
+  color: var(--md-code-fg-color);
+  padding: 0.2em 0.4em;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: var(--md-code-bg-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.9em;
+  line-height: 1.4;
 }
 
 /* Clearfix pour assurer la propreté du layout */
@@ -711,4 +749,3 @@ a:hover {
   display: table;
   clear: both;
 }
-
