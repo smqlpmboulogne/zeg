@@ -15,6 +15,13 @@
   --success-color: #38a169;
   --border-color: #cbd5e0;
   
+  /* Nouveaux tons pour tableaux */
+  --table-header-blue: #1e4a7b;
+  --table-border: #2d3748;
+  --table-row-light: #f8fafc;
+  --table-row-dark: #edf2f7;
+  --table-hover: #e6fffa;
+  
   /* Dimensions images */
   --image-max-width: 8cm;
   --image-max-width-px: 302px; /* 8cm ≈ 302px */
@@ -72,10 +79,10 @@ body {
 
 /* ===== COMPOSANTS RÉUTILISABLES ===== */
 .cadre {
-  padding: 0.5em;
+  padding: 1em; /* Réduit de 1.5em à 1em */
   background-color: var(--gray-very-light);
   border-left: 4px solid var(--blue-medium);
-  margin: 2em 0;
+  margin: 1.5em 0; /* Réduit la marge aussi */
   box-shadow: var(--shadow-light);
   border-radius: var(--border-radius);
   clear: both;
@@ -236,6 +243,15 @@ figure {
   clear: both;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+/* Effet de survol pour les images */
+figure:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: var(--blue-light);
 }
 
 /* Toutes les images respectent la limite de 8cm */
@@ -246,6 +262,11 @@ figure img {
   height: auto;
   margin: 0 auto;
   border-radius: var(--border-radius) var(--border-radius) 0 0;
+  transition: transform var(--transition-normal);
+}
+
+figure:hover img {
+  transform: scale(1.02);
 }
 
 figcaption {
@@ -261,6 +282,12 @@ figcaption {
   font-family: 'Source Sans Pro', sans-serif;
   line-height: 1.4;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
+  transition: background-color var(--transition-fast);
+}
+
+figure:hover figcaption {
+  background-color: var(--blue-very-light);
+  color: var(--blue-dark);
 }
 
 /* Groupes d'images côte à côte - limitées à 8cm chacune */
@@ -346,7 +373,7 @@ figure.large {
   background-color: var(--gray-light);
 }
 
-/* ===== TABLEAUX STYLE SOBRE ===== */
+/* ===== TABLEAUX STYLE MODIFIÉ - BORDURES NOIRES ET TONS GRIS/BLEU ===== */
 table {
   border-collapse: collapse;
   font-family: 'Source Sans Pro', sans-serif;
@@ -354,16 +381,23 @@ table {
   max-width: 100%;
   margin: 2rem auto;
   width: auto;
-  box-shadow: var(--shadow-light);
-  border-radius: var(--border-radius);
-  overflow: hidden;
   background: white;
   clear: both;
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--table-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-light);
+  transition: all var(--transition-normal);
+}
+
+/* Effet de survol pour les tableaux */
+table:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 thead {
-  background-color: var(--table-header);
+  background: linear-gradient(135deg, var(--table-header-blue) 0%, var(--blue-medium) 100%);
   color: white;
 }
 
@@ -371,24 +405,56 @@ thead th {
   padding: 1rem 1.2rem;
   text-align: left;
   font-weight: 600;
-  border: none;
+  border: 1px solid var(--table-border);
   font-family: 'Merriweather', serif;
+  font-size: 0.95em;
+  position: relative;
+  transition: background-color var(--transition-fast);
+}
+
+/* Effet de survol pour les en-têtes */
+thead th:hover {
+  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--table-header-blue) 100%);
 }
 
 tbody td {
   padding: 0.8rem 1.2rem;
-  border: none;
-  border-bottom: 1px solid var(--border-color);
+  border: 1px solid var(--table-border);
   color: var(--text-color);
   background-color: white;
+  transition: all var(--transition-fast);
 }
 
-tbody tr:hover {
-  background-color: var(--gray-very-light);
+/* Effet de survol pour les cellules */
+tbody td:hover {
+  background-color: var(--table-hover);
+  transform: scale(1.01);
 }
 
+/* Lignes alternées en tons gris */
 tbody tr:nth-child(even) {
-  background-color: var(--gray-very-light);
+  background-color: var(--table-row-light);
+}
+
+tbody tr:nth-child(odd) {
+  background-color: var(--table-row-dark);
+}
+
+/* Effet de survol pour les lignes */
+tbody tr:hover {
+  background-color: var(--blue-very-light);
+}
+
+/* Style pour la première colonne (peut être utilisée pour des en-têtes de ligne) */
+tbody td:first-child {
+  font-weight: 600;
+  background-color: var(--table-row-light);
+  border-right: 2px solid var(--table-border);
+}
+
+tbody tr:hover td:first-child {
+  background-color: var(--blue-light);
+  color: white;
 }
 
 /* ===== CITATIONS STYLE SOBRE ===== */
@@ -450,6 +516,11 @@ blockquote p {
     margin: 1rem;
   }
   
+  .cadre {
+    padding: 0.8em; /* Encore plus réduit sur mobile */
+    margin: 1em 0;
+  }
+  
   figure {
     max-width: var(--image-max-width) !important;
     margin: 1.5rem auto !important;
@@ -476,12 +547,26 @@ blockquote p {
   h3 {
     font-size: 1.2em;
   }
+  
+  /* Adaptation des tableaux pour mobile */
+  table {
+    font-size: 0.9em;
+  }
+  
+  thead th,
+  tbody td {
+    padding: 0.6rem 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
   .main-content {
     padding: 1rem;
     margin: 0.5rem;
+  }
+  
+  .cadre {
+    padding: 0.7em;
   }
   
   .menu-toggle {
@@ -498,6 +583,16 @@ blockquote p {
   
   figure {
     max-width: 90% !important;
+  }
+  
+  /* Tableaux encore plus compacts sur très petits écrans */
+  table {
+    font-size: 0.85em;
+  }
+  
+  thead th,
+  tbody td {
+    padding: 0.5rem 0.6rem;
   }
 }
 
@@ -563,6 +658,16 @@ blockquote p {
     width: 8cm !important;
   }
 
+  /* Tableaux à l'impression */
+  table {
+    border: 1px solid black !important;
+  }
+  
+  thead th,
+  tbody td {
+    border: 1px solid black !important;
+  }
+
   /* Masquer les éléments interactifs */
   .menu-toggle,
   .menu-overlay,
@@ -605,4 +710,3 @@ a:hover {
   display: table;
   clear: both;
 }
-
