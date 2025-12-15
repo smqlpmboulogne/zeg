@@ -7,7 +7,7 @@ chcp 65001 >nul
 :: Définir la couleur de fond et du texte (fond noir, texte vert clair)
 color 1F
 
-
+:debut
 
 @echo off
 REM Ajoute le dossier courant (où se trouve ce script et pandoc.exe) au PATH
@@ -144,7 +144,7 @@ echo 1. Tous les formats (HTML, DOCX, PDF via LaTeX)
 echo 2. PDF via LaTeX
 echo 3. HTML
 echo 4. DOCX
-echo 5. EFFACER LE CACHE et quitter
+echo 5. EFFACER LE CACHE
 echo.
 set /p choix="Ton choix (1-5) : "
 
@@ -170,7 +170,7 @@ if exist "%TEMP_DIR%" (
 )
 echo.
 pause
-exit /b
+goto debut
 
 :tous
 echo.
@@ -194,8 +194,8 @@ echo Génération des PDF via LaTeX...
 echo.
 pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
 pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
-pdflatex -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
-pdflatex -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
+latexmk -pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
+latexmk -pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
 goto fin
 
 :html
@@ -214,7 +214,7 @@ pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.docx" --lua-filter="%TEMP_DI
 
 :fin
 :: Nettoyer les fichiers temporaires LaTeX
-del *.aux *.log *.out >nul 2>&1
+del *.aux *.log *.out *.fls *.fdb_latexmk >nul 2>&1
 
 :: Message final
 echo.
@@ -223,7 +223,7 @@ echo CONVERSION TERMINÉE AVEC SUCCÈS !
 echo Fichiers créés dans : "%dossier_sortie%"
 echo.
 echo Options supplémentaires:
-echo   Lancer le script avec --clear-cache pour effacer le cache
+echo Lancer le script avec --clear-cache pour effacer le cache
 echo.
 echo ========================================
 echo            POWERED BY ZEG
