@@ -13,8 +13,7 @@ function Div(el)
                 -- En LaTeX, on utilise \color{blue} pour tout le contenu
                 table.insert(el.content, 1, pandoc.RawInline('latex', '\\par\\medskip\\hrule\\par\\medskip\\color{blue}'))
                 table.insert(el.content, pandoc.RawInline('latex', '\\color{black}\\par\\medskip\\hrule\\par\\medskip'))
-                -- Ajouter "Solution" en gras et bleu
-                solution_header = pandoc.RawInline('latex', '\\textbf{\\textcolor{blue}{Réponse}}')
+                
             else
                 -- Pour les autres formats, on utilise un Span avec style CSS
                 solution_header = pandoc.Span(
