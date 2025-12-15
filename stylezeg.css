@@ -641,11 +641,14 @@ figure.large {
   border: 1px solid var(--md-primary-fg-color--light);
 }
 
+
+/*
 .reponse.visible::before {
   content: "Réponse";
   color: var(--md-primary-fg-color);
   border-color: var(--md-primary-fg-color--light);
 }
+*/
 
 .reponse:hover {
   background-color: var(--md-table-hover);
@@ -1189,5 +1192,6 @@ pre {
   display: table;
   clear: both;
 }
+
 
 
