@@ -194,8 +194,14 @@ echo Génération des PDF via LaTeX...
 echo.
 pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
 pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
-latexmk -pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
-latexmk -pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
+pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
+pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
+pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
+pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
+pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_enonce.tex" >null
+pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
+
+
 goto fin
 
 :html
