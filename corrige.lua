@@ -11,8 +11,8 @@ function Div(el)
             local solution_header
             if FORMAT:match 'latex' then
                 -- En LaTeX, on utilise \color{blue} pour tout le contenu
-                table.insert(el.content, 1, pandoc.RawInline('latex', '\\par\\medskip\\hrule\\par\\medskip\\color{blue}'))
-                table.insert(el.content, pandoc.RawInline('latex', '\\color{black}\\par\\medskip\\hrule\\par\\medskip'))
+                table.insert(el.content, 1, pandoc.RawInline('latex', '\\par\\medskip\\hrule\\par\\medskip\\begin{solution}'))
+                table.insert(el.content, pandoc.RawInline('latex', '\\end{solution}\\par\\medskip\\hrule\\par\\medskip'))
                 -- Ajouter "Solution" en gras et bleu
                 -- solution_header = pandoc.RawInline('latex', '\\textbf{\\textcolor{blue}{Réponse}}')
             end
