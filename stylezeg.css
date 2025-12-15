@@ -624,7 +624,7 @@ figure.large {
 
 /*
 .reponse::before {
-  content: "Cliquez pour voir la réponse";
+  content: "Réponse";
   font-size: 0.8em;
   color: var(--md-default-fg-color--light);
   position: absolute;
@@ -1197,6 +1197,7 @@ pre {
   display: table;
   clear: both;
 }
+
 
 
 
