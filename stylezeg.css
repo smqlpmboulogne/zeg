@@ -621,6 +621,8 @@ figure.large {
   font-family: 'Roboto', sans-serif;
 }
 
+
+/*
 .reponse::before {
   content: "Cliquez pour voir la réponse";
   font-size: 0.8em;
@@ -634,6 +636,9 @@ figure.large {
   border-radius: var(--border-radius);
   border: 1px solid var(--md-table-border);
 }
+*/
+
+
 
 .reponse.visible {
   opacity: 1;
@@ -1192,6 +1197,7 @@ pre {
   display: table;
   clear: both;
 }
+
 
 
 
