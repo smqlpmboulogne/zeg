@@ -229,7 +229,46 @@ $endif$
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage{eso-pic}
+\usepackage{tikz}
+\usepackage{ocgx2}
+\usepackage{xcolor}
+
+\AddToShipoutPicture{%
+\begin{ocg}{Quadrillage}{Quadrillage}{1}
+\AtPageCenter{%
+\begin{tikzpicture}[remember picture,overlay]
+
+
+% Zone de 1 cm autour de la page
+\fill[blue!40!gray!60] 
+  (-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
+\fill[white] 
+  (-0.5\paperwidth+1cm,-0.5\paperheight+1cm) rectangle (0.5\paperwidth-1cm,0.5\paperheight-1cm);
+
+% Quadrillage
+\draw[step=.5cm,blue!10,thin] 
+  (-0.5\paperwidth+1cm,-0.5\paperheight+1cm) grid (0.5\paperwidth-1cm,0.5\paperheight-1cm);
+
+% Trait vertical pour la marge gauche (exemple à 2.29 cm du bord)
+\draw[red!60,very thick] 
+  (-0.5\paperwidth+2.29cm,-0.522\textheight) -- 
+  (-0.5\paperwidth+2.29cm,0.522\textheight);
+ 
+\end{tikzpicture}}%
+\end{ocg}
+}
+
+
+
+
+\renewcommand{\footrulewidth}{1pt}
+\renewcommand{\headrulewidth}{1pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
