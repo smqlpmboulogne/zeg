@@ -14,7 +14,7 @@ function Div(el)
                 table.insert(el.content, 1, pandoc.RawInline('latex', '\\par\\medskip\\hrule\\par\\medskip\\color{blue}'))
                 table.insert(el.content, pandoc.RawInline('latex', '\\color{black}\\par\\medskip\\hrule\\par\\medskip'))
                 -- Ajouter "Solution" en gras et bleu
-                solution_header = pandoc.RawInline('latex', '\\textbf{\\textcolor{blue}{Réponse}}')
+                -- solution_header = pandoc.RawInline('latex', '\\textbf{\\textcolor{blue}{Réponse}}')
             end
 
             -- Insérer "Réponse" (LaTeX) au début du contenu si défini
