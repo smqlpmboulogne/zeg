@@ -7,7 +7,7 @@ end
 function Div(el)
     for _, class in ipairs(el.classes) do
         if class == 'reponse' then
-            -- Créer un en-tête "Solution" en gras et bleu
+            -- Créer un en-tête "Solution" en gras et bleu (LaTeX uniquement)
             local solution_header
             if FORMAT:match 'latex' then
                 -- En LaTeX, on utilise \color{blue} pour tout le contenu
@@ -15,26 +15,32 @@ function Div(el)
                 table.insert(el.content, pandoc.RawInline('latex', '\\color{black}\\par\\medskip\\hrule\\par\\medskip'))
                 -- Ajouter "Solution" en gras et bleu
                 solution_header = pandoc.RawInline('latex', '\\textbf{\\textcolor{blue}{Réponse}}')
-            else
-                -- Pour les autres formats, on utilise un Span avec style CSS
-                solution_header = pandoc.Span(
-                    { pandoc.Strong({ pandoc.Str("Réponse") }) },
-                    { style = "color: gray;" }
-                )
             end
-            -- Insérer "Solution" au début du contenu
-            table.insert(el.content, 1, solution_header)
+
+            -- Insérer "Réponse" (LaTeX) au début du contenu si défini
+            if solution_header then
+                table.insert(el.content, 1, solution_header)
+            end
+
+            -- Conserver le style personnalisé
             el.attributes['custom-style'] = 'Reponse'
 
             -- Pour DOCX, ajouter un saut de ligne après la div
             if FORMAT:match 'docx' then
                 return {el, pandoc.RawBlock('openxml', '<w:p><w:r><w:br/></w:r></w:p>')}
             end
-            break
+
+            return el
 
         elseif class == 'page-break' then
-            -- Pour les sauts de page : seulement le saut
-            return pandoc.RawBlock('openxml', '<w:p><w:r><w:br w:type="page"/></w:r></w:p>')
+            -- Pour les sauts de page
+            if FORMAT:match 'docx' then
+                return pandoc.RawBlock('openxml', '<w:p><w:r><w:br w:type="page"/></w:r></w:p>')
+            elseif FORMAT:match 'latex' then
+                return pandoc.RawBlock('latex', '\\clearpage')
+            else
+                return el
+            end
 
         elseif class == 'cadre' then
             -- Gestion des cadres
