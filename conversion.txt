@@ -194,9 +194,11 @@ echo Génération des PDF via LaTeX...
 echo.
 ::pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
 ::pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
-pandoc "%nom_fichier%.md" -o "%nom_fichier%.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
+pandoc "%nom_fichier%.md" -o "%nom_fichier%.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections -V fontsize=11pt -V separation=0
 latexmk -pdf -interaction=nonstopmode "%nom_fichier%.tex" >nul
 
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_2col.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections -V classoption=twocolumn -V fontsize=11pt -V separation=1
+latexmk -pdf -interaction=nonstopmode "%nom_fichier%_2col.tex" >nul
 
 ::pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
 ::pdflatex -interaction=nonstopmode -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
