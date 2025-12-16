@@ -281,19 +281,16 @@ $endif$
 
 
 
-
 \AddToShipoutPicture{%
-\begin{ocg}{Separation}{Separation}{1} % 
+\begin{ocg}{Separation}{Separation}{$separation$} % <- variable Pandoc
 \AtPageCenter{%
 \begin{tikzpicture}[remember picture,overlay]
-
-% Ligne verticale au centre de la page
-\draw[green!60!black,very thick, densely dashed]
+\draw[green!60!black,very thick,densely dashed]
   (-0.1,-0.5\textheight) -- (-0.1,0.5\textheight);
-
 \end{tikzpicture}}%
 \end{ocg}
 }
+
 
 
 
