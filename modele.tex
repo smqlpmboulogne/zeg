@@ -236,30 +236,67 @@ $endif$
 \usepackage{ocgx2}
 \usepackage{xcolor}
 
+
+
+\AddToShipoutPicture{%
+\begin{ocg}{FondVert}{FondVert}{1}
+\AtPageCenter{%
+\begin{tikzpicture}[remember picture,overlay]
+
+% Zone de 1 cm autour de la page
+\fill[green!40!gray!50!] 
+  (-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
+
+\end{tikzpicture}}%
+\end{ocg}
+
+
+}
+
+
+
+
 \AddToShipoutPicture{%
 \begin{ocg}{Quadrillage}{Quadrillage}{1}
 \AtPageCenter{%
 \begin{tikzpicture}[remember picture,overlay]
 
-
-% Zone de 1 cm autour de la page
-\fill[blue!40!gray!60] 
-  (-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
-\fill[white] 
+\fill[white, rounded corners] 
   (-0.5\paperwidth+1cm,-0.5\paperheight+1cm) rectangle (0.5\paperwidth-1cm,0.5\paperheight-1cm);
+
 
 % Quadrillage
 \draw[step=.5cm,blue!10,thin] 
   (-0.5\paperwidth+1cm,-0.5\paperheight+1cm) grid (0.5\paperwidth-1cm,0.5\paperheight-1cm);
 
+
 % Trait vertical pour la marge gauche (exemple à 2.29 cm du bord)
-\draw[red!60,very thick] 
-  (-0.5\paperwidth+2.29cm,-0.522\textheight) -- 
-  (-0.5\paperwidth+2.29cm,0.522\textheight);
- 
+\draw[green!60!black,very thick] 
+  (-0.5\paperwidth+2.2cm,-0.5\textheight) -- 
+  (-0.5\paperwidth+2.2cm,0.5\textheight);
+
 \end{tikzpicture}}%
 \end{ocg}
 }
+
+
+
+
+\AddToShipoutPicture{%
+\begin{ocg}{Separation}{Separation}{1} % 
+\AtPageCenter{%
+\begin{tikzpicture}[remember picture,overlay]
+
+% Ligne verticale au centre de la page
+\draw[green!60!black,very thick, densely dashed]
+  (-0.1,-0.5\textheight) -- (-0.1,0.5\textheight);
+
+\end{tikzpicture}}%
+\end{ocg}
+}
+
+
+
 
 
 
@@ -275,16 +312,21 @@ $endif$
 % Définition d'un environnement "solution"
 \newenvironment{solution}
   {\begin{ocg}{Solutions}{Solutions}{0}
-  \color{blue}\begin{large}}
-  {\end{large}\color{black}\par\end{ocg}\vspace{4em}}
+  \color{green!30!black}}
+  {\color{black}\par\end{ocg}\vspace{5em}}
 
 
 % Réglages pour la séparation verticale
 \setlength{\columnsep}{20pt}       % Espace horizontal entre colonnes
-\setlength{\columnseprule}{0.05pt}  % Épaisseur du trait vertical (0 = pas de trait)
+\setlength{\columnseprule}{0pt}  % Épaisseur du trait vertical (0 = pas de trait)
 
 
 \usepackage{fourier}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
