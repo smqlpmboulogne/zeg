@@ -182,10 +182,16 @@ echo Création des DOCX...
 pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.docx" --lua-filter="%TEMP_DIR%\enonce.lua" --reference-doc="%TEMP_DIR%\noncorrige.docx" 
 pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.docx" --lua-filter="%TEMP_DIR%\corrige.lua" --reference-doc="%TEMP_DIR%\corrige.docx" 
 echo Création des PDF via LaTeX...
-pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
-pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
-pdflatex -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
-pdflatex -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
+::pandoc "%nom_fichier%.md" -o "%nom_fichier%_corrige.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
+::pandoc "%nom_fichier%.md" -o "%nom_fichier%_enonce.tex" --lua-filter="%TEMP_DIR%\enonce.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections
+::pdflatex -interaction=batchmode "%nom_fichier%_corrige.tex" >nul
+::pdflatex -interaction=batchmode "%nom_fichier%_enonce.tex" >nul
+pandoc "%nom_fichier%.md" -o "%nom_fichier%.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections -V fontsize=11pt -V separation=0
+latexmk -pdf -interaction=nonstopmode "%nom_fichier%.tex" >nul
+pandoc "%nom_fichier%.md" -o "%nom_fichier%_2col.tex" --lua-filter="%TEMP_DIR%\corrige.lua" --extract-media="images" --template="%TEMP_DIR%\modele.tex" --number-sections -V classoption=twocolumn -V fontsize=11pt -V separation=1
+latexmk -pdf -interaction=nonstopmode "%nom_fichier%_2col.tex" >nul
+
+
 goto fin
 
 :pdf
