@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><title>Simulation — Poussée d'Archimède</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#f0ede8;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:24px;font-family:'Source Code Pro',monospace}.wrap{background:#faf9f6;border-top:3px solid #1a3a6b;padding:24px 28px;max-width:660px;width:100%;box-shadow:0 2px 16px rgba(0,0,0,0.12)}h2{font-size:13pt;color:#1a3a6b;margin-bottom:4px}.sub{font-size:8.5pt;color:#888;margin-bottom:14px}.ctrl{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:9px 14px;border:0.5px solid #ccc;background:#f5f4f0;flex-wrap:wrap}.ctrl label{font-size:8.5pt;text-transform:uppercase}select{font-family:'Source Code Pro',monospace;font-size:8.5pt;padding:4px 10px}#cv{display:flex;justify-content:center}.hint{margin-top:10px;font-size:7.5pt;color:#999;text-align:center;border-top:0.5px solid #ddd;padding-top:9px}</style>
+<body><div class="wrap"><h2>Simulation — Poussée d'Archimède</h2><div class="sub">Glisser le dynamomètre verticalement pour immerger le solide.</div><div class="ctrl"><label>Liquide :</label><select id="liq"><option value="eau">Eau douce (1000 kg/m³)</option><option value="mer" selected>Eau de mer (1025 kg/m³)</option><option value="huile">Huile (920 kg/m³)</option></select></div><div id="cv"></div><div class="hint">💡 Déplacer le dynamomètre vers le bas → immersion → force d'Archimède augmente</div></div>
+<script>
+const fluids={eau:{max:0.100,col:[80,180,240,170]},mer:{max:0.103,col:[70,160,225,170]},huile:{max:0.092,col:[225,200,80,170]}};
+let liq='mer',dy=38,drag=false,doff=0;
+const SW=64,SH=64,WL=255,BX=170,BW=260,BT=245,BB=455,MY=18,MXY=152;
+function setup(){let c=createCanvas(600,510);c.parent('cv');document.getElementById('liq').addEventListener('change',e=>{liq=e.target.value});}
+function draw(){
+  background(245,243,238);
+  if(drag) dy=constrain(mouseY-doff,MY,MXY);
+  let cx=width/2,dh=112,ay=dy+dh-6,st=ay+38,sb=st+SH;
+  let fl=fluids[liq],bu=0;
+  if(sb>WL){let s=constrain(sb-WL,0,SH);bu=(s/SH)*fl.max;}
+  let aw=parseFloat((0.800-bu).toFixed(3));
+  noStroke();fill(fl.col[0],fl.col[1],fl.col[2],160);rect(BX+4,WL,BW-8,BB-WL);
+  stroke(fl.col[0]-20,fl.col[1]-20,fl.col[2]-20,200);strokeWeight(2);line(BX+5,WL,BX+BW-5,WL);
+  let sx=cx-SW/2;stroke(70,70,85);strokeWeight(1.5);fill(155,160,172);rect(sx,st,SW,SH,4);
+  fill(20,20,30);noStroke();textAlign(CENTER,CENTER);textSize(11);textStyle(BOLD);text("Solide S",cx,st+SH/2-9);
+  textSize(9);textStyle(NORMAL);fill(80,80,95);text("81,5 g",cx,st+SH/2+9);
+  if(sb>WL){let os=max(st,WL),oh=sb-os;if(oh>0){push();drawingContext.globalAlpha=0.45;fill(fl.col[0],fl.col[1],fl.col[2],130);noStroke();rect(sx,os,SW,oh);pop();}}
+  stroke(90,90,110);strokeWeight(1.5);line(cx,ay,cx,st);fill(60,60,75);noStroke();circle(cx,ay,5);
+  let dx2=cx-44;fill(235,233,228);stroke(120,120,130);strokeWeight(1);rect(dx2,dy,88,112,4);
+  fill(160,165,175);rect(cx-8,dy-6,16,8,2);fill(130,135,150);circle(cx,dy-1,4);
+  fill(30,35,28);rect(dx2+9,dy+24,70,40,3);fill(195,225,205);rect(dx2+11,dy+26,66,36,2);
+  fill(5,15,5);noStroke();textSize(15);textStyle(BOLD);text(aw.toFixed(3)+" N",cx,dy+49);
+  textSize(7);textStyle(NORMAL);fill(80,90,100);text("DYNAMOMÈTRE",cx,dy+82);text("DIGITAL",cx,dy+92);
+  stroke(110,120,135,200);strokeWeight(2);noFill();beginShape();vertex(BX,BT);vertex(BX,BB-8);vertex(BX+10,BB);vertex(BX+BW-10,BB);vertex(BX+BW,BB-8);vertex(BX+BW,BT);endShape();
+  let imm=sb>WL?floor(constrain(sb-WL,0,SH)/SH*100):0;
+  fill(30,40,55,200);noStroke();rect(cx-70,BB-26,140,20,10);fill(255);textSize(9);textAlign(CENTER,CENTER);text("Immersion : "+imm+" %",cx,BB-16);
+}
+function mousePressed(){let cx=width/2,dx2=cx-44;if(mouseX>dx2&&mouseX<dx2+88&&mouseY>dy&&mouseY<dy+112){drag=true;doff=mouseY-dy;}}
+function mouseReleased(){drag=false;}
+</script></body></html>
