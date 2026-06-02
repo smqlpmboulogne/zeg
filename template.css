@@ -13,7 +13,7 @@
   --rule-light: #e0ddd8;
   --accent: #1a3a6b;
   --accent-soft: #e8edf5;
-  --grid: #c8d0dc;
+  --grid: #a0a8b8;        /* Couleur plus visible */
   --grid-bg: #fefdf8;
   --yellow-tint: #fffef5;
   --body-bg: #e8e5df;
@@ -30,14 +30,14 @@ body.theme-white {
   --rule: #ddd;
   --accent: #2c5f8a;
   --accent-soft: #f0f4f8;
-  --grid: #d0d8e4;
+  --grid: #b0b8c8;        /* Gris bleuté visible sur fond blanc */
   --grid-bg: #ffffff;
   --body-bg: #fff;
   --topbar-bg: #2c5f8a;
   --grid-opacity: 1;
 }
 
-/* THEME SOMBRE (ex-contraste) - mêmes fonctionnalités, couleurs sombres */
+/* THEME SOMBRE */
 body.theme-dark {
   --paper: #1a1a1a;
   --ink: #e5e5e5;
@@ -47,7 +47,7 @@ body.theme-dark {
   --rule-light: #333333;
   --accent: #6c9ebf;
   --accent-soft: #2a2a2a;
-  --grid: #4a5568;
+  --grid: #6a7a8a;        /* Gris clair visible sur fond sombre */
   --grid-bg: #252525;
   --body-bg: #0d0d0d;
   --topbar-bg: #0d0d0d;
@@ -276,13 +276,13 @@ h4 {
   margin: 24px 0 12px 0;
 }
 
-/* ZONES ÉDITABLES AVEC GRILLE 5mm × 5mm */
+/* ZONES ÉDITABLES AVEC GRILLE 5mm × 5mm - VERSION VISIBLE */
 .editable-grid {
   margin-top: 10px;
   width: 100%;
   min-height: 85px;
   background-color: var(--grid-bg);
-  border: 0.5px solid var(--rule);
+  border: 1px solid var(--rule);
   resize: vertical;
   overflow: auto;
   font-family: inherit;
@@ -291,7 +291,7 @@ h4 {
   padding: 12px;
   outline: none;
   cursor: text;
-  /* GRILLE 5mm x 5mm */
+  /* GRILLE 5mm x 5mm AVEC TRAITS PLUS CLAIRS */
   background-image: 
     linear-gradient(to right, var(--grid) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
@@ -299,7 +299,6 @@ h4 {
   background-repeat: repeat;
   background-position: top left;
   opacity: var(--grid-opacity);
-  transition: opacity 0.1s ease;
 }
 
 /* Classe pour masquer la grille (utilisée par le JS) */
@@ -397,6 +396,13 @@ lightbox img { max-width: 90%; max-height: 90%; }
   .top-bar { display: none; }
   .editable-grid.grid-hidden {
     background-image: none !important;
+  }
+  /* La grille reste visible à l'impression */
+  .editable-grid {
+    background-image: 
+      linear-gradient(to right, #ccc 1px, transparent 1px),
+      linear-gradient(to bottom, #ccc 1px, transparent 1px);
+    background-size: 5mm 5mm;
   }
 }
 
