@@ -18,6 +18,7 @@
   --yellow-tint: #fffef5;
   --body-bg: #e8e5df;
   --topbar-bg: #1a3a6b;
+  --grid-opacity: 1;
 }
 
 /* THEME WHITE */
@@ -33,111 +34,29 @@ body.theme-white {
   --grid-bg: #ffffff;
   --body-bg: #fff;
   --topbar-bg: #2c5f8a;
+  --grid-opacity: 1;
 }
 
-
-
-
-
+/* THEME SOMBRE (ex-contraste) - mêmes fonctionnalités, couleurs sombres */
+body.theme-dark {
+  --paper: #1a1a1a;
+  --ink: #e5e5e5;
+  --ink-light: #cccccc;
+  --ink-muted: #999999;
+  --rule: #444444;
+  --rule-light: #333333;
+  --accent: #6c9ebf;
+  --accent-soft: #2a2a2a;
+  --grid: #4a5568;
+  --grid-bg: #252525;
+  --body-bg: #0d0d0d;
+  --topbar-bg: #0d0d0d;
+  --grid-opacity: 1;
+}
 
 .emoji {
   white-space: nowrap;
 }
-
-
-
-
-/* THEME CONTRAST — AAA + SANS GRILLE */
-body.theme-contrast {
-  --paper: #000000;
-  --ink: #ffffff;
-  --ink-light: #e5e5e5;
-  --ink-muted: #bbbbbb;
-  --rule: #111111;        /* bordures quasi invisibles */
-  --accent: #ffffff;
-  --accent-soft: #111111;
-  --grid: transparent;    /* grille désactivée */
-  --grid-bg: #000000;
-  --body-bg: #000000;
-  --topbar-bg: #000000;
-}
-
-body.theme-contrast input[type="radio"],
-body.theme-contrast input[type="checkbox"] {
-  filter: invert(1);
-}
-
-/* CONTRASTE AAA : BLOCS */
-
-/* Bloc nom */
-body.theme-contrast .nom-block {
-  background: #111 !important;
-  border-color: #333 !important;
-}
-
-/* Grille éditable — SANS GRILLE */
-body.theme-contrast .editable-grid {
-  background-image: none !important;
-  background-size: initial !important;
-  border-color: #1A1A1A !important;
-  background-color: #111 !important;
-  color: #7CFF7C !important; /* vert AAA */
-}
-
-/* En-têtes */
-body.theme-contrast th {
-  background: #111 !important;
-  color: #fff !important;
-  border-color: #1A1A1A !important;
-}
-
-/* Cellules */
-body.theme-contrast td {
-  background: #000 !important;
-  color: #fff !important;
-  border-color: #111 !important;
-}
-
-
-/* THEME CONTRAST — cases cochées vertes AAA proprement */
-
-/* 1. On garde l'inversion pour les cases NON cochées */
-body.theme-contrast input[type="checkbox"],
-body.theme-contrast input[type="radio"] {
-  filter: invert(1);
-}
-
-/* 2. Quand la case est cochée : on désactive l'inversion */
-body.theme-contrast input[type="checkbox"]:checked,
-body.theme-contrast input[type="radio"]:checked {
-  filter: none !important;               /* permet au vert d'apparaître réellement */
-  accent-color: #7CFF7C !important;      /* vert AAA */
-  background-color: #7CFF7C !important;  /* fond vert réel */
-  border-color: #7CFF7C !important;      /* bordure verte */
-}
-
-/* 3. Pour un rendu encore plus propre : arrondir légèrement */
-body.theme-contrast input[type="checkbox"],
-body.theme-contrast input[type="radio"] {
-  border-radius: 4px;
-}
-
-/* 4. Optionnel : augmenter légèrement la taille pour lisibilité AAA */
-body.theme-contrast input[type="checkbox"],
-body.theme-contrast input[type="radio"] {
-  width: 18px;
-  height: 18px;
-}
-
-
-
-
-
-
-
-
-
-
 
 /* BASE */
 body {
@@ -249,7 +168,6 @@ body.font-dyslexic { font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif; l
   margin-top: -30px;
   margin-bottom: 8px;
   padding: 4px 4px;
-  background: ;
   border: 0.5px solid var(--rule);
   border-radius: 2px;
   display: flex;
@@ -300,16 +218,10 @@ body.font-dyslexic { font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif; l
   font-weight: bold;
 }
 
-
 .title-block .subsubtitle {
   font-size: 8pt !important;
   color: var(--ink-light);
- 
 }
-
-
-
-
 
 /* QUESTIONS */
 .question-item { margin-bottom: 24px; }
@@ -364,7 +276,7 @@ h4 {
   margin: 24px 0 12px 0;
 }
 
-/* ZONES ÉDITABLES */
+/* ZONES ÉDITABLES AVEC GRILLE 5mm × 5mm */
 .editable-grid {
   margin-top: 10px;
   width: 100%;
@@ -379,6 +291,20 @@ h4 {
   padding: 12px;
   outline: none;
   cursor: text;
+  /* GRILLE 5mm x 5mm */
+  background-image: 
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 5mm 5mm;
+  background-repeat: repeat;
+  background-position: top left;
+  opacity: var(--grid-opacity);
+  transition: opacity 0.1s ease;
+}
+
+/* Classe pour masquer la grille (utilisée par le JS) */
+.editable-grid.grid-hidden {
+  background-image: none !important;
 }
 
 .editable-grid-lg { min-height: 180px; }
@@ -386,6 +312,12 @@ h4 {
 .editable-grid:focus {
   border-color: var(--accent);
   background-color: #fffef0;
+}
+
+/* Version sombre pour le focus */
+body.theme-dark .editable-grid:focus {
+  background-color: #2a2a2a;
+  border-color: var(--accent);
 }
 
 /* TABLEAUX */
@@ -463,6 +395,9 @@ lightbox img { max-width: 90%; max-height: 90%; }
   body { background: white; padding: 0; }
   .page { box-shadow: none; padding: 1.8cm 2.2cm; }
   .top-bar { display: none; }
+  .editable-grid.grid-hidden {
+    background-image: none !important;
+  }
 }
 
 /* MOBILE */
